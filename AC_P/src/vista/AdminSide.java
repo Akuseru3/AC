@@ -56,6 +56,7 @@ public class AdminSide extends javax.swing.JFrame {
                     planesBDCon conector = new planesBDCon();
                     DefaultTableModel modelo = conector.getPremios(name);
                     premiosTablaE.setModel(modelo);
+                    premiosTablaM.setModel(modelo);
                 }
             }
         });
@@ -85,6 +86,7 @@ public class AdminSide extends javax.swing.JFrame {
         sorteoTablaM.setModel(modelo);
         sorteoTablaA.setModel(modelo);
         planSorteoTablaA.setModel(modelo);
+        planSorteoTablaM.setModel(modelo);
         /*sorteoTablaE.repaint();
         sorteoTablaM.repaint();
         sorteoTablaA.repaint();*/
@@ -92,11 +94,9 @@ public class AdminSide extends javax.swing.JFrame {
     
     public void fillPlanes(){
         planesTablaE.setFont(new Font("Segoe UI", Font.PLAIN, 12));
-        planesTablaM.setFont(new Font("Segoe UI", Font.PLAIN, 12));
         planesBDCon connector = new planesBDCon();
         DefaultTableModel modelo = connector.getPlanes("1");
         planesTablaE.setModel(modelo);
-        planesTablaM.setModel(modelo);
     }
 
     /**
@@ -154,7 +154,6 @@ public class AdminSide extends javax.swing.JFrame {
         jLabel99 = new javax.swing.JLabel();
         planPanel = new javax.swing.JPanel();
         delPlanB = new javax.swing.JButton();
-        modPlanB = new javax.swing.JButton();
         addPlanB = new javax.swing.JButton();
         jLabel61 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
@@ -164,30 +163,34 @@ public class AdminSide extends javax.swing.JFrame {
         jLabel79 = new javax.swing.JLabel();
         jScrollPane12 = new javax.swing.JScrollPane();
         premiosTablaE = new javax.swing.JTable();
-        jButton20 = new javax.swing.JButton();
+        btnGoModPlan = new javax.swing.JButton();
+        btnEliminarPlan = new javax.swing.JButton();
         jLabel53 = new javax.swing.JLabel();
         jLabel66 = new javax.swing.JLabel();
         jLabel67 = new javax.swing.JLabel();
         jLabel74 = new javax.swing.JLabel();
         planM = new javax.swing.JPanel();
-        jLabel42 = new javax.swing.JLabel();
-        jLabel51 = new javax.swing.JLabel();
-        jScrollPane6 = new javax.swing.JScrollPane();
-        planesTablaM = new javax.swing.JTable();
-        txtNombre4 = new javax.swing.JTextField();
-        jLabel43 = new javax.swing.JLabel();
-        jLabel44 = new javax.swing.JLabel();
-        txtNombre5 = new javax.swing.JTextField();
-        jLabel45 = new javax.swing.JLabel();
-        txtCantidad3 = new javax.swing.JTextField();
-        jLabel49 = new javax.swing.JLabel();
-        txtPrecio3 = new javax.swing.JTextField();
-        jButton17 = new javax.swing.JButton();
-        jLabel50 = new javax.swing.JLabel();
-        jScrollPane5 = new javax.swing.JScrollPane();
-        jList2 = new javax.swing.JList<>();
-        jButton18 = new javax.swing.JButton();
-        jButton19 = new javax.swing.JButton();
+        jLabel80 = new javax.swing.JLabel();
+        jScrollPane15 = new javax.swing.JScrollPane();
+        planSorteoTablaM = new javax.swing.JTable();
+        btnSelectSorteoM = new javax.swing.JButton();
+        planModName = new javax.swing.JLabel();
+        jLabel88 = new javax.swing.JLabel();
+        jLabel82 = new javax.swing.JLabel();
+        planModNum = new javax.swing.JLabel();
+        premioAddName1 = new javax.swing.JTextField();
+        jLabel84 = new javax.swing.JLabel();
+        jLabel85 = new javax.swing.JLabel();
+        premioAddCantM = new javax.swing.JTextField();
+        jLabel86 = new javax.swing.JLabel();
+        premioAddAmountM = new javax.swing.JTextField();
+        btnAgregarPremioM = new javax.swing.JButton();
+        btnEliminarPremioM = new javax.swing.JButton();
+        jScrollPane16 = new javax.swing.JScrollPane();
+        premiosTablaM = new javax.swing.JTable();
+        jLabel83 = new javax.swing.JLabel();
+        jLabel87 = new javax.swing.JLabel();
+        btnModPlan = new javax.swing.JButton();
         jLabel59 = new javax.swing.JLabel();
         jLabel62 = new javax.swing.JLabel();
         jLabel73 = new javax.swing.JLabel();
@@ -691,7 +694,7 @@ public class AdminSide extends javax.swing.JFrame {
         delPlanB.setBackground(new java.awt.Color(21, 57, 90));
         delPlanB.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         delPlanB.setForeground(new java.awt.Color(255, 255, 255));
-        delPlanB.setText("ELIMINAR");
+        delPlanB.setText("MODIFICAR O ELIMINAR");
         delPlanB.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(21, 41, 65)));
         delPlanB.setContentAreaFilled(false);
         delPlanB.setFocusPainted(false);
@@ -708,29 +711,7 @@ public class AdminSide extends javax.swing.JFrame {
                 delPlanBActionPerformed(evt);
             }
         });
-        planPanel.add(delPlanB, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 0, 100, 30));
-
-        modPlanB.setBackground(new java.awt.Color(21, 57, 90));
-        modPlanB.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        modPlanB.setForeground(new java.awt.Color(255, 255, 255));
-        modPlanB.setText("MODIFICAR");
-        modPlanB.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(21, 41, 65)));
-        modPlanB.setContentAreaFilled(false);
-        modPlanB.setFocusPainted(false);
-        modPlanB.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                modPlanBMouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                modPlanBMouseExited(evt);
-            }
-        });
-        modPlanB.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                modPlanBActionPerformed(evt);
-            }
-        });
-        planPanel.add(modPlanB, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 0, 120, 30));
+        planPanel.add(delPlanB, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 0, 190, 30));
 
         addPlanB.setBackground(new java.awt.Color(21, 57, 90));
         addPlanB.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
@@ -808,18 +789,31 @@ public class AdminSide extends javax.swing.JFrame {
 
         planE.add(jScrollPane12, new org.netbeans.lib.awtextra.AbsoluteConstraints(760, 150, 310, 340));
 
-        jButton20.setBackground(new java.awt.Color(21, 57, 90));
-        jButton20.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        jButton20.setForeground(new java.awt.Color(255, 255, 255));
-        jButton20.setText("Eliminar plan");
-        jButton20.setContentAreaFilled(false);
-        jButton20.setOpaque(true);
-        jButton20.addActionListener(new java.awt.event.ActionListener() {
+        btnGoModPlan.setBackground(new java.awt.Color(21, 57, 90));
+        btnGoModPlan.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        btnGoModPlan.setForeground(new java.awt.Color(255, 255, 255));
+        btnGoModPlan.setText("Modificar plan");
+        btnGoModPlan.setContentAreaFilled(false);
+        btnGoModPlan.setOpaque(true);
+        btnGoModPlan.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton20ActionPerformed(evt);
+                btnGoModPlanActionPerformed(evt);
             }
         });
-        planE.add(jButton20, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 500, -1, -1));
+        planE.add(btnGoModPlan, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 500, -1, -1));
+
+        btnEliminarPlan.setBackground(new java.awt.Color(21, 57, 90));
+        btnEliminarPlan.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        btnEliminarPlan.setForeground(new java.awt.Color(255, 255, 255));
+        btnEliminarPlan.setText("Eliminar plan");
+        btnEliminarPlan.setContentAreaFilled(false);
+        btnEliminarPlan.setOpaque(true);
+        btnEliminarPlan.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEliminarPlanActionPerformed(evt);
+            }
+        });
+        planE.add(btnEliminarPlan, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 500, -1, -1));
 
         jLabel53.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel53.setText("Planes actuales");
@@ -843,16 +837,12 @@ public class AdminSide extends javax.swing.JFrame {
         planM.setOpaque(false);
         planM.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel42.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        jLabel42.setText("Nombre del plan");
-        planM.add(jLabel42, new org.netbeans.lib.awtextra.AbsoluteConstraints(690, 120, -1, -1));
+        jLabel80.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jLabel80.setText("Sorteos sin plan de premios");
+        planM.add(jLabel80, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 120, -1, -1));
 
-        jLabel51.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        jLabel51.setText("Seleccione el plan que desea modificar");
-        planM.add(jLabel51, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 140, -1, -1));
-
-        planesTablaM.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        planesTablaM.setModel(new javax.swing.table.DefaultTableModel(
+        planSorteoTablaM.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        planSorteoTablaM.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -872,90 +862,118 @@ public class AdminSide extends javax.swing.JFrame {
                 "Numero de plan", "Nombre de plan", "Cantidad de fracciones", "Ganancia"
             }
         ));
-        planesTablaM.setRowHeight(24);
-        jScrollPane6.setViewportView(planesTablaM);
+        planSorteoTablaM.setRowHeight(24);
+        jScrollPane15.setViewportView(planSorteoTablaM);
 
-        planM.add(jScrollPane6, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 170, -1, 340));
+        planM.add(jScrollPane15, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 150, 470, 310));
 
-        txtNombre4.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        planM.add(txtNombre4, new org.netbeans.lib.awtextra.AbsoluteConstraints(860, 120, 150, 30));
-
-        jLabel43.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        jLabel43.setText("Agregar Premio");
-        planM.add(jLabel43, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 170, -1, -1));
-
-        jLabel44.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        jLabel44.setText("Nombre de premio");
-        planM.add(jLabel44, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 220, -1, -1));
-
-        txtNombre5.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        planM.add(txtNombre5, new org.netbeans.lib.awtextra.AbsoluteConstraints(760, 220, 150, 30));
-
-        jLabel45.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        jLabel45.setText("Cantidad de fracciones");
-        planM.add(jLabel45, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 290, -1, -1));
-
-        txtCantidad3.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        planM.add(txtCantidad3, new org.netbeans.lib.awtextra.AbsoluteConstraints(760, 290, 150, 30));
-
-        jLabel49.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        jLabel49.setText("Ganancia");
-        planM.add(jLabel49, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 360, -1, -1));
-
-        txtPrecio3.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        planM.add(txtPrecio3, new org.netbeans.lib.awtextra.AbsoluteConstraints(760, 360, 150, 30));
-
-        jButton17.setBackground(new java.awt.Color(21, 57, 90));
-        jButton17.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        jButton17.setForeground(new java.awt.Color(255, 255, 255));
-        jButton17.setText("Agregar premio");
-        jButton17.setContentAreaFilled(false);
-        jButton17.setOpaque(true);
-        jButton17.addActionListener(new java.awt.event.ActionListener() {
+        btnSelectSorteoM.setBackground(new java.awt.Color(21, 57, 90));
+        btnSelectSorteoM.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        btnSelectSorteoM.setForeground(new java.awt.Color(255, 255, 255));
+        btnSelectSorteoM.setText("Seleccionar sorteo");
+        btnSelectSorteoM.setContentAreaFilled(false);
+        btnSelectSorteoM.setOpaque(true);
+        btnSelectSorteoM.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton17ActionPerformed(evt);
+                btnSelectSorteoMActionPerformed(evt);
             }
         });
-        planM.add(jButton17, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 420, -1, -1));
+        planM.add(btnSelectSorteoM, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 480, -1, -1));
 
-        jLabel50.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        jLabel50.setText("Premios");
-        planM.add(jLabel50, new org.netbeans.lib.awtextra.AbsoluteConstraints(960, 190, -1, -1));
+        planModName.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        planModName.setText("Nombre del plan");
+        planM.add(planModName, new org.netbeans.lib.awtextra.AbsoluteConstraints(720, 140, -1, -1));
 
-        jList2.setModel(new javax.swing.AbstractListModel<String>() {
-            String[] strings = { "Premio A", "Premio B", "Premio C", "Premio D" };
-            public int getSize() { return strings.length; }
-            public String getElementAt(int i) { return strings[i]; }
-        });
-        jScrollPane5.setViewportView(jList2);
+        jLabel88.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jLabel88.setText("Nombre del plan:");
+        planM.add(jLabel88, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 140, -1, -1));
 
-        planM.add(jScrollPane5, new org.netbeans.lib.awtextra.AbsoluteConstraints(960, 220, 150, 170));
+        jLabel82.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jLabel82.setText("Sorteo N.");
+        planM.add(jLabel82, new org.netbeans.lib.awtextra.AbsoluteConstraints(940, 140, 80, -1));
 
-        jButton18.setBackground(new java.awt.Color(21, 57, 90));
-        jButton18.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jButton18.setForeground(new java.awt.Color(255, 255, 255));
-        jButton18.setText("Eliminar");
-        jButton18.setContentAreaFilled(false);
-        jButton18.setOpaque(true);
-        jButton18.addActionListener(new java.awt.event.ActionListener() {
+        planModNum.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        planModNum.setText("--");
+        planM.add(planModNum, new org.netbeans.lib.awtextra.AbsoluteConstraints(1030, 140, 40, -1));
+
+        premioAddName1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        planM.add(premioAddName1, new org.netbeans.lib.awtextra.AbsoluteConstraints(730, 240, 130, 20));
+
+        jLabel84.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel84.setText("Nombre de premio");
+        planM.add(jLabel84, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 240, -1, -1));
+
+        jLabel85.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel85.setText("Cantidad de fracciones");
+        planM.add(jLabel85, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 290, -1, -1));
+
+        premioAddCantM.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        planM.add(premioAddCantM, new org.netbeans.lib.awtextra.AbsoluteConstraints(730, 290, 130, 20));
+
+        jLabel86.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel86.setText("Ganancia");
+        planM.add(jLabel86, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 340, -1, -1));
+
+        premioAddAmountM.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        planM.add(premioAddAmountM, new org.netbeans.lib.awtextra.AbsoluteConstraints(730, 340, 130, 20));
+
+        btnAgregarPremioM.setBackground(new java.awt.Color(21, 57, 90));
+        btnAgregarPremioM.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        btnAgregarPremioM.setForeground(new java.awt.Color(255, 255, 255));
+        btnAgregarPremioM.setText("Agregar");
+        btnAgregarPremioM.setContentAreaFilled(false);
+        btnAgregarPremioM.setOpaque(true);
+        btnAgregarPremioM.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton18ActionPerformed(evt);
+                btnAgregarPremioMActionPerformed(evt);
             }
         });
-        planM.add(jButton18, new org.netbeans.lib.awtextra.AbsoluteConstraints(990, 400, 90, 30));
+        planM.add(btnAgregarPremioM, new org.netbeans.lib.awtextra.AbsoluteConstraints(690, 420, -1, -1));
 
-        jButton19.setBackground(new java.awt.Color(21, 57, 90));
-        jButton19.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
-        jButton19.setForeground(new java.awt.Color(255, 255, 255));
-        jButton19.setText("Crear plan de premio");
-        jButton19.setContentAreaFilled(false);
-        jButton19.setOpaque(true);
-        jButton19.addActionListener(new java.awt.event.ActionListener() {
+        btnEliminarPremioM.setBackground(new java.awt.Color(21, 57, 90));
+        btnEliminarPremioM.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        btnEliminarPremioM.setForeground(new java.awt.Color(255, 255, 255));
+        btnEliminarPremioM.setText("Eliminar");
+        btnEliminarPremioM.setContentAreaFilled(false);
+        btnEliminarPremioM.setOpaque(true);
+        btnEliminarPremioM.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton19ActionPerformed(evt);
+                btnEliminarPremioMActionPerformed(evt);
             }
         });
-        planM.add(jButton19, new org.netbeans.lib.awtextra.AbsoluteConstraints(720, 490, -1, -1));
+        planM.add(btnEliminarPremioM, new org.netbeans.lib.awtextra.AbsoluteConstraints(930, 420, 90, 30));
+
+        premiosTablaM.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Cantidad", "Ganancia"
+            }
+        ));
+        jScrollPane16.setViewportView(premiosTablaM);
+
+        planM.add(jScrollPane16, new org.netbeans.lib.awtextra.AbsoluteConstraints(890, 240, 180, 160));
+
+        jLabel83.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        planM.add(jLabel83, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 200, 540, 270));
+
+        jLabel87.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jLabel87.setText("Premios");
+        planM.add(jLabel87, new org.netbeans.lib.awtextra.AbsoluteConstraints(890, 210, -1, -1));
+
+        btnModPlan.setBackground(new java.awt.Color(21, 57, 90));
+        btnModPlan.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        btnModPlan.setForeground(new java.awt.Color(255, 255, 255));
+        btnModPlan.setText("Modificar plan");
+        btnModPlan.setContentAreaFilled(false);
+        btnModPlan.setOpaque(true);
+        btnModPlan.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnModPlanActionPerformed(evt);
+            }
+        });
+        planM.add(btnModPlan, new org.netbeans.lib.awtextra.AbsoluteConstraints(730, 490, -1, -1));
 
         jLabel59.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
         jLabel59.setForeground(new java.awt.Color(255, 255, 255));
@@ -1667,20 +1685,6 @@ public class AdminSide extends javax.swing.JFrame {
         planE.setVisible(true);
     }//GEN-LAST:event_delPlanBActionPerformed
 
-    private void modPlanBMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_modPlanBMouseEntered
-        // TODO add your handling code here:
-    }//GEN-LAST:event_modPlanBMouseEntered
-
-    private void modPlanBMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_modPlanBMouseExited
-        // TODO add your handling code here:
-    }//GEN-LAST:event_modPlanBMouseExited
-
-    private void modPlanBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_modPlanBActionPerformed
-        planA.setVisible(false);
-        planM.setVisible(true);
-        planE.setVisible(false);
-    }//GEN-LAST:event_modPlanBActionPerformed
-
     private void addPlanBMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_addPlanBMouseEntered
         // TODO add your handling code here:
     }//GEN-LAST:event_addPlanBMouseEntered
@@ -1731,18 +1735,6 @@ public class AdminSide extends javax.swing.JFrame {
             fillPlanes();
         }
     }//GEN-LAST:event_btnCrearPlanActionPerformed
-
-    private void jButton17ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton17ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton17ActionPerformed
-
-    private void jButton18ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton18ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton18ActionPerformed
-
-    private void jButton19ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton19ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton19ActionPerformed
 
     private void jButton7MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton7MouseEntered
         // TODO add your handling code here:
@@ -1881,7 +1873,7 @@ public class AdminSide extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnSelectSorteoActionPerformed
 
-    private void jButton20ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton20ActionPerformed
+    private void btnEliminarPlanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarPlanActionPerformed
         int column = 0;
         int row = planesTablaE.getSelectedRow();
         if(row>=0){
@@ -1893,7 +1885,69 @@ public class AdminSide extends javax.swing.JFrame {
         else{
             System.out.println("Error Seleccion");
         }
-    }//GEN-LAST:event_jButton20ActionPerformed
+    }//GEN-LAST:event_btnEliminarPlanActionPerformed
+
+    private void btnSelectSorteoMActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSelectSorteoMActionPerformed
+        int row = planSorteoTablaM.getSelectedRow();
+        if(row>=0){
+            String num = planSorteoTablaM.getValueAt(row, 0).toString();
+            planModNum.setText(num);
+        }
+    }//GEN-LAST:event_btnSelectSorteoMActionPerformed
+
+    private void btnAgregarPremioMActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarPremioMActionPerformed
+        DefaultTableModel model = (DefaultTableModel) premiosTablaM.getModel();
+        validaciones vals = new validaciones();
+        if(vals.checkIfInt(premioAddCantM.getText()) && vals.checkIfInt(premioAddAmountM.getText())){
+            model.addRow(new Object[]{premioAddCantM.getText(),premioAddAmountM.getText()});
+        }
+        else
+            System.out.println("La cantidad y ganancia del premio deben ser numeros");
+    }//GEN-LAST:event_btnAgregarPremioMActionPerformed
+
+    private void btnEliminarPremioMActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarPremioMActionPerformed
+        DefaultTableModel model = (DefaultTableModel) premiosTablaM.getModel();
+        int selected = premiosTablaM.getSelectedRow();
+        if(selected != -1){
+            model.removeRow(selected);
+        }
+    }//GEN-LAST:event_btnEliminarPremioMActionPerformed
+
+    private void btnModPlanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModPlanActionPerformed
+        int cantPremios = premiosTablaM.getRowCount();
+        String nombre = planModName.getText();
+        String sorteo = planModNum.getText();
+        ArrayList<Premio> premios = new ArrayList<Premio>();
+        DefaultTableModel model = (DefaultTableModel) premiosTablaM.getModel();
+        for(int i = 0;i<cantPremios;i++){
+            String cant = premiosTablaM.getValueAt(i, 0).toString();
+            String amount = premiosTablaM.getValueAt(i, 1).toString();
+            premios.add(new Premio(cant,amount));
+        }
+        if(nombre != "" && cantPremios>=3 && sorteo != "--"){
+            planesBDCon conector = new planesBDCon();
+            conector.updatePlan(nombre, sorteo, premios);
+            fillPlanes();
+        }
+        planM.setVisible(false);
+        planE.setVisible(true);
+    }//GEN-LAST:event_btnModPlanActionPerformed
+
+    private void btnGoModPlanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGoModPlanActionPerformed
+        int column = 0;
+        int row = planesTablaE.getSelectedRow();
+        if(row>=0){
+            String name = planesTablaE.getModel().getValueAt(row, column).toString();
+            String numSorteo = planesTablaE.getModel().getValueAt(row, 1).toString();
+            planModName.setText(name);
+            planModNum.setText(numSorteo);
+            planE.setVisible(false);
+            planM.setVisible(true);
+        }
+        else{
+            System.out.println("Error Seleccion");
+        }
+    }//GEN-LAST:event_btnGoModPlanActionPerformed
 
     /**
      * @param args the command line arguments
@@ -1939,22 +1993,24 @@ public class AdminSide extends javax.swing.JFrame {
     private javax.swing.JLabel bolaLot;
     private javax.swing.JButton btnAddSorteo;
     private javax.swing.JButton btnAgregarPremio;
+    private javax.swing.JButton btnAgregarPremioM;
     private javax.swing.JButton btnCrearPlan;
     private javax.swing.JButton btnDeleteSorteo;
+    private javax.swing.JButton btnEliminarPlan;
     private javax.swing.JButton btnEliminarPremio;
+    private javax.swing.JButton btnEliminarPremioM;
+    private javax.swing.JButton btnGoModPlan;
+    private javax.swing.JButton btnModPlan;
     private javax.swing.JButton btnModSorteo;
     private javax.swing.JButton btnSelectSorteo;
+    private javax.swing.JButton btnSelectSorteoM;
     private javax.swing.JButton delPlanB;
     private javax.swing.JButton delSortB;
     private javax.swing.JLabel infoMess;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton12;
     private javax.swing.JButton jButton13;
-    private javax.swing.JButton jButton17;
-    private javax.swing.JButton jButton18;
-    private javax.swing.JButton jButton19;
     private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton20;
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
     private javax.swing.JButton jButton7;
@@ -1998,17 +2054,10 @@ public class AdminSide extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel40;
     private javax.swing.JLabel jLabel41;
-    private javax.swing.JLabel jLabel42;
-    private javax.swing.JLabel jLabel43;
-    private javax.swing.JLabel jLabel44;
-    private javax.swing.JLabel jLabel45;
     private javax.swing.JLabel jLabel46;
     private javax.swing.JLabel jLabel47;
     private javax.swing.JLabel jLabel48;
-    private javax.swing.JLabel jLabel49;
     private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel50;
-    private javax.swing.JLabel jLabel51;
     private javax.swing.JLabel jLabel52;
     private javax.swing.JLabel jLabel53;
     private javax.swing.JLabel jLabel54;
@@ -2040,20 +2089,27 @@ public class AdminSide extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel78;
     private javax.swing.JLabel jLabel79;
     private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel80;
+    private javax.swing.JLabel jLabel82;
+    private javax.swing.JLabel jLabel83;
+    private javax.swing.JLabel jLabel84;
+    private javax.swing.JLabel jLabel85;
+    private javax.swing.JLabel jLabel86;
+    private javax.swing.JLabel jLabel87;
+    private javax.swing.JLabel jLabel88;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JLabel jLabel98;
     private javax.swing.JLabel jLabel99;
-    private javax.swing.JList<String> jList2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane10;
     private javax.swing.JScrollPane jScrollPane11;
     private javax.swing.JScrollPane jScrollPane12;
     private javax.swing.JScrollPane jScrollPane13;
     private javax.swing.JScrollPane jScrollPane14;
+    private javax.swing.JScrollPane jScrollPane15;
+    private javax.swing.JScrollPane jScrollPane16;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
-    private javax.swing.JScrollPane jScrollPane5;
-    private javax.swing.JScrollPane jScrollPane6;
     private javax.swing.JScrollPane jScrollPane7;
     private javax.swing.JScrollPane jScrollPane8;
     private javax.swing.JScrollPane jScrollPane9;
@@ -2063,7 +2119,6 @@ public class AdminSide extends javax.swing.JFrame {
     private javax.swing.JTable jTable12;
     private javax.swing.JTable jTable7;
     private javax.swing.JTable jTable8;
-    private javax.swing.JButton modPlanB;
     private javax.swing.JButton modSortB;
     private javax.swing.JPanel panelInGame;
     private javax.swing.JPanel planA;
@@ -2071,15 +2126,21 @@ public class AdminSide extends javax.swing.JFrame {
     private javax.swing.JLabel planAddNum;
     private javax.swing.JPanel planE;
     private javax.swing.JPanel planM;
+    private javax.swing.JLabel planModName;
+    private javax.swing.JLabel planModNum;
     private javax.swing.JPanel planPanel;
     private javax.swing.JTable planSorteoTablaA;
+    private javax.swing.JTable planSorteoTablaM;
     private javax.swing.JTable planesTablaE;
-    private javax.swing.JTable planesTablaM;
     private javax.swing.JTextField premioAddAmount;
+    private javax.swing.JTextField premioAddAmountM;
     private javax.swing.JTextField premioAddCant;
+    private javax.swing.JTextField premioAddCantM;
     private javax.swing.JTextField premioAddName;
+    private javax.swing.JTextField premioAddName1;
     private javax.swing.JTable premiosTablaA;
     private javax.swing.JTable premiosTablaE;
+    private javax.swing.JTable premiosTablaM;
     private javax.swing.JPanel reportPanel;
     private javax.swing.JPanel sorteoA;
     private javax.swing.JTextField sorteoAddDay;
@@ -2103,9 +2164,5 @@ public class AdminSide extends javax.swing.JFrame {
     private javax.swing.JTable sorteoTablaE;
     private javax.swing.JTable sorteoTablaM;
     private javax.swing.JPanel startSorteoPanel;
-    private javax.swing.JTextField txtCantidad3;
-    private javax.swing.JTextField txtNombre4;
-    private javax.swing.JTextField txtNombre5;
-    private javax.swing.JTextField txtPrecio3;
     // End of variables declaration//GEN-END:variables
 }

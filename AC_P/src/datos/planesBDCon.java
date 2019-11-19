@@ -104,4 +104,24 @@ public class planesBDCon {
             return tableModel;
         }
     }
+    
+    public int updatePlan(String name,String numSorteo,ArrayList<Premio> prices){
+        try{
+            Statement stE = cn.createStatement();
+            int rsE = stE.executeUpdate("delete from premios where planAsociado='"+name+"'");
+            System.out.println(rsE);
+            Statement st = cn.createStatement();
+            ResultSet rs = st.executeQuery("call updatePlan('"+name+"',"+numSorteo+","+0+")");
+            System.out.println(rs);
+            for(int i = 0; i<prices.size();i++){
+                Statement stP = cn.createStatement();
+                ResultSet rsP = stP.executeQuery("call createPremio('"+name+"','"+"Premio"+"',"+prices.get(i).cantidad+","+prices.get(i).ganancia+")");
+                System.out.println(rsP);
+            }
+            return 1;
+        }catch(SQLException ex){
+            System.out.println(ex);
+            return -1;
+        }
+    }
 }
