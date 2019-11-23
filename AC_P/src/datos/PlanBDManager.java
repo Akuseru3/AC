@@ -20,14 +20,11 @@ public class PlanBDManager {
     Connection cn = SQLConManager.createCon();
     
     public int addPlan(String name,String numSorteo,ArrayList<Premio> prices){
-        try{
-            Statement st = cn.createStatement();
+        try(Statement st = cn.createStatement();
             ResultSet rs = st.executeQuery("call createPlan('"+name+"','"+numSorteo+"',"+0+")");
-            System.out.println(rs);
+        ){
             for(int i = 0; i<prices.size();i++){
-                Statement stP = cn.createStatement();
-                ResultSet rsP = stP.executeQuery("call createPremio('"+name+"','"+"Premio"+"',"+prices.get(i).cantidad+","+prices.get(i).ganancia+")");
-                System.out.println(rsP);
+                addPrice(name,prices.get(i).getCantidad(),prices.get(i).getGanancia());
             }
             return 1;
         }catch(SQLException ex){
@@ -36,10 +33,19 @@ public class PlanBDManager {
         }
     }
     
+    private int addPrice(String name,String cant,String winn) throws SQLException{
+        try(Statement st = cn.createStatement();
+            ResultSet rs = st.executeQuery("call createPremio('"+name+"','"+"Premio"+"',"+cant+","+winn+")");
+        ){
+            return 1;
+        }
+    }
+    
+    
     public boolean checkDoubleName(String nombre){
-       try{
-            Statement st = cn.createStatement();
-            ResultSet rs = st.executeQuery("select nombrePlan from planPremios where nombrePlan = '"+nombre+"';");
+       try(Statement st = cn.createStatement();
+           ResultSet rs = st.executeQuery("select nombrePlan from planPremios where nombrePlan = '"+nombre+"';");
+        ){ 
             if(!rs.next())
                 return true;
             return false;
@@ -53,15 +59,9 @@ public class PlanBDManager {
     public DefaultTableModel getPlanes(String filter){
         String[] columnNames = {"Nombre", "Numero de Sorteo", "Total en Premios"};
         DefaultTableModel tableModel = new DefaultTableModel(columnNames, 0);
-        try{
-            Statement st = cn.createStatement();
-            ResultSet rs;
-            if(filter == ""){
-                rs = st.executeQuery("select * from planPremios;");
-            }
-            else{
-                rs = st.executeQuery("select * from planPremios where estadoPlan = "+filter+";");
-            }
+        try(Statement st = cn.createStatement();
+            ResultSet rs = st.executeQuery("select * from planPremios where estadoPlan = "+filter+";"
+        );){
             while (rs.next()) {
                 String name = rs.getString("nombrePlan");
                 String num = rs.getString("numeroSorteo");
@@ -81,13 +81,10 @@ public class PlanBDManager {
     }
     
     public int deletePlan(String name,String numSorteo){        
-        try{
-            Statement stP = cn.createStatement();
-            ResultSet rsP = stP.executeQuery("call deletePremio('"+name+"')");
-            System.out.println(rsP);
-            Statement st = cn.createStatement();
+        try(Statement st = cn.createStatement();
             ResultSet rs = st.executeQuery("call deletePlan('"+name+"','"+numSorteo+"')");
-            System.out.println(rs);
+        ){
+            stateDeletePrices(name);
             return 1;
         }catch(SQLException ex){
             System.out.println(ex);
@@ -95,20 +92,25 @@ public class PlanBDManager {
         }
     }
     
+    private int stateDeletePrices(String name) throws SQLException{
+        try(Statement stP = cn.createStatement();
+            ResultSet rsP = stP.executeQuery("call deletePremio('"+name+"')");
+        ){
+            return 1;
+        }
+    }
+    
     public DefaultTableModel getPremios(String name){
         String[] columnNames = {"Cantidad", "Ganancia"};
         DefaultTableModel tableModel = new DefaultTableModel(columnNames, 0);
-        try{
-            Statement st = cn.createStatement();
+        try(Statement st = cn.createStatement();
             ResultSet rs = st.executeQuery("select * from premios where planAsociado='"+name+"' order by gananciaPremio ASC;");
+        ){
             while (rs.next()) {
                 String cant = rs.getString("cantidadPremios");
                 String amount = rs.getString("gananciaPremio");
 
-                // create a single array of one row's worth of data
                 String[] data = { cant, amount} ;
-
-                // and add this row of data into the table model
                 tableModel.addRow(data);
             }
             return tableModel;
@@ -119,17 +121,12 @@ public class PlanBDManager {
     }
     
     public int updatePlan(String name,String numSorteo,String oldNum,ArrayList<Premio> prices){
-        try{
-            Statement stE = cn.createStatement();
-            int rsE = stE.executeUpdate("delete from premios where planAsociado='"+name+"'");
-            System.out.println(rsE);
-            Statement st = cn.createStatement();
+        try(Statement st = cn.createStatement();
             ResultSet rs = st.executeQuery("call updatePlan('"+name+"','"+numSorteo+"',"+0+",'"+oldNum+"')");
-            System.out.println(rs);
+        ){
+            trueDeletePrices(name);
             for(int i = 0; i<prices.size();i++){
-                Statement stP = cn.createStatement();
-                ResultSet rsP = stP.executeQuery("call createPremio('"+name+"','"+"Premio"+"',"+prices.get(i).cantidad+","+prices.get(i).ganancia+")");
-                System.out.println(rsP);
+                addPrice(name,prices.get(i).getCantidad(),prices.get(i).getGanancia());
             }
             return 1;
         }catch(SQLException ex){
@@ -137,4 +134,13 @@ public class PlanBDManager {
             return -1;
         }
     }
+    
+    private int trueDeletePrices(String name) throws SQLException{
+        try(Statement stE = cn.createStatement();){
+            int rsE = stE.executeUpdate("delete from premios where planAsociado='"+name+"'");
+            return rsE;
+        }
+    }
+    
+    
 }

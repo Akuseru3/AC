@@ -16,11 +16,19 @@ import javax.swing.table.DefaultTableModel;
  */
 public class Premio {
     static Random rand = new Random();
-    public String cantidad;
-    public String ganancia;
+    private  String cantidad;
+    private String ganancia;
     public Premio(String cantidad,String ganancia){
         this.cantidad = cantidad;
         this.ganancia = ganancia;
+    }
+    
+    public String getCantidad(){
+        return cantidad;
+    }
+    
+    public String getGanancia(){
+        return ganancia;
     }
     
     public static ArrayList<Premio> getTablePrices(JTable table){

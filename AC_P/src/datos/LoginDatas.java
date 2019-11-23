@@ -4,9 +4,7 @@
  * and open the template in the editor.
  */
 package datos;
-import datos.SQLConManager;
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.*;
 /**
@@ -18,14 +16,12 @@ public class LoginDatas {
     Connection cn = SQLConManager.createCon();;
     
     public int checkContraseña(String usuario,String contra){        
-        try{
-            Statement st = cn.createStatement();
+        try(Statement st = cn.createStatement();
             ResultSet rs = st.executeQuery("call getContraseña('"+usuario+"')");
-            if (rs.next() == false) {           
-                return -1;
-            }else {
-                return resultLooper(rs,contra);
-            }
+        ){
+            
+            return resultLooper(rs,contra);
+
         }catch(SQLException ex){
             System.out.println(ex);
             return -1;
@@ -33,16 +29,20 @@ public class LoginDatas {
     }
     
     private int resultLooper(ResultSet rs, String contra) throws SQLException{
-        do{
-            if(rs.getString(1).equals(contra)){
-                if(rs.getString(2).equals('1')){
-                    return 1;
-                }else{
-                    return 2;
-                }
-            }else{
+        if (rs.next() == false) {           
                 return -1;
-            }
-        }while (rs.next());
+        }else {
+            do{
+                if(rs.getString(1).equals(contra)){
+                    if(rs.getString(2).equals("1")){
+                        return 1;
+                    }else{
+                        return 2;
+                    }
+                }else{
+                    return -1;
+                }
+            }while (rs.next());
+        }
     }
 }
