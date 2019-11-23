@@ -8,6 +8,7 @@ package datos;
 import java.util.ArrayList;
 import java.util.Random;
 import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -33,11 +34,20 @@ public class Premio {
         return premios;
     }
     
-    public static void generateWinners(ArrayList<Premio> premios){
+    public static DefaultTableModel generateWinners(ArrayList<Premio> premios){
+        String[] columnNames = {"Numero","Serie","Premio"};
+        DefaultTableModel tableModel = new DefaultTableModel(columnNames, 0);
         for(Premio temp:premios){
-            
+            int cant = Validate.toInt(temp.cantidad);
+            for(int i = 0;i<cant;i++){
+                int numero = generateRandom(99);
+                int serie = generateRandom(999);
+                String[] data = { Integer.toString(numero), Integer.toString(serie), temp.ganancia} ;
+                tableModel.addRow(data);
+            }
 
         }
+        return tableModel;
     }
     
     private static int generateRandom(int end){

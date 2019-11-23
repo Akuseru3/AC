@@ -16,7 +16,7 @@ import java.util.Calendar;
  * @author Kevin
  */
 public class Validate {
-    public String validatePlan(String name,String sorteo,ArrayList<Premio> premios){
+    public static String validatePlan(String name,String sorteo,ArrayList<Premio> premios){
         String res = "";
         if(name.trim().equals(""))
             return "El campo nombre no puede quedar vacio";
@@ -28,12 +28,12 @@ public class Validate {
         return res;
     }
     
-    private boolean checkDubName(String name){
+    private static boolean checkDubName(String name){
         PlanBDManager con = new PlanBDManager();
         return con.checkDoubleName(name);
     }
     
-    private String validatePrices(ArrayList<Premio> premios,String sorteo){
+    private static String validatePrices(ArrayList<Premio> premios,String sorteo){
         String type = sorteo.substring(0, 1);
         if(type.equals("C") && premios.size() != 3)
             return "Los sorteos de chances deben tener una cantidad de 3 premios.";
@@ -42,7 +42,7 @@ public class Validate {
         return "";
     }
     
-    public String validateSorteo(String name,String type,String day, String month, String year,String price,String fracc){
+    public static String validateSorteo(String name,String type,String day, String month, String year,String price,String fracc){
         System.out.println(type);
         String res = "";
         if(name.trim().equals(""))
@@ -55,7 +55,7 @@ public class Validate {
         return res;
     }
     
-    private String validateDateSorteo(String type,String day, String month, String year){
+    private static String validateDateSorteo(String type,String day, String month, String year){
         if(!isDateValid(day,month,year))
             return "La fecha ingresada no es una fecha valida.";
         if(!validateDateLoteria(type,day,month,year))
@@ -65,7 +65,7 @@ public class Validate {
         return "";
     }
     
-    public boolean checkIfInt(String value){
+    public static boolean checkIfInt(String value){
         try {  
             Double.parseDouble(value);  
             return true;
@@ -74,14 +74,14 @@ public class Validate {
         }
     }
     
-    public boolean checkIntRange(int value,int start,int end){
+    public static boolean checkIntRange(int value,int start,int end){
         if(value<=end && value>=start){
             return true;
         }
         return false;
     }
     
-    public boolean isDateValid(String day, String month, String year){
+    public static boolean isDateValid(String day, String month, String year){
         if(checkIfInt(day) && checkIfInt(month) && checkIfInt(year)){
             try {
                 DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
@@ -97,7 +97,16 @@ public class Validate {
         }
     }
     
-    public boolean validateDateLoteria(String type,String day, String month, String year){
+    public static int toInt(String toInt){
+        try {  
+            int transformed = Integer.parseInt(toInt);  
+            return transformed;
+        } catch(NumberFormatException e){  
+            return 0;  
+        }
+    }
+    
+    public static boolean validateDateLoteria(String type,String day, String month, String year){
         if(type.equals("Loteria")){
             Calendar date = Calendar.getInstance();
             date.set(Integer.parseInt(year),Integer.parseInt(month)-1, Integer.parseInt(day));
@@ -110,7 +119,7 @@ public class Validate {
             return true;
     }
     
-    public boolean validateDateChances(String type,String day, String month, String year){
+    public static boolean validateDateChances(String type,String day, String month, String year){
         if(type.equals("Chances")){
             Calendar date = Calendar.getInstance();
             date.set(Integer.parseInt(year),Integer.parseInt(month)-1, Integer.parseInt(day));

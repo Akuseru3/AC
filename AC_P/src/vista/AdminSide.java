@@ -139,7 +139,7 @@ public class AdminSide extends javax.swing.JFrame {
         jLabel68 = new javax.swing.JLabel();
         jLabel71 = new javax.swing.JLabel();
         jScrollPane14 = new javax.swing.JScrollPane();
-        jTable12 = new javax.swing.JTable();
+        winnerTable = new javax.swing.JTable();
         btnPlayGame = new javax.swing.JButton();
         jSeparator1 = new javax.swing.JSeparator();
         jScrollPane13 = new javax.swing.JScrollPane();
@@ -439,7 +439,7 @@ public class AdminSide extends javax.swing.JFrame {
         infoMess.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         infoMess.setForeground(new java.awt.Color(204, 204, 204));
         infoMess.setText("Actualmente no hay un sorteo siendo jugado");
-        startSorteoPanel.add(infoMess, new org.netbeans.lib.awtextra.AbsoluteConstraints(770, 300, -1, -1));
+        startSorteoPanel.add(infoMess, new org.netbeans.lib.awtextra.AbsoluteConstraints(770, 330, -1, -1));
 
         jLabel100.setBackground(new java.awt.Color(255, 51, 51));
         jLabel100.setOpaque(true);
@@ -478,8 +478,8 @@ public class AdminSide extends javax.swing.JFrame {
         jLabel71.setText("0");
         panelInGame.add(jLabel71, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 190, -1, -1));
 
-        jTable12.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jTable12.setModel(new javax.swing.table.DefaultTableModel(
+        winnerTable.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        winnerTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null},
                 {null, null, null},
@@ -494,8 +494,8 @@ public class AdminSide extends javax.swing.JFrame {
                 "Numero", "Serie", "Premio"
             }
         ));
-        jTable12.setRowHeight(24);
-        jScrollPane14.setViewportView(jTable12);
+        winnerTable.setRowHeight(24);
+        jScrollPane14.setViewportView(winnerTable);
 
         panelInGame.add(jScrollPane14, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 270, 240, 180));
 
@@ -1602,8 +1602,7 @@ public class AdminSide extends javax.swing.JFrame {
 
     private void btnAgregarPremioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarPremioActionPerformed
         DefaultTableModel model = (DefaultTableModel) premiosTablaA.getModel();
-        Validate vals = new Validate();
-        if(vals.checkIfInt(premioAddCant.getText()) && vals.checkIfInt(premioAddAmount.getText())){
+        if(Validate.checkIfInt(premioAddCant.getText()) && Validate.checkIfInt(premioAddAmount.getText())){
             model.addRow(new Object[]{premioAddCant.getText(),premioAddAmount.getText()});
         }
         else
@@ -1622,8 +1621,7 @@ public class AdminSide extends javax.swing.JFrame {
         String nombre = planAddName.getText();
         String sorteo = planAddNum.getText();
         ArrayList<Premio> premios = Premio.getTablePrices(premiosTablaA);
-        Validate vals = new Validate();
-        String errors = vals.validatePlan(nombre, sorteo, premios);
+        String errors = Validate.validatePlan(nombre, sorteo, premios);
         if(errors.equals("")){
             PlanBDManager conector = new PlanBDManager();
             conector.addPlan(nombre, sorteo, premios);
@@ -1676,8 +1674,7 @@ public class AdminSide extends javax.swing.JFrame {
 
     private void btnAddSorteoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddSorteoActionPerformed
         sorteoAddErr.setText("");
-        Validate vals = new Validate();
-        String errors = vals.validateSorteo(sorteoAddName.getText(),sorteoAddType.getSelectedItem().toString(),sorteoAddDay.getText(), sorteoAddMonth.getText(), sorteoAddYear.getText(),sorteoAddPrice.getText(),sorteoAddFracc.getText());
+        String errors = Validate.validateSorteo(sorteoAddName.getText(),sorteoAddType.getSelectedItem().toString(),sorteoAddDay.getText(), sorteoAddMonth.getText(), sorteoAddYear.getText(),sorteoAddPrice.getText(),sorteoAddFracc.getText());
         if(errors.equals("")){
             String date = sorteoAddYear.getText()+"-"+ sorteoAddMonth.getText()+"-"+ sorteoAddDay.getText();
             SorteoBDManager connector = new SorteoBDManager();
@@ -1705,8 +1702,7 @@ public class AdminSide extends javax.swing.JFrame {
     }//GEN-LAST:event_btnDeleteSorteoActionPerformed
 
     private void btnModSorteoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModSorteoActionPerformed
-        Validate vals = new Validate();
-        String errors = vals.validateSorteo(sorteoModName.getText(),sorteoModType.getText(),sorteoModDay.getText(), sorteoModMonth.getText(), sorteoModYear.getText(),sorteoModPrice.getText(),sorteoModFracc.getText());
+        String errors = Validate.validateSorteo(sorteoModName.getText(),sorteoModType.getText(),sorteoModDay.getText(), sorteoModMonth.getText(), sorteoModYear.getText(),sorteoModPrice.getText(),sorteoModFracc.getText());
         if(errors.equals("")){
             String date = sorteoModYear.getText()+"-"+ sorteoModMonth.getText()+"-"+ sorteoModDay.getText();
             int column = 0;
@@ -1760,8 +1756,7 @@ public class AdminSide extends javax.swing.JFrame {
 
     private void btnAgregarPremioMActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarPremioMActionPerformed
         DefaultTableModel model = (DefaultTableModel) premiosTablaM.getModel();
-        Validate vals = new Validate();
-        if(vals.checkIfInt(premioAddCantM.getText()) && vals.checkIfInt(premioAddAmountM.getText())){
+        if(Validate.checkIfInt(premioAddCantM.getText()) && Validate.checkIfInt(premioAddAmountM.getText())){
             model.addRow(new Object[]{premioAddCantM.getText(),premioAddAmountM.getText()});
         }
         else
@@ -1781,8 +1776,7 @@ public class AdminSide extends javax.swing.JFrame {
         String sorteo = planModNum.getText();
         String oldSorteo = planModOldNum.getText();
         ArrayList<Premio> premios = Premio.getTablePrices(premiosTablaM);
-        Validate vals = new Validate();
-        String errors = vals.validatePlan(nombre, sorteo, premios);
+        String errors = Validate.validatePlan(nombre, sorteo, premios);
         if(errors.equals("")){
             PlanBDManager conector = new PlanBDManager();
             conector.updatePlan(nombre, sorteo,oldSorteo, premios);
@@ -1983,7 +1977,6 @@ public class AdminSide extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane9;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
-    private javax.swing.JTable jTable12;
     private javax.swing.JTable jTable7;
     private javax.swing.JTable jTable8;
     private javax.swing.JButton modSortB;
@@ -2034,5 +2027,6 @@ public class AdminSide extends javax.swing.JFrame {
     private javax.swing.JTable sorteoTablaE;
     private javax.swing.JTable sorteoTablaM;
     private javax.swing.JPanel startSorteoPanel;
+    private javax.swing.JTable winnerTable;
     // End of variables declaration//GEN-END:variables
 }
