@@ -15,9 +15,7 @@ import java.util.Calendar;
  *
  * @author Kevin
  */
-public class validaciones {
-    private String result = "";
-    
+public class Validate {
     public String validatePlan(String name,String sorteo,ArrayList<Premio> premios){
         String res = "";
         if(name.trim().equals(""))
@@ -31,7 +29,7 @@ public class validaciones {
     }
     
     private boolean checkDubName(String name){
-        planesBDCon con = new planesBDCon();
+        PlanBDManager con = new PlanBDManager();
         return con.checkDoubleName(name);
     }
     

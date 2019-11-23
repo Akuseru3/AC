@@ -8,7 +8,7 @@ package vista;
 import datos.Premio;
 import datos.PlanBDManager;
 import datos.SorteoBDManager;
-import datos.Validaciones;
+import datos.Validate;
 import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.Font;
@@ -1602,7 +1602,7 @@ public class AdminSide extends javax.swing.JFrame {
 
     private void btnAgregarPremioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarPremioActionPerformed
         DefaultTableModel model = (DefaultTableModel) premiosTablaA.getModel();
-        Validaciones vals = new Validaciones();
+        Validate vals = new Validate();
         if(vals.checkIfInt(premioAddCant.getText()) && vals.checkIfInt(premioAddAmount.getText())){
             model.addRow(new Object[]{premioAddCant.getText(),premioAddAmount.getText()});
         }
@@ -1622,7 +1622,7 @@ public class AdminSide extends javax.swing.JFrame {
         String nombre = planAddName.getText();
         String sorteo = planAddNum.getText();
         ArrayList<Premio> premios = Premio.getTablePrices(premiosTablaA);
-        Validaciones vals = new Validaciones();
+        Validate vals = new Validate();
         String errors = vals.validatePlan(nombre, sorteo, premios);
         if(errors.equals("")){
             PlanBDManager conector = new PlanBDManager();
@@ -1676,7 +1676,7 @@ public class AdminSide extends javax.swing.JFrame {
 
     private void btnAddSorteoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddSorteoActionPerformed
         sorteoAddErr.setText("");
-        Validaciones vals = new Validaciones();
+        Validate vals = new Validate();
         String errors = vals.validateSorteo(sorteoAddName.getText(),sorteoAddType.getSelectedItem().toString(),sorteoAddDay.getText(), sorteoAddMonth.getText(), sorteoAddYear.getText(),sorteoAddPrice.getText(),sorteoAddFracc.getText());
         if(errors.equals("")){
             String date = sorteoAddYear.getText()+"-"+ sorteoAddMonth.getText()+"-"+ sorteoAddDay.getText();
@@ -1705,7 +1705,7 @@ public class AdminSide extends javax.swing.JFrame {
     }//GEN-LAST:event_btnDeleteSorteoActionPerformed
 
     private void btnModSorteoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModSorteoActionPerformed
-        Validaciones vals = new Validaciones();
+        Validate vals = new Validate();
         String errors = vals.validateSorteo(sorteoModName.getText(),sorteoModType.getText(),sorteoModDay.getText(), sorteoModMonth.getText(), sorteoModYear.getText(),sorteoModPrice.getText(),sorteoModFracc.getText());
         if(errors.equals("")){
             String date = sorteoModYear.getText()+"-"+ sorteoModMonth.getText()+"-"+ sorteoModDay.getText();
@@ -1760,7 +1760,7 @@ public class AdminSide extends javax.swing.JFrame {
 
     private void btnAgregarPremioMActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarPremioMActionPerformed
         DefaultTableModel model = (DefaultTableModel) premiosTablaM.getModel();
-        Validaciones vals = new Validaciones();
+        Validate vals = new Validate();
         if(vals.checkIfInt(premioAddCantM.getText()) && vals.checkIfInt(premioAddAmountM.getText())){
             model.addRow(new Object[]{premioAddCantM.getText(),premioAddAmountM.getText()});
         }
@@ -1781,7 +1781,7 @@ public class AdminSide extends javax.swing.JFrame {
         String sorteo = planModNum.getText();
         String oldSorteo = planModOldNum.getText();
         ArrayList<Premio> premios = Premio.getTablePrices(premiosTablaM);
-        Validaciones vals = new Validaciones();
+        Validate vals = new Validate();
         String errors = vals.validatePlan(nombre, sorteo, premios);
         if(errors.equals("")){
             PlanBDManager conector = new PlanBDManager();
