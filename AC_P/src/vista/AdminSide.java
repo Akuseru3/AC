@@ -6,9 +6,9 @@
 package vista;
 
 import datos.Premio;
-import datos.planesBDCon;
-import datos.sorteoBDCon;
-import datos.validaciones;
+import datos.PlanesBDCon;
+import datos.SorteoBDCon;
+import datos.Validaciones;
 import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.Font;
@@ -54,7 +54,7 @@ public class AdminSide extends javax.swing.JFrame {
                 int row = planesTablaE.getSelectedRow();
                 if(row>=0){
                     String name = planesTablaE.getValueAt(row, 0).toString();
-                    planesBDCon conector = new planesBDCon();
+                    PlanesBDCon conector = new PlanesBDCon();
                     DefaultTableModel modelo = conector.getPremios(name);
                     premiosTablaE.setModel(modelo);
                     premiosTablaM.setModel(modelo);
@@ -81,14 +81,20 @@ public class AdminSide extends javax.swing.JFrame {
         sorteoTablaM.setFont(new Font("Segoe UI", Font.PLAIN, 12));
         sorteoTablaA.setFont(new Font("Segoe UI", Font.PLAIN, 12));
         planSorteoTablaA.setFont(new Font("Segoe UI", Font.PLAIN, 12));
-        sorteoBDCon connector = new sorteoBDCon();
-        String [] required = {"1","2"};
+        planSorteoTablaM.setFont(new Font("Segoe UI", Font.PLAIN, 12));
+        SorteoBDCon connector = new SorteoBDCon();
+        String[] required = {"1","2"};
         DefaultTableModel modelo = connector.getSorteos(required);
         sorteoTablaE.setModel(modelo);
         sorteoTablaM.setModel(modelo);
         sorteoTablaA.setModel(modelo);
+        required = new String[]{"1"};
+        modelo = connector.getSorteos(required);
         planSorteoTablaA.setModel(modelo);
         planSorteoTablaM.setModel(modelo);
+        required = new String[]{"2"};
+        modelo = connector.getSorteos(required);
+        sorteoPlayTable.setModel(modelo);
         /*sorteoTablaE.repaint();
         sorteoTablaM.repaint();
         sorteoTablaA.repaint();*/
@@ -96,7 +102,7 @@ public class AdminSide extends javax.swing.JFrame {
     
     public void fillPlanes(){
         planesTablaE.setFont(new Font("Segoe UI", Font.PLAIN, 12));
-        planesBDCon connector = new planesBDCon();
+        PlanesBDCon connector = new PlanesBDCon();
         DefaultTableModel modelo = connector.getPlanes("1");
         planesTablaE.setModel(modelo);
     }
@@ -134,10 +140,10 @@ public class AdminSide extends javax.swing.JFrame {
         jLabel71 = new javax.swing.JLabel();
         jScrollPane14 = new javax.swing.JScrollPane();
         jTable12 = new javax.swing.JTable();
-        jButton12 = new javax.swing.JButton();
+        btnPlayGame = new javax.swing.JButton();
         jSeparator1 = new javax.swing.JSeparator();
         jScrollPane13 = new javax.swing.JScrollPane();
-        jTable11 = new javax.swing.JTable();
+        sorteoPlayTable = new javax.swing.JTable();
         jLabel70 = new javax.swing.JLabel();
         jLabel101 = new javax.swing.JLabel();
         jButton9 = new javax.swing.JButton();
@@ -427,8 +433,8 @@ public class AdminSide extends javax.swing.JFrame {
 
         jLabel76.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel76.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel76.setText("Sorteos sin jugar");
-        startSorteoPanel.add(jLabel76, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 70, -1, -1));
+        jLabel76.setText("Sorteos con plan de premios sin jugar");
+        startSorteoPanel.add(jLabel76, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 70, -1, -1));
 
         infoMess.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         infoMess.setForeground(new java.awt.Color(204, 204, 204));
@@ -495,23 +501,23 @@ public class AdminSide extends javax.swing.JFrame {
 
         startSorteoPanel.add(panelInGame, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 100, 500, 470));
 
-        jButton12.setBackground(new java.awt.Color(255, 51, 51));
-        jButton12.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jButton12.setForeground(new java.awt.Color(255, 255, 255));
-        jButton12.setText("JUGAR SORTEO");
-        jButton12.setBorderPainted(false);
-        jButton12.addActionListener(new java.awt.event.ActionListener() {
+        btnPlayGame.setBackground(new java.awt.Color(255, 51, 51));
+        btnPlayGame.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        btnPlayGame.setForeground(new java.awt.Color(255, 255, 255));
+        btnPlayGame.setText("JUGAR SORTEO");
+        btnPlayGame.setBorderPainted(false);
+        btnPlayGame.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton12ActionPerformed(evt);
+                btnPlayGameActionPerformed(evt);
             }
         });
-        startSorteoPanel.add(jButton12, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 490, 150, 50));
+        startSorteoPanel.add(btnPlayGame, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 490, 150, 50));
 
         jSeparator1.setOrientation(javax.swing.SwingConstants.VERTICAL);
         startSorteoPanel.add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 60, 10, 520));
 
-        jTable11.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jTable11.setModel(new javax.swing.table.DefaultTableModel(
+        sorteoPlayTable.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        sorteoPlayTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null, null},
                 {null, null, null, null, null, null},
@@ -531,8 +537,8 @@ public class AdminSide extends javax.swing.JFrame {
                 "Numero", "Nombre", "Tipo", "Fracciones", "Precio", "Fecha"
             }
         ));
-        jTable11.setRowHeight(24);
-        jScrollPane13.setViewportView(jTable11);
+        sorteoPlayTable.setRowHeight(24);
+        jScrollPane13.setViewportView(sorteoPlayTable);
 
         startSorteoPanel.add(jScrollPane13, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 130, 510, 330));
 
@@ -1596,12 +1602,12 @@ public class AdminSide extends javax.swing.JFrame {
 
     private void btnAgregarPremioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarPremioActionPerformed
         DefaultTableModel model = (DefaultTableModel) premiosTablaA.getModel();
-        validaciones vals = new validaciones();
+        Validaciones vals = new Validaciones();
         if(vals.checkIfInt(premioAddCant.getText()) && vals.checkIfInt(premioAddAmount.getText())){
             model.addRow(new Object[]{premioAddCant.getText(),premioAddAmount.getText()});
         }
         else
-            System.out.println("La cantidad y ganancia del premio deben ser numeros");
+            JOptionPane.showMessageDialog(null,"Tanto el premio como la cantidad deben ser numeros enteros positivos", "Error con datos ingresados", JOptionPane.INFORMATION_MESSAGE);
     }//GEN-LAST:event_btnAgregarPremioActionPerformed
 
     private void btnEliminarPremioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarPremioActionPerformed
@@ -1613,22 +1619,16 @@ public class AdminSide extends javax.swing.JFrame {
     }//GEN-LAST:event_btnEliminarPremioActionPerformed
 
     private void btnCrearPlanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCrearPlanActionPerformed
-        int cantPremios = premiosTablaA.getRowCount();
         String nombre = planAddName.getText();
         String sorteo = planAddNum.getText();
-        ArrayList<Premio> premios = new ArrayList<Premio>();
-        DefaultTableModel model = (DefaultTableModel) premiosTablaA.getModel();
-        for(int i = 0;i<cantPremios;i++){
-            String cant = premiosTablaA.getValueAt(i, 0).toString();
-            String amount = premiosTablaA.getValueAt(i, 1).toString();
-            premios.add(new Premio(cant,amount));
-        }
-        validaciones vals = new validaciones();
+        ArrayList<Premio> premios = Premio.getTablePrices(premiosTablaA);
+        Validaciones vals = new Validaciones();
         String errors = vals.validatePlan(nombre, sorteo, premios);
         if(errors.equals("")){
-            planesBDCon conector = new planesBDCon();
+            PlanesBDCon conector = new PlanesBDCon();
             conector.addPlan(nombre, sorteo, premios);
             fillPlanes();
+            fillSorteos();
         }
         else{
             JOptionPane.showMessageDialog(null,errors, "Error en los datos ingresados", JOptionPane.INFORMATION_MESSAGE);
@@ -1650,10 +1650,10 @@ public class AdminSide extends javax.swing.JFrame {
         startSorteoPanel.setVisible(true);
     }//GEN-LAST:event_jButton2ActionPerformed
 
-    private void jButton12ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton12ActionPerformed
+    private void btnPlayGameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPlayGameActionPerformed
         panelInGame.setVisible(true);
         infoMess.setForeground(Color.white);
-    }//GEN-LAST:event_jButton12ActionPerformed
+    }//GEN-LAST:event_btnPlayGameActionPerformed
 
     private void jButton9MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton9MouseEntered
         // TODO add your handling code here:
@@ -1676,11 +1676,11 @@ public class AdminSide extends javax.swing.JFrame {
 
     private void btnAddSorteoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddSorteoActionPerformed
         sorteoAddErr.setText("");
-        validaciones vals = new validaciones();
+        Validaciones vals = new Validaciones();
         String errors = vals.validateSorteo(sorteoAddName.getText(),sorteoAddType.getSelectedItem().toString(),sorteoAddDay.getText(), sorteoAddMonth.getText(), sorteoAddYear.getText(),sorteoAddPrice.getText(),sorteoAddFracc.getText());
         if(errors.equals("")){
             String date = sorteoAddYear.getText()+"-"+ sorteoAddMonth.getText()+"-"+ sorteoAddDay.getText();
-            sorteoBDCon connector = new sorteoBDCon();
+            SorteoBDCon connector = new SorteoBDCon();
             connector.addSorteo(sorteoAddName.getText(), date, sorteoAddType.getSelectedItem().toString(), sorteoAddPrice.getText(), "1", sorteoAddFracc.getText());
             fillSorteos();
         }
@@ -1695,17 +1695,17 @@ public class AdminSide extends javax.swing.JFrame {
         int row = sorteoTablaE.getSelectedRow();
         if(row>=0){
             String value = sorteoTablaE.getModel().getValueAt(row, column).toString();
-            sorteoBDCon connector = new sorteoBDCon();
+            SorteoBDCon connector = new SorteoBDCon();
             connector.deleteSorteo(value);
             fillSorteos();
         }
         else{
-            System.out.println("Error Seleccion");
+            JOptionPane.showMessageDialog(null,"Se debe seleccionar un sorteo de la tabla para eliminar", "Error de seleccion", JOptionPane.INFORMATION_MESSAGE);
         }
     }//GEN-LAST:event_btnDeleteSorteoActionPerformed
 
     private void btnModSorteoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModSorteoActionPerformed
-        validaciones vals = new validaciones();
+        Validaciones vals = new Validaciones();
         String errors = vals.validateSorteo(sorteoModName.getText(),sorteoModType.getText(),sorteoModDay.getText(), sorteoModMonth.getText(), sorteoModYear.getText(),sorteoModPrice.getText(),sorteoModFracc.getText());
         if(errors.equals("")){
             String date = sorteoModYear.getText()+"-"+ sorteoModMonth.getText()+"-"+ sorteoModDay.getText();
@@ -1713,7 +1713,7 @@ public class AdminSide extends javax.swing.JFrame {
             int row = sorteoTablaM.getSelectedRow();
             if(row>=0){
                 String value = sorteoTablaM.getModel().getValueAt(row, column).toString();
-                sorteoBDCon connector = new sorteoBDCon();
+                SorteoBDCon connector = new SorteoBDCon();
                 connector.modifySorteo(value,sorteoModName.getText(), date, sorteoModType.getText(), sorteoModPrice.getText(), sorteoModFracc.getText());
                 fillSorteos();
             }
@@ -1739,12 +1739,14 @@ public class AdminSide extends javax.swing.JFrame {
         int row = planesTablaE.getSelectedRow();
         if(row>=0){
             String value = planesTablaE.getModel().getValueAt(row, column).toString();
-            planesBDCon connector = new planesBDCon();
-            connector.deletePlan(value);
+            String sorteo = planesTablaE.getModel().getValueAt(row, 1).toString();
+            PlanesBDCon connector = new PlanesBDCon();
+            connector.deletePlan(value,sorteo);
             fillPlanes();
+            fillSorteos();
         }
         else{
-            System.out.println("Error Seleccion");
+            JOptionPane.showMessageDialog(null,"Seleccione un sorteo de la tabla para eliminar", "Error de seleccion", JOptionPane.INFORMATION_MESSAGE);
         }
     }//GEN-LAST:event_btnEliminarPlanActionPerformed
 
@@ -1758,12 +1760,12 @@ public class AdminSide extends javax.swing.JFrame {
 
     private void btnAgregarPremioMActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarPremioMActionPerformed
         DefaultTableModel model = (DefaultTableModel) premiosTablaM.getModel();
-        validaciones vals = new validaciones();
+        Validaciones vals = new Validaciones();
         if(vals.checkIfInt(premioAddCantM.getText()) && vals.checkIfInt(premioAddAmountM.getText())){
             model.addRow(new Object[]{premioAddCantM.getText(),premioAddAmountM.getText()});
         }
         else
-            System.out.println("La cantidad y ganancia del premio deben ser numeros");
+            JOptionPane.showMessageDialog(null,"Tanto el premio como la cantidad deben ser numeros enteros positivos", "Error con datos ingresados", JOptionPane.INFORMATION_MESSAGE);
     }//GEN-LAST:event_btnAgregarPremioMActionPerformed
 
     private void btnEliminarPremioMActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarPremioMActionPerformed
@@ -1775,23 +1777,23 @@ public class AdminSide extends javax.swing.JFrame {
     }//GEN-LAST:event_btnEliminarPremioMActionPerformed
 
     private void btnModPlanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModPlanActionPerformed
-        int cantPremios = premiosTablaM.getRowCount();
         String nombre = planModName.getText();
         String sorteo = planModNum.getText();
-        ArrayList<Premio> premios = new ArrayList<Premio>();
-        DefaultTableModel model = (DefaultTableModel) premiosTablaM.getModel();
-        for(int i = 0;i<cantPremios;i++){
-            String cant = premiosTablaM.getValueAt(i, 0).toString();
-            String amount = premiosTablaM.getValueAt(i, 1).toString();
-            premios.add(new Premio(cant,amount));
-        }
-        if(nombre != "" && cantPremios>=3 && sorteo != "--"){
-            planesBDCon conector = new planesBDCon();
-            conector.updatePlan(nombre, sorteo, premios);
+        String oldSorteo = planModOldNum.getText();
+        ArrayList<Premio> premios = Premio.getTablePrices(premiosTablaM);
+        Validaciones vals = new Validaciones();
+        String errors = vals.validatePlan(nombre, sorteo, premios);
+        if(errors.equals("")){
+            PlanesBDCon conector = new PlanesBDCon();
+            conector.updatePlan(nombre, sorteo,oldSorteo, premios);
             fillPlanes();
+            fillSorteos();
+            planM.setVisible(false);
+            planE.setVisible(true);
         }
-        planM.setVisible(false);
-        planE.setVisible(true);
+        else{
+            JOptionPane.showMessageDialog(null,errors, "Error en los datos ingresados", JOptionPane.INFORMATION_MESSAGE);
+        }
     }//GEN-LAST:event_btnModPlanActionPerformed
 
     private void btnGoModPlanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGoModPlanActionPerformed
@@ -1802,11 +1804,12 @@ public class AdminSide extends javax.swing.JFrame {
             String numSorteo = planesTablaE.getModel().getValueAt(row, 1).toString();
             planModName.setText(name);
             planModNum.setText(numSorteo);
+            planModOldNum.setText(numSorteo);
             planE.setVisible(false);
             planM.setVisible(true);
         }
         else{
-            System.out.println("Error Seleccion");
+            JOptionPane.showMessageDialog(null,"Se debe seleccionar un plan para modificar en la tabla", "Error de seleccion", JOptionPane.INFORMATION_MESSAGE);
         }
     }//GEN-LAST:event_btnGoModPlanActionPerformed
 
@@ -1863,13 +1866,13 @@ public class AdminSide extends javax.swing.JFrame {
     private javax.swing.JButton btnGoModPlan;
     private javax.swing.JButton btnModPlan;
     private javax.swing.JButton btnModSorteo;
+    private javax.swing.JButton btnPlayGame;
     private javax.swing.JButton btnSelectSorteo;
     private javax.swing.JButton btnSelectSorteoM;
     private javax.swing.JButton delPlanB;
     private javax.swing.JButton delSortB;
     private javax.swing.JLabel infoMess;
     private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton12;
     private javax.swing.JButton jButton13;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton4;
@@ -1980,7 +1983,6 @@ public class AdminSide extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane9;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
-    private javax.swing.JTable jTable11;
     private javax.swing.JTable jTable12;
     private javax.swing.JTable jTable7;
     private javax.swing.JTable jTable8;
@@ -2027,6 +2029,7 @@ public class AdminSide extends javax.swing.JFrame {
     private javax.swing.JLabel sorteoModType;
     private javax.swing.JTextField sorteoModYear;
     private javax.swing.JPanel sorteoPanel;
+    private javax.swing.JTable sorteoPlayTable;
     private javax.swing.JTable sorteoTablaA;
     private javax.swing.JTable sorteoTablaE;
     private javax.swing.JTable sorteoTablaM;

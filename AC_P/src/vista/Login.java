@@ -5,7 +5,7 @@
  */
 package vista;
 
-import datos.loginData;
+import datos.LoginData;
 import java.awt.Cursor;
 import java.awt.Font;
 import java.awt.event.WindowEvent;
@@ -105,11 +105,9 @@ public class Login extends javax.swing.JFrame {
     }//GEN-LAST:event_loginBtnHoverEx
 
     private void loginBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loginBtnActionPerformed
-        System.out.println(userTxtF.getText().toString());
-        System.out.println(passTxtF.getText());
-        loginData loginObj = new loginData();
+        LoginData loginObj = new LoginData();
         if(loginObj.checkContraseña(userTxtF.getText().trim(),passTxtF.getText().trim()) == 1){
-            InicioGeneral secondForm = new InicioGeneral();
+            InicioAdmin secondForm = new InicioAdmin();
             secondForm.show();            
             this.dispose();
         }
