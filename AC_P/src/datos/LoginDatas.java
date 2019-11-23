@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 package datos;
-import datos.SqlCon;
+import datos.SQLConManager;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -14,8 +14,8 @@ import java.sql.*;
  * @author Akuseru
  */
 
-public class LoginData {
-    Connection cn = SqlCon.createCon();;
+public class LoginDatas {
+    Connection cn = SQLConManager.createCon();;
     
     public int checkContraseña(String usuario,String contra){        
         try{

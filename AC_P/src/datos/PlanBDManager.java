@@ -16,8 +16,8 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author Kevin
  */
-public class PlanesBDCon {
-    Connection cn = SqlCon.createCon();
+public class PlanBDManager {
+    Connection cn = SQLConManager.createCon();
     
     public int addPlan(String name,String numSorteo,ArrayList<Premio> prices){
         try{
@@ -100,7 +100,7 @@ public class PlanesBDCon {
         DefaultTableModel tableModel = new DefaultTableModel(columnNames, 0);
         try{
             Statement st = cn.createStatement();
-            ResultSet rs = st.executeQuery("select * from premios where planAsociado='"+name+"';");
+            ResultSet rs = st.executeQuery("select * from premios where planAsociado='"+name+"' order by gananciaPremio ASC;");
             while (rs.next()) {
                 String cant = rs.getString("cantidadPremios");
                 String amount = rs.getString("gananciaPremio");

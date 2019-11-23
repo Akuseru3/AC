@@ -14,7 +14,7 @@ import java.util.Properties;
  *
  * @author Akuseru
  */
-public class SqlCon {    
+public class SQLConManager {    
     //Nuevo objeto de tipo connection
     private static Connection conectar = null;
     private static Connection conexion(){

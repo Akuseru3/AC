@@ -6,6 +6,7 @@
 package datos;
 
 import java.util.ArrayList;
+import java.util.Random;
 import javax.swing.JTable;
 
 /**
@@ -13,6 +14,7 @@ import javax.swing.JTable;
  * @author Kevin
  */
 public class Premio {
+    static Random rand = new Random();
     public String cantidad;
     public String ganancia;
     public Premio(String cantidad,String ganancia){
@@ -32,6 +34,15 @@ public class Premio {
     }
     
     public static void generateWinners(ArrayList<Premio> premios){
-        
+        for(Premio temp:premios){
+            
+
+        }
+    }
+    
+    private static int generateRandom(int end){
+        int n = rand.nextInt(end);
+        n+=1;
+        return n;
     }
 }

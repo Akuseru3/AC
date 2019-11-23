@@ -6,8 +6,8 @@
 package vista;
 
 import datos.Premio;
-import datos.PlanesBDCon;
-import datos.SorteoBDCon;
+import datos.PlanBDManager;
+import datos.SorteoBDManager;
 import datos.Validaciones;
 import java.awt.Color;
 import java.awt.Cursor;
@@ -54,7 +54,7 @@ public class AdminSide extends javax.swing.JFrame {
                 int row = planesTablaE.getSelectedRow();
                 if(row>=0){
                     String name = planesTablaE.getValueAt(row, 0).toString();
-                    PlanesBDCon conector = new PlanesBDCon();
+                    PlanBDManager conector = new PlanBDManager();
                     DefaultTableModel modelo = conector.getPremios(name);
                     premiosTablaE.setModel(modelo);
                     premiosTablaM.setModel(modelo);
@@ -82,7 +82,7 @@ public class AdminSide extends javax.swing.JFrame {
         sorteoTablaA.setFont(new Font("Segoe UI", Font.PLAIN, 12));
         planSorteoTablaA.setFont(new Font("Segoe UI", Font.PLAIN, 12));
         planSorteoTablaM.setFont(new Font("Segoe UI", Font.PLAIN, 12));
-        SorteoBDCon connector = new SorteoBDCon();
+        SorteoBDManager connector = new SorteoBDManager();
         String[] required = {"1","2"};
         DefaultTableModel modelo = connector.getSorteos(required);
         sorteoTablaE.setModel(modelo);
@@ -102,7 +102,7 @@ public class AdminSide extends javax.swing.JFrame {
     
     public void fillPlanes(){
         planesTablaE.setFont(new Font("Segoe UI", Font.PLAIN, 12));
-        PlanesBDCon connector = new PlanesBDCon();
+        PlanBDManager connector = new PlanBDManager();
         DefaultTableModel modelo = connector.getPlanes("1");
         planesTablaE.setModel(modelo);
     }
@@ -1625,7 +1625,7 @@ public class AdminSide extends javax.swing.JFrame {
         Validaciones vals = new Validaciones();
         String errors = vals.validatePlan(nombre, sorteo, premios);
         if(errors.equals("")){
-            PlanesBDCon conector = new PlanesBDCon();
+            PlanBDManager conector = new PlanBDManager();
             conector.addPlan(nombre, sorteo, premios);
             fillPlanes();
             fillSorteos();
@@ -1680,7 +1680,7 @@ public class AdminSide extends javax.swing.JFrame {
         String errors = vals.validateSorteo(sorteoAddName.getText(),sorteoAddType.getSelectedItem().toString(),sorteoAddDay.getText(), sorteoAddMonth.getText(), sorteoAddYear.getText(),sorteoAddPrice.getText(),sorteoAddFracc.getText());
         if(errors.equals("")){
             String date = sorteoAddYear.getText()+"-"+ sorteoAddMonth.getText()+"-"+ sorteoAddDay.getText();
-            SorteoBDCon connector = new SorteoBDCon();
+            SorteoBDManager connector = new SorteoBDManager();
             connector.addSorteo(sorteoAddName.getText(), date, sorteoAddType.getSelectedItem().toString(), sorteoAddPrice.getText(), "1", sorteoAddFracc.getText());
             fillSorteos();
         }
@@ -1695,7 +1695,7 @@ public class AdminSide extends javax.swing.JFrame {
         int row = sorteoTablaE.getSelectedRow();
         if(row>=0){
             String value = sorteoTablaE.getModel().getValueAt(row, column).toString();
-            SorteoBDCon connector = new SorteoBDCon();
+            SorteoBDManager connector = new SorteoBDManager();
             connector.deleteSorteo(value);
             fillSorteos();
         }
@@ -1713,7 +1713,7 @@ public class AdminSide extends javax.swing.JFrame {
             int row = sorteoTablaM.getSelectedRow();
             if(row>=0){
                 String value = sorteoTablaM.getModel().getValueAt(row, column).toString();
-                SorteoBDCon connector = new SorteoBDCon();
+                SorteoBDManager connector = new SorteoBDManager();
                 connector.modifySorteo(value,sorteoModName.getText(), date, sorteoModType.getText(), sorteoModPrice.getText(), sorteoModFracc.getText());
                 fillSorteos();
             }
@@ -1740,7 +1740,7 @@ public class AdminSide extends javax.swing.JFrame {
         if(row>=0){
             String value = planesTablaE.getModel().getValueAt(row, column).toString();
             String sorteo = planesTablaE.getModel().getValueAt(row, 1).toString();
-            PlanesBDCon connector = new PlanesBDCon();
+            PlanBDManager connector = new PlanBDManager();
             connector.deletePlan(value,sorteo);
             fillPlanes();
             fillSorteos();
@@ -1784,7 +1784,7 @@ public class AdminSide extends javax.swing.JFrame {
         Validaciones vals = new Validaciones();
         String errors = vals.validatePlan(nombre, sorteo, premios);
         if(errors.equals("")){
-            PlanesBDCon conector = new PlanesBDCon();
+            PlanBDManager conector = new PlanBDManager();
             conector.updatePlan(nombre, sorteo,oldSorteo, premios);
             fillPlanes();
             fillSorteos();

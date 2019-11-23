@@ -15,8 +15,8 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author Kevin
  */
-public class SorteoBDCon {
-    Connection cn = SqlCon.createCon();;
+public class SorteoBDManager {
+    Connection cn = SQLConManager.createCon();;
     
     public int addSorteo(String name,String date,String type,String price,String state,String fracCant){        
         try{
