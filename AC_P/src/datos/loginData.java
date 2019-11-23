@@ -25,21 +25,25 @@ public class loginData {
             if (rs.next() == false) {           
                 return -1;
             }else {
-                do{
-                    if(rs.getString(1).equals(contra)){
-                        if(rs.getString(2).equals('1')){
-                            return 1;
-                        }else{
-                            return 2;
-                        }
-                    }else{
-                        return -1;
-                    }
-                }while (rs.next());
+                return resultLooper(rs,contra);
             }
         }catch(SQLException ex){
             System.out.println(ex);
             return -1;
         }
+    }
+    
+    private int resultLooper(ResultSet rs, String contra) throws SQLException{
+        do{
+            if(rs.getString(1).equals(contra)){
+                if(rs.getString(2).equals('1')){
+                    return 1;
+                }else{
+                    return 2;
+                }
+            }else{
+                return -1;
+            }
+        }while (rs.next());
     }
 }

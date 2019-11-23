@@ -23,7 +23,7 @@ public class planesBDCon {
     public int addPlan(String name,String numSorteo,ArrayList<Premio> prices){
         try{
             Statement st = cn.createStatement();
-            ResultSet rs = st.executeQuery("call createPlan('"+name+"',"+numSorteo+","+0+")");
+            ResultSet rs = st.executeQuery("call createPlan('"+name+"','"+numSorteo+"',"+0+")");
             System.out.println(rs);
             for(int i = 0; i<prices.size();i++){
                 Statement stP = cn.createStatement();
@@ -35,6 +35,20 @@ public class planesBDCon {
             System.out.println(ex);
             return -1;
         }
+    }
+    
+    public boolean checkDoubleName(String nombre){
+       try{
+            Statement st = cn.createStatement();
+            ResultSet rs = st.executeQuery("select nombrePlan from planPremios where nombrePlan = '"+nombre+"';");
+            if(!rs.next())
+                return true;
+            return false;
+       }catch(SQLException ex){
+            System.out.println(ex);
+            return false;
+       }
+       
     }
     
     public DefaultTableModel getPlanes(String filter){
@@ -111,7 +125,7 @@ public class planesBDCon {
             int rsE = stE.executeUpdate("delete from premios where planAsociado='"+name+"'");
             System.out.println(rsE);
             Statement st = cn.createStatement();
-            ResultSet rs = st.executeQuery("call updatePlan('"+name+"',"+numSorteo+","+0+")");
+            ResultSet rs = st.executeQuery("call updatePlan('"+name+"','"+numSorteo+"',"+0+")");
             System.out.println(rs);
             for(int i = 0; i<prices.size();i++){
                 Statement stP = cn.createStatement();

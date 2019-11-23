@@ -13,6 +13,7 @@ import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.Font;
 import java.util.ArrayList;
+import javax.swing.JOptionPane;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
@@ -38,7 +39,7 @@ public class AdminSide extends javax.swing.JFrame {
                     String price = sorteoTablaM.getValueAt(row, 4).toString();
                     String date = sorteoTablaM.getValueAt(row, 5).toString();
                     sorteoModName.setText(name);
-                    sorteoModType.setSelectedIndex(1);
+                    sorteoModType.setText(type);
                     sorteoModFracc.setText(fracc);
                     sorteoModPrice.setText(price);
                     String[] dateP = date.split("-");
@@ -81,7 +82,8 @@ public class AdminSide extends javax.swing.JFrame {
         sorteoTablaA.setFont(new Font("Segoe UI", Font.PLAIN, 12));
         planSorteoTablaA.setFont(new Font("Segoe UI", Font.PLAIN, 12));
         sorteoBDCon connector = new sorteoBDCon();
-        DefaultTableModel modelo = connector.getSorteos("1");
+        String [] required = {"1","2"};
+        DefaultTableModel modelo = connector.getSorteos(required);
         sorteoTablaE.setModel(modelo);
         sorteoTablaM.setModel(modelo);
         sorteoTablaA.setModel(modelo);
@@ -174,6 +176,10 @@ public class AdminSide extends javax.swing.JFrame {
         jScrollPane15 = new javax.swing.JScrollPane();
         planSorteoTablaM = new javax.swing.JTable();
         btnSelectSorteoM = new javax.swing.JButton();
+        jLabel90 = new javax.swing.JLabel();
+        jLabel91 = new javax.swing.JLabel();
+        jLabel89 = new javax.swing.JLabel();
+        planModOldNum = new javax.swing.JLabel();
         planModName = new javax.swing.JLabel();
         jLabel88 = new javax.swing.JLabel();
         jLabel82 = new javax.swing.JLabel();
@@ -235,12 +241,12 @@ public class AdminSide extends javax.swing.JFrame {
         jLabel48 = new javax.swing.JLabel();
         sorteoM = new javax.swing.JPanel();
         jLabel14 = new javax.swing.JLabel();
+        sorteoModType = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         sorteoTablaM = new javax.swing.JTable();
         jLabel23 = new javax.swing.JLabel();
         sorteoModName = new javax.swing.JTextField();
         jLabel24 = new javax.swing.JLabel();
-        sorteoModType = new javax.swing.JComboBox<>();
         jLabel25 = new javax.swing.JLabel();
         sorteoModFracc = new javax.swing.JTextField();
         jLabel26 = new javax.swing.JLabel();
@@ -258,7 +264,9 @@ public class AdminSide extends javax.swing.JFrame {
         jLabel10 = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
         jLabel32 = new javax.swing.JLabel();
+        jLabel42 = new javax.swing.JLabel();
         sorteoA = new javax.swing.JPanel();
+        sorteoAddErr = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
         jLabel12 = new javax.swing.JLabel();
@@ -297,10 +305,10 @@ public class AdminSide extends javax.swing.JFrame {
         jButton13.setFocusPainted(false);
         jButton13.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
-                jButton13MouseEntered(evt);
+                mouseChangeEnt(evt);
             }
             public void mouseExited(java.awt.event.MouseEvent evt) {
-                jButton13MouseExited(evt);
+                mouseChangeEx(evt);
             }
         });
         jButton13.addActionListener(new java.awt.event.ActionListener() {
@@ -322,10 +330,10 @@ public class AdminSide extends javax.swing.JFrame {
         jButton2.setFocusPainted(false);
         jButton2.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
-                jButton2MouseEntered(evt);
+                mouseChangeEnt(evt);
             }
             public void mouseExited(java.awt.event.MouseEvent evt) {
-                jButton2MouseExited(evt);
+                mouseChangeEx(evt);
             }
         });
         jButton2.addActionListener(new java.awt.event.ActionListener() {
@@ -344,10 +352,10 @@ public class AdminSide extends javax.swing.JFrame {
         jButton1.setFocusPainted(false);
         jButton1.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
-                jButton1MouseEntered(evt);
+                mouseChangeEnt(evt);
             }
             public void mouseExited(java.awt.event.MouseEvent evt) {
-                jButton1MouseExited(evt);
+                mouseChangeEx(evt);
             }
         });
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -366,10 +374,10 @@ public class AdminSide extends javax.swing.JFrame {
         jButton4.setFocusPainted(false);
         jButton4.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
-                jButton4MouseEntered(evt);
+                mouseChangeEnt(evt);
             }
             public void mouseExited(java.awt.event.MouseEvent evt) {
-                jButton4MouseExited(evt);
+                mouseChangeEx(evt);
             }
         });
         jButton4.addActionListener(new java.awt.event.ActionListener() {
@@ -388,10 +396,10 @@ public class AdminSide extends javax.swing.JFrame {
         jButton5.setFocusPainted(false);
         jButton5.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
-                jButton5MouseEntered(evt);
+                mouseChangeEnt(evt);
             }
             public void mouseExited(java.awt.event.MouseEvent evt) {
-                jButton5MouseExited(evt);
+                mouseChangeEx(evt);
             }
         });
         jButton5.addActionListener(new java.awt.event.ActionListener() {
@@ -571,14 +579,6 @@ public class AdminSide extends javax.swing.JFrame {
         jButton7.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(21, 41, 65)));
         jButton7.setBorderPainted(false);
         jButton7.setFocusPainted(false);
-        jButton7.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                jButton7MouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                jButton7MouseExited(evt);
-            }
-        });
         jButton7.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton7ActionPerformed(evt);
@@ -593,14 +593,6 @@ public class AdminSide extends javax.swing.JFrame {
         jButton8.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(21, 41, 65)));
         jButton8.setBorderPainted(false);
         jButton8.setFocusPainted(false);
-        jButton8.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                jButton8MouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                jButton8MouseExited(evt);
-            }
-        });
         jButton8.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton8ActionPerformed(evt);
@@ -698,14 +690,6 @@ public class AdminSide extends javax.swing.JFrame {
         delPlanB.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(21, 41, 65)));
         delPlanB.setContentAreaFilled(false);
         delPlanB.setFocusPainted(false);
-        delPlanB.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                delPlanBMouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                delPlanBMouseExited(evt);
-            }
-        });
         delPlanB.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 delPlanBActionPerformed(evt);
@@ -720,14 +704,6 @@ public class AdminSide extends javax.swing.JFrame {
         addPlanB.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(21, 41, 65)));
         addPlanB.setContentAreaFilled(false);
         addPlanB.setFocusPainted(false);
-        addPlanB.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                addPlanBMouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                addPlanBMouseExited(evt);
-            }
-        });
         addPlanB.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 addPlanBActionPerformed(evt);
@@ -880,6 +856,22 @@ public class AdminSide extends javax.swing.JFrame {
         });
         planM.add(btnSelectSorteoM, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 480, -1, -1));
 
+        jLabel90.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jLabel90.setText("Nuevo");
+        planM.add(jLabel90, new org.netbeans.lib.awtextra.AbsoluteConstraints(900, 160, 80, -1));
+
+        jLabel91.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jLabel91.setText("Viejo");
+        planM.add(jLabel91, new org.netbeans.lib.awtextra.AbsoluteConstraints(910, 120, 80, -1));
+
+        jLabel89.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jLabel89.setText("Sorteo N.");
+        planM.add(jLabel89, new org.netbeans.lib.awtextra.AbsoluteConstraints(940, 120, 80, -1));
+
+        planModOldNum.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        planModOldNum.setText("--");
+        planM.add(planModOldNum, new org.netbeans.lib.awtextra.AbsoluteConstraints(1030, 120, 40, -1));
+
         planModName.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         planModName.setText("Nombre del plan");
         planM.add(planModName, new org.netbeans.lib.awtextra.AbsoluteConstraints(720, 140, -1, -1));
@@ -890,11 +882,11 @@ public class AdminSide extends javax.swing.JFrame {
 
         jLabel82.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel82.setText("Sorteo N.");
-        planM.add(jLabel82, new org.netbeans.lib.awtextra.AbsoluteConstraints(940, 140, 80, -1));
+        planM.add(jLabel82, new org.netbeans.lib.awtextra.AbsoluteConstraints(940, 160, 80, -1));
 
         planModNum.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         planModNum.setText("--");
-        planM.add(planModNum, new org.netbeans.lib.awtextra.AbsoluteConstraints(1030, 140, 40, -1));
+        planM.add(planModNum, new org.netbeans.lib.awtextra.AbsoluteConstraints(1030, 160, 40, -1));
 
         premioAddName1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         planM.add(premioAddName1, new org.netbeans.lib.awtextra.AbsoluteConstraints(730, 240, 130, 20));
@@ -1157,14 +1149,6 @@ public class AdminSide extends javax.swing.JFrame {
         delSortB.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(21, 41, 65)));
         delSortB.setContentAreaFilled(false);
         delSortB.setFocusPainted(false);
-        delSortB.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                delSortBMouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                delSortBMouseExited(evt);
-            }
-        });
         delSortB.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 delSortBActionPerformed(evt);
@@ -1179,14 +1163,6 @@ public class AdminSide extends javax.swing.JFrame {
         modSortB.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(21, 41, 65)));
         modSortB.setContentAreaFilled(false);
         modSortB.setFocusPainted(false);
-        modSortB.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                modSortBMouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                modSortBMouseExited(evt);
-            }
-        });
         modSortB.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 modSortBActionPerformed(evt);
@@ -1201,14 +1177,6 @@ public class AdminSide extends javax.swing.JFrame {
         addSortB.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(21, 41, 65)));
         addSortB.setContentAreaFilled(false);
         addSortB.setFocusPainted(false);
-        addSortB.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                addSortBMouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                addSortBMouseExited(evt);
-            }
-        });
         addSortB.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 addSortBActionPerformed(evt);
@@ -1294,6 +1262,9 @@ public class AdminSide extends javax.swing.JFrame {
         jLabel14.setText("Seleccione el sorteo que desea modificar");
         sorteoM.add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 120, -1, -1));
 
+        sorteoModType.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        sorteoM.add(sorteoModType, new org.netbeans.lib.awtextra.AbsoluteConstraints(860, 220, -1, -1));
+
         sorteoTablaM.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         sorteoTablaM.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -1332,10 +1303,6 @@ public class AdminSide extends javax.swing.JFrame {
         jLabel24.setText("Tipo de sorteo");
         sorteoM.add(jLabel24, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 220, -1, -1));
 
-        sorteoModType.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        sorteoModType.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Loteria", "Chances" }));
-        sorteoM.add(sorteoModType, new org.netbeans.lib.awtextra.AbsoluteConstraints(860, 220, 150, 30));
-
         jLabel25.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel25.setText("Cantidad de fracciones");
         sorteoM.add(jLabel25, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 290, -1, -1));
@@ -1365,7 +1332,7 @@ public class AdminSide extends javax.swing.JFrame {
         jLabel29.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
         jLabel29.setForeground(new java.awt.Color(153, 153, 153));
         jLabel29.setText("--");
-        sorteoM.add(jLabel29, new org.netbeans.lib.awtextra.AbsoluteConstraints(950, 430, 40, 30));
+        sorteoM.add(jLabel29, new org.netbeans.lib.awtextra.AbsoluteConstraints(950, 430, 10, 30));
 
         sorteoModMonth.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         sorteoM.add(sorteoModMonth, new org.netbeans.lib.awtextra.AbsoluteConstraints(910, 430, 30, 30));
@@ -1378,7 +1345,7 @@ public class AdminSide extends javax.swing.JFrame {
         jLabel31.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
         jLabel31.setForeground(new java.awt.Color(153, 153, 153));
         jLabel31.setText("--");
-        sorteoM.add(jLabel31, new org.netbeans.lib.awtextra.AbsoluteConstraints(900, 430, 40, 30));
+        sorteoM.add(jLabel31, new org.netbeans.lib.awtextra.AbsoluteConstraints(900, 430, 10, 30));
 
         sorteoModDay.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         sorteoM.add(sorteoModDay, new org.netbeans.lib.awtextra.AbsoluteConstraints(860, 430, 30, 30));
@@ -1414,10 +1381,19 @@ public class AdminSide extends javax.swing.JFrame {
         jLabel32.setOpaque(true);
         sorteoM.add(jLabel32, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 60, 1100, 500));
 
+        jLabel42.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jLabel42.setText("Tipo de sorteo");
+        sorteoM.add(jLabel42, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 220, -1, -1));
+
         sorteoPanel.add(sorteoM, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 30, 1200, 590));
 
         sorteoA.setOpaque(false);
         sorteoA.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        sorteoAddErr.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
+        sorteoAddErr.setForeground(new java.awt.Color(255, 255, 255));
+        sorteoAddErr.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        sorteoA.add(sorteoAddErr, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 65, 1080, 30));
 
         jLabel7.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
         jLabel7.setForeground(new java.awt.Color(255, 255, 255));
@@ -1464,11 +1440,6 @@ public class AdminSide extends javax.swing.JFrame {
         sorteoA.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 170, 590, 340));
 
         sorteoAddName.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        sorteoAddName.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                sorteoAddNameActionPerformed(evt);
-            }
-        });
         sorteoA.add(sorteoAddName, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 140, 150, 30));
 
         jLabel13.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
@@ -1484,11 +1455,6 @@ public class AdminSide extends javax.swing.JFrame {
         sorteoA.add(jLabel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 280, -1, -1));
 
         sorteoAddFracc.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        sorteoAddFracc.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                sorteoAddFraccActionPerformed(evt);
-            }
-        });
         sorteoA.add(sorteoAddFracc, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 280, 150, 30));
 
         jLabel17.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
@@ -1513,7 +1479,7 @@ public class AdminSide extends javax.swing.JFrame {
         jLabel21.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
         jLabel21.setForeground(new java.awt.Color(153, 153, 153));
         jLabel21.setText("--");
-        sorteoA.add(jLabel21, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 420, 40, 30));
+        sorteoA.add(jLabel21, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 420, 20, 30));
 
         jLabel20.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
         jLabel20.setForeground(new java.awt.Color(153, 153, 153));
@@ -1526,7 +1492,7 @@ public class AdminSide extends javax.swing.JFrame {
         jLabel22.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
         jLabel22.setForeground(new java.awt.Color(153, 153, 153));
         jLabel22.setText("--");
-        sorteoA.add(jLabel22, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 420, 40, 30));
+        sorteoA.add(jLabel22, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 420, 20, 30));
 
         jLabel18.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
         jLabel18.setForeground(new java.awt.Color(153, 153, 153));
@@ -1570,42 +1536,18 @@ public class AdminSide extends javax.swing.JFrame {
         startSorteoPanel.setVisible(false);
     }//GEN-LAST:event_jButton5ActionPerformed
 
-    private void jButton4MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton4MouseEntered
+    private void mouseChangeEnt(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mouseChangeEnt
         // TODO add your handling code here:
         Color color = new Color(17,46,72);
-        jButton4.setBackground(color);
-        jButton4.setCursor(new Cursor(Cursor.HAND_CURSOR));
-    }//GEN-LAST:event_jButton4MouseEntered
+        evt.getComponent().setBackground(color);
+        evt.getComponent().setCursor(new Cursor(Cursor.HAND_CURSOR));
+    }//GEN-LAST:event_mouseChangeEnt
 
-    private void jButton4MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton4MouseExited
+    private void mouseChangeEx(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mouseChangeEx
         Color color = new Color(21,57,90);
-        jButton4.setBackground(color);
-        jButton4.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
-    }//GEN-LAST:event_jButton4MouseExited
-
-    private void jButton5MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton5MouseEntered
-        Color color = new Color(17,46,72);
-        jButton5.setBackground(color);
-        jButton5.setCursor(new Cursor(Cursor.HAND_CURSOR));
-    }//GEN-LAST:event_jButton5MouseEntered
-
-    private void jButton5MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton5MouseExited
-        Color color = new Color(21,57,90);
-        jButton5.setBackground(color);
-        jButton5.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
-    }//GEN-LAST:event_jButton5MouseExited
-
-    private void jButton1MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseEntered
-        Color color = new Color(17,46,72);
-        jButton1.setBackground(color);
-        jButton1.setCursor(new Cursor(Cursor.HAND_CURSOR));
-    }//GEN-LAST:event_jButton1MouseEntered
-
-    private void jButton1MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseExited
-        Color color = new Color(21,57,90);
-        jButton1.setBackground(color);
-        jButton1.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
-    }//GEN-LAST:event_jButton1MouseExited
+        evt.getComponent().setBackground(color);
+        evt.getComponent().setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
+    }//GEN-LAST:event_mouseChangeEx
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
         sorteoPanel.setVisible(true);
@@ -1621,27 +1563,11 @@ public class AdminSide extends javax.swing.JFrame {
         startSorteoPanel.setVisible(false);
     }//GEN-LAST:event_jButton1ActionPerformed
 
-    private void delSortBMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_delSortBMouseEntered
-        // TODO add your handling code here:
-    }//GEN-LAST:event_delSortBMouseEntered
-
-    private void delSortBMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_delSortBMouseExited
-        // TODO add your handling code here:
-    }//GEN-LAST:event_delSortBMouseExited
-
     private void delSortBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_delSortBActionPerformed
         sorteoA.setVisible(false);
         sorteoM.setVisible(false);
         sorteoE.setVisible(true);
     }//GEN-LAST:event_delSortBActionPerformed
-
-    private void modSortBMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_modSortBMouseEntered
-        // TODO add your handling code here:
-    }//GEN-LAST:event_modSortBMouseEntered
-
-    private void modSortBMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_modSortBMouseExited
-        // TODO add your handling code here:
-    }//GEN-LAST:event_modSortBMouseExited
 
     private void modSortBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_modSortBActionPerformed
         sorteoA.setVisible(false);
@@ -1649,49 +1575,17 @@ public class AdminSide extends javax.swing.JFrame {
         sorteoE.setVisible(false);
     }//GEN-LAST:event_modSortBActionPerformed
 
-    private void addSortBMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_addSortBMouseEntered
-        // TODO add your handling code here:
-    }//GEN-LAST:event_addSortBMouseEntered
-
-    private void addSortBMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_addSortBMouseExited
-        // TODO add your handling code here:
-    }//GEN-LAST:event_addSortBMouseExited
-
     private void addSortBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addSortBActionPerformed
         sorteoA.setVisible(true);
         sorteoM.setVisible(false);
         sorteoE.setVisible(false);
     }//GEN-LAST:event_addSortBActionPerformed
 
-    private void sorteoAddNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sorteoAddNameActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_sorteoAddNameActionPerformed
-
-    private void sorteoAddFraccActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sorteoAddFraccActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_sorteoAddFraccActionPerformed
-
-    private void delPlanBMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_delPlanBMouseEntered
-        // TODO add your handling code here:
-    }//GEN-LAST:event_delPlanBMouseEntered
-
-    private void delPlanBMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_delPlanBMouseExited
-        // TODO add your handling code here:
-    }//GEN-LAST:event_delPlanBMouseExited
-
     private void delPlanBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_delPlanBActionPerformed
         planA.setVisible(false);
         planM.setVisible(false);
         planE.setVisible(true);
     }//GEN-LAST:event_delPlanBActionPerformed
-
-    private void addPlanBMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_addPlanBMouseEntered
-        // TODO add your handling code here:
-    }//GEN-LAST:event_addPlanBMouseEntered
-
-    private void addPlanBMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_addPlanBMouseExited
-        // TODO add your handling code here:
-    }//GEN-LAST:event_addPlanBMouseExited
 
     private void addPlanBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addPlanBActionPerformed
         // TODO add your handling code here:
@@ -1729,44 +1623,25 @@ public class AdminSide extends javax.swing.JFrame {
             String amount = premiosTablaA.getValueAt(i, 1).toString();
             premios.add(new Premio(cant,amount));
         }
-        if(nombre != "" && cantPremios>=3 && sorteo != "--"){
+        validaciones vals = new validaciones();
+        String errors = vals.validatePlan(nombre, sorteo, premios);
+        if(errors.equals("")){
             planesBDCon conector = new planesBDCon();
             conector.addPlan(nombre, sorteo, premios);
             fillPlanes();
         }
+        else{
+            JOptionPane.showMessageDialog(null,errors, "Error en los datos ingresados", JOptionPane.INFORMATION_MESSAGE);
+        }
     }//GEN-LAST:event_btnCrearPlanActionPerformed
-
-    private void jButton7MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton7MouseEntered
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton7MouseEntered
-
-    private void jButton7MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton7MouseExited
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton7MouseExited
 
     private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton7ActionPerformed
 
-    private void jButton8MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton8MouseEntered
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton8MouseEntered
-
-    private void jButton8MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton8MouseExited
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton8MouseExited
-
     private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton8ActionPerformed
-
-    private void jButton2MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton2MouseEntered
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton2MouseEntered
-
-    private void jButton2MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton2MouseExited
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton2MouseExited
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         sorteoPanel.setVisible(false);
@@ -1792,14 +1667,6 @@ public class AdminSide extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton9ActionPerformed
 
-    private void jButton13MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton13MouseEntered
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton13MouseEntered
-
-    private void jButton13MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton13MouseExited
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton13MouseExited
-
     private void jButton13ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton13ActionPerformed
         InicioAdmin secondForm = new InicioAdmin();
         secondForm.show();
@@ -1808,25 +1675,18 @@ public class AdminSide extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton13ActionPerformed
 
     private void btnAddSorteoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddSorteoActionPerformed
+        sorteoAddErr.setText("");
         validaciones vals = new validaciones();
-        if(vals.isDateValid(sorteoAddDay.getText(), sorteoAddMonth.getText(), sorteoAddYear.getText())){
+        String errors = vals.validateSorteo(sorteoAddName.getText(),sorteoAddType.getSelectedItem().toString(),sorteoAddDay.getText(), sorteoAddMonth.getText(), sorteoAddYear.getText(),sorteoAddPrice.getText(),sorteoAddFracc.getText());
+        if(errors.equals("")){
             String date = sorteoAddYear.getText()+"-"+ sorteoAddMonth.getText()+"-"+ sorteoAddDay.getText();
-            if(vals.checkIfInt(sorteoAddPrice.getText())){
-                if(vals.checkIfInt(sorteoAddFracc.getText())){
-                    sorteoBDCon connector = new sorteoBDCon();
-                    connector.addSorteo(sorteoAddName.getText(), date, "1", sorteoAddPrice.getText(), "1", sorteoAddFracc.getText());
-                    fillSorteos();
-                }
-                else{
-                    System.out.println("Error Fraccs");
-                }
-            }
-            else{
-                System.out.println("Error Price");
-            }
+            sorteoBDCon connector = new sorteoBDCon();
+            connector.addSorteo(sorteoAddName.getText(), date, sorteoAddType.getSelectedItem().toString(), sorteoAddPrice.getText(), "1", sorteoAddFracc.getText());
+            fillSorteos();
         }
         else{
-            System.out.println("Error Date");
+            JOptionPane.showMessageDialog(null,errors, "Error en los datos ingresados", JOptionPane.INFORMATION_MESSAGE);
+            //sorteoAddErr.setText("Error Date");
         }
     }//GEN-LAST:event_btnAddSorteoActionPerformed
 
@@ -1846,22 +1706,23 @@ public class AdminSide extends javax.swing.JFrame {
 
     private void btnModSorteoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModSorteoActionPerformed
         validaciones vals = new validaciones();
-        if(vals.isDateValid(sorteoModDay.getText(), sorteoModMonth.getText(), sorteoModYear.getText()) && vals.checkIfInt(sorteoModPrice.getText()) && vals.checkIfInt(sorteoModFracc.getText())){
+        String errors = vals.validateSorteo(sorteoModName.getText(),sorteoModType.getText(),sorteoModDay.getText(), sorteoModMonth.getText(), sorteoModYear.getText(),sorteoModPrice.getText(),sorteoModFracc.getText());
+        if(errors.equals("")){
             String date = sorteoModYear.getText()+"-"+ sorteoModMonth.getText()+"-"+ sorteoModDay.getText();
             int column = 0;
             int row = sorteoTablaM.getSelectedRow();
             if(row>=0){
                 String value = sorteoTablaM.getModel().getValueAt(row, column).toString();
                 sorteoBDCon connector = new sorteoBDCon();
-                connector.modifySorteo(value,sorteoModName.getText(), date, "1", sorteoModPrice.getText(), sorteoModFracc.getText());
+                connector.modifySorteo(value,sorteoModName.getText(), date, sorteoModType.getText(), sorteoModPrice.getText(), sorteoModFracc.getText());
                 fillSorteos();
             }
             else{
-                System.out.println("Error Seleccion");
+                JOptionPane.showMessageDialog(null,"No se tiene seleccionado un sorteo", "Error de seleccion", JOptionPane.INFORMATION_MESSAGE);
             }
         }
         else{
-            System.out.println("Error Date");
+            JOptionPane.showMessageDialog(null,errors, "Error en los datos ingresados", JOptionPane.INFORMATION_MESSAGE);
         }
     }//GEN-LAST:event_btnModSorteoActionPerformed
 
@@ -2054,6 +1915,7 @@ public class AdminSide extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel40;
     private javax.swing.JLabel jLabel41;
+    private javax.swing.JLabel jLabel42;
     private javax.swing.JLabel jLabel46;
     private javax.swing.JLabel jLabel47;
     private javax.swing.JLabel jLabel48;
@@ -2097,7 +1959,10 @@ public class AdminSide extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel86;
     private javax.swing.JLabel jLabel87;
     private javax.swing.JLabel jLabel88;
+    private javax.swing.JLabel jLabel89;
     private javax.swing.JLabel jLabel9;
+    private javax.swing.JLabel jLabel90;
+    private javax.swing.JLabel jLabel91;
     private javax.swing.JLabel jLabel98;
     private javax.swing.JLabel jLabel99;
     private javax.swing.JScrollPane jScrollPane1;
@@ -2128,6 +1993,7 @@ public class AdminSide extends javax.swing.JFrame {
     private javax.swing.JPanel planM;
     private javax.swing.JLabel planModName;
     private javax.swing.JLabel planModNum;
+    private javax.swing.JLabel planModOldNum;
     private javax.swing.JPanel planPanel;
     private javax.swing.JTable planSorteoTablaA;
     private javax.swing.JTable planSorteoTablaM;
@@ -2144,6 +2010,7 @@ public class AdminSide extends javax.swing.JFrame {
     private javax.swing.JPanel reportPanel;
     private javax.swing.JPanel sorteoA;
     private javax.swing.JTextField sorteoAddDay;
+    private javax.swing.JLabel sorteoAddErr;
     private javax.swing.JTextField sorteoAddFracc;
     private javax.swing.JTextField sorteoAddMonth;
     private javax.swing.JTextField sorteoAddName;
@@ -2157,7 +2024,7 @@ public class AdminSide extends javax.swing.JFrame {
     private javax.swing.JTextField sorteoModMonth;
     private javax.swing.JTextField sorteoModName;
     private javax.swing.JTextField sorteoModPrice;
-    private javax.swing.JComboBox<String> sorteoModType;
+    private javax.swing.JLabel sorteoModType;
     private javax.swing.JTextField sorteoModYear;
     private javax.swing.JPanel sorteoPanel;
     private javax.swing.JTable sorteoTablaA;

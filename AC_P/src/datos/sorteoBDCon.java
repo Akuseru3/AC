@@ -22,6 +22,10 @@ public class sorteoBDCon {
     public int addSorteo(String name,String date,String type,String price,String state,String fracCant){        
         try{
             Statement st = cn.createStatement();
+            if(type.equals("Chances"))
+                type = "1";
+            else
+                type = "2";
             ResultSet rs = st.executeQuery("call createSorteo('"+name+"','"+date+"',"+type+","+price+","+state+","+fracCant+")");
             System.out.println(rs);
             return 1;
@@ -31,22 +35,22 @@ public class sorteoBDCon {
         }
     }
     
-    public DefaultTableModel getSorteos(String filter){
+    public DefaultTableModel getSorteos(String[] filter){
         String[] columnNames = {"Número", "Nombre", "Tipo","Fracciones","Precio","Fecha"};
         DefaultTableModel tableModel = new DefaultTableModel(columnNames, 0);
         try{
             Statement st = cn.createStatement();
             ResultSet rs;
-            if(filter == ""){
-                rs = st.executeQuery("select * from sorteos;");
-            }
-            else{
-                rs = st.executeQuery("select * from sorteos where estadoSorteo = "+filter+";");
-            }
+            String query = generateQuery(filter);
+            rs = st.executeQuery(query);
             while (rs.next()) {
                 String num = rs.getString("idSorteo");
                 String name = rs.getString("nombre");
                 String type = rs.getString("tipoSorteo");
+                if(type.equals("2"))
+                    type = "Loteria";
+                else
+                    type = "Chances";
                 String fracc = rs.getString("cantidadFracciones");
                 String price = rs.getString("precioSorteo");
                 String date = rs.getString("fechaSorteo");
@@ -64,10 +68,19 @@ public class sorteoBDCon {
         }
     }
     
+    private String generateQuery(String[] filters){
+        String query = "select * from sorteos where estadoSorteo = "+filters[0];
+        for(int i = 1; i<filters.length;i++){
+            query+= " or estadoSorteo = "+filters[i];
+        }
+        query+=" ;";
+        return query;
+    }
+    
     public int deleteSorteo(String num){        
         try{
             Statement st = cn.createStatement();
-            ResultSet rs = st.executeQuery("call deleteSorteo("+num+")");
+            ResultSet rs = st.executeQuery("call deleteSorteo('"+num+"')");
             System.out.println(rs);
             return 1;
         }catch(SQLException ex){
@@ -78,8 +91,12 @@ public class sorteoBDCon {
     
     public int modifySorteo(String id,String name,String date,String type,String price,String fracCant){        
         try{
+            if(type.equals("Chances"))
+                type = "1";
+            else
+                type = "2";
             Statement st = cn.createStatement();
-            ResultSet rs = st.executeQuery("call updateSorteo("+id+",'"+name+"','"+date+"',"+type+","+price+","+fracCant+")");
+            ResultSet rs = st.executeQuery("call updateSorteo('"+id+"','"+name+"','"+date+"',"+type+","+price+","+fracCant+")");
             System.out.println(rs);
             return 1;
         }catch(SQLException ex){
