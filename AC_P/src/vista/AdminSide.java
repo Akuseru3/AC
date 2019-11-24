@@ -17,6 +17,7 @@ import javax.swing.JOptionPane;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
 
 /**
  *
@@ -72,36 +73,44 @@ public class AdminSide extends javax.swing.JFrame {
         sorteoA.setVisible(false);
         sorteoM.setVisible(false);
         sorteoE.setVisible(false);
+        setFonts();
         fillSorteos();
         fillPlanes();
     }
     
-    public void fillSorteos(){
+    private void setFonts(){
         sorteoTablaE.setFont(new Font("Segoe UI", Font.PLAIN, 12));
         sorteoTablaM.setFont(new Font("Segoe UI", Font.PLAIN, 12));
         sorteoTablaA.setFont(new Font("Segoe UI", Font.PLAIN, 12));
         planSorteoTablaA.setFont(new Font("Segoe UI", Font.PLAIN, 12));
         planSorteoTablaM.setFont(new Font("Segoe UI", Font.PLAIN, 12));
+        sorteoPlayTable.setFont(new Font("Segoe UI", Font.PLAIN, 12));
+        loteriaTable.setFont(new Font("Segoe UI", Font.PLAIN, 12));
+        chanceTable.setFont(new Font("Segoe UI", Font.PLAIN, 12));
+        winnerTable.setFont(new Font("Segoe UI", Font.PLAIN, 12));
+    }
+    
+    public void fillSorteos(){
         SorteoBDManager connector = new SorteoBDManager();
         String[] required = {"1","2"};
-        DefaultTableModel modelo = connector.getSorteos(required);
+        DefaultTableModel modelo = connector.getSorteos(required,"");
         sorteoTablaE.setModel(modelo);
         sorteoTablaM.setModel(modelo);
         sorteoTablaA.setModel(modelo);
         required = new String[]{"1"};
-        modelo = connector.getSorteos(required);
+        modelo = connector.getSorteos(required,"");
         planSorteoTablaA.setModel(modelo);
         planSorteoTablaM.setModel(modelo);
-        required = new String[]{"2"};
-        modelo = connector.getSorteos(required);
+        modelo = connector.getPlanInnSorteo();
         sorteoPlayTable.setModel(modelo);
-        /*sorteoTablaE.repaint();
-        sorteoTablaM.repaint();
-        sorteoTablaA.repaint();*/
+        required = new String[]{"3"};
+        modelo = connector.getSorteos(required,"1");
+        chanceTable.setModel(modelo);
+        modelo = connector.getSorteos(required,"2");
+        loteriaTable.setModel(modelo);
     }
     
     public void fillPlanes(){
-        planesTablaE.setFont(new Font("Segoe UI", Font.PLAIN, 12));
         PlanBDManager connector = new PlanBDManager();
         DefaultTableModel modelo = connector.getPlanes("1");
         planesTablaE.setModel(modelo);
@@ -151,9 +160,9 @@ public class AdminSide extends javax.swing.JFrame {
         jButton7 = new javax.swing.JButton();
         jButton8 = new javax.swing.JButton();
         jScrollPane10 = new javax.swing.JScrollPane();
-        jTable8 = new javax.swing.JTable();
+        chanceTable = new javax.swing.JTable();
         jScrollPane9 = new javax.swing.JScrollPane();
-        jTable7 = new javax.swing.JTable();
+        loteriaTable = new javax.swing.JTable();
         jLabel64 = new javax.swing.JLabel();
         jLabel65 = new javax.swing.JLabel();
         jLabel98 = new javax.swing.JLabel();
@@ -497,7 +506,7 @@ public class AdminSide extends javax.swing.JFrame {
         winnerTable.setRowHeight(24);
         jScrollPane14.setViewportView(winnerTable);
 
-        panelInGame.add(jScrollPane14, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 270, 240, 180));
+        panelInGame.add(jScrollPane14, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 270, 270, 180));
 
         startSorteoPanel.add(panelInGame, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 100, 500, 470));
 
@@ -606,8 +615,8 @@ public class AdminSide extends javax.swing.JFrame {
         });
         reportPanel.add(jButton8, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 500, 160, 50));
 
-        jTable8.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jTable8.setModel(new javax.swing.table.DefaultTableModel(
+        chanceTable.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        chanceTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null},
                 {null, null, null, null, null},
@@ -627,13 +636,13 @@ public class AdminSide extends javax.swing.JFrame {
                 "Numero de sorteo", "Nombre de sorteo", "Cantidad de fracciones", "Precio", "Fecha"
             }
         ));
-        jTable8.setRowHeight(24);
-        jScrollPane10.setViewportView(jTable8);
+        chanceTable.setRowHeight(24);
+        jScrollPane10.setViewportView(chanceTable);
 
         reportPanel.add(jScrollPane10, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 140, 490, 340));
 
-        jTable7.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jTable7.setModel(new javax.swing.table.DefaultTableModel(
+        loteriaTable.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        loteriaTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null},
                 {null, null, null, null, null},
@@ -653,8 +662,8 @@ public class AdminSide extends javax.swing.JFrame {
                 "Numero de sorteo", "Nombre de sorteo", "Cantidad de fracciones", "Precio", "Fecha"
             }
         ));
-        jTable7.setRowHeight(24);
-        jScrollPane9.setViewportView(jTable7);
+        loteriaTable.setRowHeight(24);
+        jScrollPane9.setViewportView(loteriaTable);
 
         reportPanel.add(jScrollPane9, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 140, 490, 340));
 
@@ -1620,7 +1629,7 @@ public class AdminSide extends javax.swing.JFrame {
     private void btnCrearPlanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCrearPlanActionPerformed
         String nombre = planAddName.getText();
         String sorteo = planAddNum.getText();
-        ArrayList<Premio> premios = Premio.getTablePrices(premiosTablaA);
+        ArrayList<Premio> premios = Premio.getTablePrices(premiosTablaA.getModel());
         String errors = Validate.validatePlan(nombre, sorteo, premios);
         if(errors.equals("")){
             PlanBDManager conector = new PlanBDManager();
@@ -1651,6 +1660,17 @@ public class AdminSide extends javax.swing.JFrame {
     private void btnPlayGameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPlayGameActionPerformed
         panelInGame.setVisible(true);
         infoMess.setForeground(Color.white);
+        int row = sorteoPlayTable.getSelectedRow();
+        if(row>=0){
+            String idSort = sorteoPlayTable.getModel().getValueAt(row, 0).toString();
+            String value = sorteoPlayTable.getModel().getValueAt(row, 5).toString();
+            PlanBDManager connector = new PlanBDManager();
+            ArrayList<Premio> prices = Premio.getTablePrices(connector.getPremios(value));
+            winnerTable.setModel(Premio.generateWinners(idSort,prices));
+        }
+        else{
+            JOptionPane.showMessageDialog(null,"Se debe seleccionar un sorteo de la tabla para jugar", "Error de seleccion", JOptionPane.INFORMATION_MESSAGE);
+        }
     }//GEN-LAST:event_btnPlayGameActionPerformed
 
     private void jButton9MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton9MouseEntered
@@ -1775,7 +1795,7 @@ public class AdminSide extends javax.swing.JFrame {
         String nombre = planModName.getText();
         String sorteo = planModNum.getText();
         String oldSorteo = planModOldNum.getText();
-        ArrayList<Premio> premios = Premio.getTablePrices(premiosTablaM);
+        ArrayList<Premio> premios = Premio.getTablePrices(premiosTablaM.getModel());
         String errors = Validate.validatePlan(nombre, sorteo, premios);
         if(errors.equals("")){
             PlanBDManager conector = new PlanBDManager();
@@ -1863,6 +1883,7 @@ public class AdminSide extends javax.swing.JFrame {
     private javax.swing.JButton btnPlayGame;
     private javax.swing.JButton btnSelectSorteo;
     private javax.swing.JButton btnSelectSorteoM;
+    private javax.swing.JTable chanceTable;
     private javax.swing.JButton delPlanB;
     private javax.swing.JButton delSortB;
     private javax.swing.JLabel infoMess;
@@ -1977,8 +1998,7 @@ public class AdminSide extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane9;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
-    private javax.swing.JTable jTable7;
-    private javax.swing.JTable jTable8;
+    private javax.swing.JTable loteriaTable;
     private javax.swing.JButton modSortB;
     private javax.swing.JPanel panelInGame;
     private javax.swing.JPanel planA;
