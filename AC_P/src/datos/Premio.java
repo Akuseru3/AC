@@ -47,6 +47,7 @@ public class Premio {
         String[] columnNames = {"Numero","Serie","Premio"};
         DefaultTableModel tableModel = new DefaultTableModel(columnNames, 0);
         SorteoBDManager connector = new SorteoBDManager();
+        connector.jugarSorteo(sorteo);
         for(Premio temp:premios){
             int cant = Validate.toInt(temp.cantidad);
             for(int i = 0;i<cant;i++){

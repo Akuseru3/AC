@@ -62,10 +62,18 @@ public class AdminSide extends javax.swing.JFrame {
                 }
             }
         });
+        setVisibility();
+        setFonts();
+        fillSorteos();
+        fillPlanes();
+    }
+    
+    private void setVisibility(){
         sorteoPanel.setVisible(true);
         startSorteoPanel.setVisible(false);
         panelInGame.setVisible(false);
         planPanel.setVisible(false);
+        reportInfoPanel.setVisible(false);
         reportPanel.setVisible(false);
         planA.setVisible(false);
         planM.setVisible(false);
@@ -73,9 +81,6 @@ public class AdminSide extends javax.swing.JFrame {
         sorteoA.setVisible(false);
         sorteoM.setVisible(false);
         sorteoE.setVisible(false);
-        setFonts();
-        fillSorteos();
-        fillPlanes();
     }
     
     private void setFonts(){
@@ -103,10 +108,9 @@ public class AdminSide extends javax.swing.JFrame {
         planSorteoTablaM.setModel(modelo);
         modelo = connector.getPlanInnSorteo();
         sorteoPlayTable.setModel(modelo);
-        required = new String[]{"3"};
-        modelo = connector.getSorteos(required,"1");
+        modelo = connector.getPlanInnSorteoType("1");
         chanceTable.setModel(modelo);
-        modelo = connector.getSorteos(required,"2");
+        modelo = connector.getPlanInnSorteoType("2");
         loteriaTable.setModel(modelo);
     }
     
@@ -114,6 +118,21 @@ public class AdminSide extends javax.swing.JFrame {
         PlanBDManager connector = new PlanBDManager();
         DefaultTableModel modelo = connector.getPlanes("1");
         planesTablaE.setModel(modelo);
+    }
+    
+    private void reportGenerator(String idSorteo,String name,String type,String price,String date,String plan,String total){
+        reportTitle.setText("Reporte del sorteo N. "+idSorteo);
+        reportCode.setText("Codigo: "+idSorteo);
+        reportName.setText("Nombre: "+name);
+        reportType.setText("Tipo: "+type);
+        reportPrice.setText("Precio: "+price);
+        reportDate.setText("Fecha del sorteo: "+date);
+        reportPlan.setText("Plan de Premios: "+plan);
+        reportTotal.setText("Total de premios: "+total);
+        PlanBDManager planM = new PlanBDManager();
+        reportPremioTable.setModel(planM.getPremios(plan));
+        SorteoBDManager sortM = new SorteoBDManager();
+        reportWinnerTable.setModel(sortM.getWinners(idSorteo));
     }
 
     /**
@@ -155,10 +174,28 @@ public class AdminSide extends javax.swing.JFrame {
         sorteoPlayTable = new javax.swing.JTable();
         jLabel70 = new javax.swing.JLabel();
         jLabel101 = new javax.swing.JLabel();
-        jButton9 = new javax.swing.JButton();
+        reportInfoPanel = new javax.swing.JPanel();
+        jScrollPane5 = new javax.swing.JScrollPane();
+        reportPremioTable = new javax.swing.JTable();
+        jScrollPane4 = new javax.swing.JScrollPane();
+        reportWinnerTable = new javax.swing.JTable();
+        reportType = new javax.swing.JLabel();
+        reportDate = new javax.swing.JLabel();
+        reportName = new javax.swing.JLabel();
+        jLabel44 = new javax.swing.JLabel();
+        reportPlan = new javax.swing.JLabel();
+        reportPrice = new javax.swing.JLabel();
+        jLabel45 = new javax.swing.JLabel();
+        reportCode = new javax.swing.JLabel();
+        jButton11 = new javax.swing.JButton();
+        reportTitle = new javax.swing.JLabel();
+        jLabel102 = new javax.swing.JLabel();
+        reportTotal = new javax.swing.JLabel();
+        jLabel94 = new javax.swing.JLabel();
+        jLabel103 = new javax.swing.JLabel();
         reportPanel = new javax.swing.JPanel();
-        jButton7 = new javax.swing.JButton();
-        jButton8 = new javax.swing.JButton();
+        btnGenerateReportC = new javax.swing.JButton();
+        btnGenerateReportL = new javax.swing.JButton();
         jScrollPane10 = new javax.swing.JScrollPane();
         chanceTable = new javax.swing.JTable();
         jScrollPane9 = new javax.swing.JScrollPane();
@@ -560,60 +597,142 @@ public class AdminSide extends javax.swing.JFrame {
         jLabel101.setOpaque(true);
         startSorteoPanel.add(jLabel101, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 60, 1100, 520));
 
-        jButton9.setBackground(new java.awt.Color(21, 57, 90));
-        jButton9.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
-        jButton9.setForeground(new java.awt.Color(255, 255, 255));
-        jButton9.setText("REPORTES");
-        jButton9.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(21, 41, 65), 1, true));
-        jButton9.setContentAreaFilled(false);
-        jButton9.setFocusPainted(false);
-        jButton9.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                jButton9MouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                jButton9MouseExited(evt);
-            }
-        });
-        jButton9.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton9ActionPerformed(evt);
-            }
-        });
-        startSorteoPanel.add(jButton9, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 100, 130, 50));
-
         getContentPane().add(startSorteoPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 160, 1260, 640));
+
+        reportInfoPanel.setOpaque(false);
+        reportInfoPanel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        reportPremioTable.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        jScrollPane5.setViewportView(reportPremioTable);
+
+        reportInfoPanel.add(jScrollPane5, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 120, 530, 370));
+
+        reportWinnerTable.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        jScrollPane4.setViewportView(reportWinnerTable);
+
+        reportInfoPanel.add(jScrollPane4, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 300, 400, 250));
+
+        reportType.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        reportType.setText("Tipo");
+        reportInfoPanel.add(reportType, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 130, -1, -1));
+
+        reportDate.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        reportDate.setText("Fecha del Sorteo");
+        reportInfoPanel.add(reportDate, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 190, -1, -1));
+
+        reportName.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        reportName.setText("Nombre");
+        reportInfoPanel.add(reportName, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 100, -1, -1));
+
+        jLabel44.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jLabel44.setText("Ganadores");
+        reportInfoPanel.add(jLabel44, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 265, -1, 30));
+
+        reportPlan.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        reportPlan.setText("Plan de Premios");
+        reportInfoPanel.add(reportPlan, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 220, -1, -1));
+
+        reportPrice.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        reportPrice.setText("Precio");
+        reportInfoPanel.add(reportPrice, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 160, -1, -1));
+
+        jLabel45.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jLabel45.setText("Premios");
+        reportInfoPanel.add(jLabel45, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 90, 200, -1));
+
+        reportCode.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        reportCode.setText("Codigo");
+        reportInfoPanel.add(reportCode, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 70, -1, -1));
+
+        jButton11.setBackground(new java.awt.Color(21, 57, 90));
+        jButton11.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
+        jButton11.setForeground(new java.awt.Color(255, 255, 255));
+        jButton11.setText("VOLVER");
+        jButton11.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(21, 41, 65)));
+        jButton11.setBorderPainted(false);
+        jButton11.setFocusPainted(false);
+        jButton11.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton11ActionPerformed(evt);
+            }
+        });
+        reportInfoPanel.add(jButton11, new org.netbeans.lib.awtextra.AbsoluteConstraints(1040, 540, 120, 30));
+
+        reportTitle.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        reportTitle.setForeground(new java.awt.Color(255, 255, 255));
+        reportTitle.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        reportTitle.setText("Chances");
+        reportInfoPanel.add(reportTitle, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 20, 1100, 30));
+
+        jLabel102.setBackground(new java.awt.Color(255, 51, 51));
+        jLabel102.setOpaque(true);
+        reportInfoPanel.add(jLabel102, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 20, 1100, 40));
+
+        reportTotal.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        reportTotal.setText("Total de Premios");
+        reportInfoPanel.add(reportTotal, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 490, 530, 40));
+
+        jLabel94.setBackground(new java.awt.Color(204, 204, 204));
+        jLabel94.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jLabel94.setOpaque(true);
+        reportInfoPanel.add(jLabel94, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 70, 420, 180));
+
+        jLabel103.setBackground(new java.awt.Color(255, 255, 255));
+        jLabel103.setOpaque(true);
+        reportInfoPanel.add(jLabel103, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 20, 1100, 560));
+
+        getContentPane().add(reportInfoPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 160, 1260, 640));
 
         reportPanel.setOpaque(false);
         reportPanel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jButton7.setBackground(new java.awt.Color(21, 57, 90));
-        jButton7.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
-        jButton7.setForeground(new java.awt.Color(255, 255, 255));
-        jButton7.setText("GENERAR REPORTE");
-        jButton7.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(21, 41, 65)));
-        jButton7.setBorderPainted(false);
-        jButton7.setFocusPainted(false);
-        jButton7.addActionListener(new java.awt.event.ActionListener() {
+        btnGenerateReportC.setBackground(new java.awt.Color(21, 57, 90));
+        btnGenerateReportC.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
+        btnGenerateReportC.setForeground(new java.awt.Color(255, 255, 255));
+        btnGenerateReportC.setText("GENERAR REPORTE");
+        btnGenerateReportC.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(21, 41, 65)));
+        btnGenerateReportC.setBorderPainted(false);
+        btnGenerateReportC.setFocusPainted(false);
+        btnGenerateReportC.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton7ActionPerformed(evt);
+                btnGenerateReportCActionPerformed(evt);
             }
         });
-        reportPanel.add(jButton7, new org.netbeans.lib.awtextra.AbsoluteConstraints(830, 500, 160, 50));
+        reportPanel.add(btnGenerateReportC, new org.netbeans.lib.awtextra.AbsoluteConstraints(830, 500, 160, 50));
 
-        jButton8.setBackground(new java.awt.Color(21, 57, 90));
-        jButton8.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
-        jButton8.setForeground(new java.awt.Color(255, 255, 255));
-        jButton8.setText("GENERAR REPORTE");
-        jButton8.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(21, 41, 65)));
-        jButton8.setBorderPainted(false);
-        jButton8.setFocusPainted(false);
-        jButton8.addActionListener(new java.awt.event.ActionListener() {
+        btnGenerateReportL.setBackground(new java.awt.Color(21, 57, 90));
+        btnGenerateReportL.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
+        btnGenerateReportL.setForeground(new java.awt.Color(255, 255, 255));
+        btnGenerateReportL.setText("GENERAR REPORTE");
+        btnGenerateReportL.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(21, 41, 65)));
+        btnGenerateReportL.setBorderPainted(false);
+        btnGenerateReportL.setFocusPainted(false);
+        btnGenerateReportL.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton8ActionPerformed(evt);
+                btnGenerateReportLActionPerformed(evt);
             }
         });
-        reportPanel.add(jButton8, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 500, 160, 50));
+        reportPanel.add(btnGenerateReportL, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 500, 160, 50));
 
         chanceTable.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         chanceTable.setModel(new javax.swing.table.DefaultTableModel(
@@ -639,7 +758,7 @@ public class AdminSide extends javax.swing.JFrame {
         chanceTable.setRowHeight(24);
         jScrollPane10.setViewportView(chanceTable);
 
-        reportPanel.add(jScrollPane10, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 140, 490, 340));
+        reportPanel.add(jScrollPane10, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 140, 530, 340));
 
         loteriaTable.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         loteriaTable.setModel(new javax.swing.table.DefaultTableModel(
@@ -665,7 +784,7 @@ public class AdminSide extends javax.swing.JFrame {
         loteriaTable.setRowHeight(24);
         jScrollPane9.setViewportView(loteriaTable);
 
-        reportPanel.add(jScrollPane9, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 140, 490, 340));
+        reportPanel.add(jScrollPane9, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 140, 530, 340));
 
         jLabel64.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel64.setForeground(new java.awt.Color(255, 255, 255));
@@ -1549,6 +1668,7 @@ public class AdminSide extends javax.swing.JFrame {
         planPanel.setVisible(true);
         reportPanel.setVisible(false);
         startSorteoPanel.setVisible(false);
+        reportInfoPanel.setVisible(false);
     }//GEN-LAST:event_jButton5ActionPerformed
 
     private void mouseChangeEnt(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mouseChangeEnt
@@ -1569,6 +1689,7 @@ public class AdminSide extends javax.swing.JFrame {
         planPanel.setVisible(false);
         reportPanel.setVisible(false);
         startSorteoPanel.setVisible(false);
+        reportInfoPanel.setVisible(false);
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
@@ -1576,6 +1697,7 @@ public class AdminSide extends javax.swing.JFrame {
         planPanel.setVisible(false);
         reportPanel.setVisible(true);
         startSorteoPanel.setVisible(false);
+        reportInfoPanel.setVisible(false);
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void delSortBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_delSortBActionPerformed
@@ -1642,19 +1764,35 @@ public class AdminSide extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnCrearPlanActionPerformed
 
-    private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton7ActionPerformed
+    private void btnGenerateReportCActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGenerateReportCActionPerformed
+        int row = chanceTable.getSelectedRow();
+        if(row>=0){
+            String idSort = chanceTable.getModel().getValueAt(row, 0).toString();
+            String nameSort = chanceTable.getModel().getValueAt(row, 1).toString();
+            String typeSort = chanceTable.getModel().getValueAt(row, 2).toString();
+            String priceSort = chanceTable.getModel().getValueAt(row, 3).toString();
+            String dateSort = chanceTable.getModel().getValueAt(row, 4).toString();
+            String idPlan = chanceTable.getModel().getValueAt(row, 5).toString();
+            String planTotal = chanceTable.getModel().getValueAt(row, 6).toString();
+            reportGenerator(idSort,nameSort,typeSort,priceSort,dateSort,idPlan,planTotal);
+            reportPanel.setVisible(false);
+            reportInfoPanel.setVisible(true);
+        }
+        else{
+            JOptionPane.showMessageDialog(null,"Se debe seleccionar un sorteo de la tabla para jugar", "Error de seleccion", JOptionPane.INFORMATION_MESSAGE);
+        }
+    }//GEN-LAST:event_btnGenerateReportCActionPerformed
 
-    private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton8ActionPerformed
+    private void btnGenerateReportLActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGenerateReportLActionPerformed
+        
+    }//GEN-LAST:event_btnGenerateReportLActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         sorteoPanel.setVisible(false);
         planPanel.setVisible(false);
         reportPanel.setVisible(false);
         startSorteoPanel.setVisible(true);
+        reportInfoPanel.setVisible(false);
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void btnPlayGameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPlayGameActionPerformed
@@ -1667,23 +1805,12 @@ public class AdminSide extends javax.swing.JFrame {
             PlanBDManager connector = new PlanBDManager();
             ArrayList<Premio> prices = Premio.getTablePrices(connector.getPremios(value));
             winnerTable.setModel(Premio.generateWinners(idSort,prices));
+            fillSorteos();
         }
         else{
             JOptionPane.showMessageDialog(null,"Se debe seleccionar un sorteo de la tabla para jugar", "Error de seleccion", JOptionPane.INFORMATION_MESSAGE);
         }
     }//GEN-LAST:event_btnPlayGameActionPerformed
-
-    private void jButton9MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton9MouseEntered
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton9MouseEntered
-
-    private void jButton9MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton9MouseExited
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton9MouseExited
-
-    private void jButton9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton9ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton9ActionPerformed
 
     private void jButton13ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton13ActionPerformed
         InicioAdmin secondForm = new InicioAdmin();
@@ -1827,6 +1954,11 @@ public class AdminSide extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnGoModPlanActionPerformed
 
+    private void jButton11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton11ActionPerformed
+        reportPanel.setVisible(true);
+        reportInfoPanel.setVisible(false);
+    }//GEN-LAST:event_jButton11ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -1877,6 +2009,8 @@ public class AdminSide extends javax.swing.JFrame {
     private javax.swing.JButton btnEliminarPlan;
     private javax.swing.JButton btnEliminarPremio;
     private javax.swing.JButton btnEliminarPremioM;
+    private javax.swing.JButton btnGenerateReportC;
+    private javax.swing.JButton btnGenerateReportL;
     private javax.swing.JButton btnGoModPlan;
     private javax.swing.JButton btnModPlan;
     private javax.swing.JButton btnModSorteo;
@@ -1888,17 +2022,17 @@ public class AdminSide extends javax.swing.JFrame {
     private javax.swing.JButton delSortB;
     private javax.swing.JLabel infoMess;
     private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton11;
     private javax.swing.JButton jButton13;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
-    private javax.swing.JButton jButton7;
-    private javax.swing.JButton jButton8;
-    private javax.swing.JButton jButton9;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel100;
     private javax.swing.JLabel jLabel101;
+    private javax.swing.JLabel jLabel102;
+    private javax.swing.JLabel jLabel103;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
@@ -1934,6 +2068,8 @@ public class AdminSide extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel40;
     private javax.swing.JLabel jLabel41;
     private javax.swing.JLabel jLabel42;
+    private javax.swing.JLabel jLabel44;
+    private javax.swing.JLabel jLabel45;
     private javax.swing.JLabel jLabel46;
     private javax.swing.JLabel jLabel47;
     private javax.swing.JLabel jLabel48;
@@ -1981,6 +2117,7 @@ public class AdminSide extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel9;
     private javax.swing.JLabel jLabel90;
     private javax.swing.JLabel jLabel91;
+    private javax.swing.JLabel jLabel94;
     private javax.swing.JLabel jLabel98;
     private javax.swing.JLabel jLabel99;
     private javax.swing.JScrollPane jScrollPane1;
@@ -1993,6 +2130,8 @@ public class AdminSide extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane16;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JScrollPane jScrollPane4;
+    private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JScrollPane jScrollPane7;
     private javax.swing.JScrollPane jScrollPane8;
     private javax.swing.JScrollPane jScrollPane9;
@@ -2022,7 +2161,18 @@ public class AdminSide extends javax.swing.JFrame {
     private javax.swing.JTable premiosTablaA;
     private javax.swing.JTable premiosTablaE;
     private javax.swing.JTable premiosTablaM;
+    private javax.swing.JLabel reportCode;
+    private javax.swing.JLabel reportDate;
+    private javax.swing.JPanel reportInfoPanel;
+    private javax.swing.JLabel reportName;
     private javax.swing.JPanel reportPanel;
+    private javax.swing.JLabel reportPlan;
+    private javax.swing.JTable reportPremioTable;
+    private javax.swing.JLabel reportPrice;
+    private javax.swing.JLabel reportTitle;
+    private javax.swing.JLabel reportTotal;
+    private javax.swing.JLabel reportType;
+    private javax.swing.JTable reportWinnerTable;
     private javax.swing.JPanel sorteoA;
     private javax.swing.JTextField sorteoAddDay;
     private javax.swing.JLabel sorteoAddErr;

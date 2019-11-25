@@ -104,13 +104,14 @@ public class PlanBDManager {
         String[] columnNames = {"Cantidad", "Ganancia"};
         DefaultTableModel tableModel = new DefaultTableModel(columnNames, 0);
         try(Statement st = cn.createStatement();
-            ResultSet rs = st.executeQuery("select * from premios where planAsociado='"+name+"' order by gananciaPremio ASC;");
+            ResultSet rs = st.executeQuery("select * from premios where planAsociado='"+name+"' order by gananciaPremio DESC;");
         ){
             while (rs.next()) {
                 String cant = rs.getString("cantidadPremios");
                 String amount = rs.getString("gananciaPremio");
+                double win = Double.parseDouble(amount);
 
-                String[] data = { cant, amount} ;
+                String[] data = { cant, String.format ("%.1f", win)} ;
                 tableModel.addRow(data);
             }
             return tableModel;

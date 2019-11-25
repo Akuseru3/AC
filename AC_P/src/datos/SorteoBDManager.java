@@ -39,7 +39,22 @@ public class SorteoBDManager {
         try(Statement st = cn.createStatement();
             ResultSet rs = st.executeQuery("select sorteos.idSorteo, sorteos.nombre,sorteos.tipoSorteo,sorteos.precioSorteo,sorteos.fechaSorteo,planPremios.nombrePlan ,planPremios.totalPremios from sorteos \n" +
                                             "inner join planPremios on sorteos.idSorteo = planPremios.numeroSorteo\n" +
-                                            "where sorteos.estadoSorteo = 2;");
+                                            "where sorteos.estadoSorteo = 2 ORDER BY fechaSorteo DESC;");
+        ){
+            return createPINSTable(rs);
+        }catch(SQLException ex){
+            System.out.println(ex);
+            return tableModel;
+        }
+    }
+    
+    public DefaultTableModel getPlanInnSorteoType(String type){
+        String[] columnNames = {"Número", "Nombre", "Tipo","Precio","Fecha"};
+        DefaultTableModel tableModel = new DefaultTableModel(columnNames, 0);
+        try(Statement st = cn.createStatement();
+            ResultSet rs = st.executeQuery("select sorteos.idSorteo, sorteos.nombre,sorteos.tipoSorteo,sorteos.precioSorteo,sorteos.fechaSorteo,planPremios.nombrePlan ,planPremios.totalPremios from sorteos \n" +
+                                            "inner join planPremios on sorteos.idSorteo = planPremios.numeroSorteo\n" +
+                                            "where sorteos.estadoSorteo = 3 and tipoSorteo="+type+" ORDER BY fechaSorteo DESC;");
         ){
             return createPINSTable(rs);
         }catch(SQLException ex){
@@ -88,22 +103,22 @@ public class SorteoBDManager {
         String[] columnNames = {"Número", "Nombre", "Tipo","Fracciones","Precio","Fecha"};
         DefaultTableModel tableModel = new DefaultTableModel(columnNames, 0);
         while (rs.next()) {
-                String num = rs.getString("idSorteo");
-                String name = rs.getString("nombre");
-                String type = rs.getString("tipoSorteo");
-                if(type.equals("2"))
-                    type = "Loteria";
-                else
-                    type = "Chances";
-                String fracc = rs.getString("cantidadFracciones");
-                String price = rs.getString("precioSorteo");
-                String date = rs.getString("fechaSorteo");
+            String num = rs.getString("idSorteo");
+            String name = rs.getString("nombre");
+            String type = rs.getString("tipoSorteo");
+            if(type.equals("2"))
+                type = "Loteria";
+            else
+                type = "Chances";
+            String fracc = rs.getString("cantidadFracciones");
+            String price = rs.getString("precioSorteo");
+            String date = rs.getString("fechaSorteo");
 
-                String[] data = { num, name, type, fracc, price, date} ;
+            String[] data = { num, name, type, fracc, price, date} ;
 
-                tableModel.addRow(data);
-            }
-            return tableModel;
+            tableModel.addRow(data);
+        }
+        return tableModel;
     }
     
     private String generateQuery(String[] filters,String type){
@@ -113,14 +128,25 @@ public class SorteoBDManager {
         }
         query+=" )";
         if(!type.equals(""))
-            query += "and estadoSorteo = "+type;
-        query+=" ;";
+            query += "and tipoSorteo = "+type;
+        query+=" ORDER BY fechaSorteo DESC;";
         return query;
     }
     
     public int deleteSorteo(String num){        
         try(Statement st = cn.createStatement();
             ResultSet rs = st.executeQuery("call deleteSorteo('"+num+"')");
+        ){
+            return 1;
+        }catch(SQLException ex){
+            System.out.println(ex);
+            return -1;
+        }
+    }
+    
+    public int jugarSorteo(String num){        
+        try(Statement st = cn.createStatement();
+            ResultSet rs = st.executeQuery("call jugarSorteo('"+num+"')");
         ){
             return 1;
         }catch(SQLException ex){
@@ -152,6 +178,28 @@ public class SorteoBDManager {
         }catch(SQLException ex){
             System.out.println(ex);
             return -1;
+        }
+    }
+    
+    public DefaultTableModel getWinners(String sorteo){
+        String[] columnNames = {"Numero", "Serie", "Premio"};
+        DefaultTableModel tableModel = new DefaultTableModel(columnNames, 0);
+        try(Statement st = cn.createStatement();
+            ResultSet rs = st.executeQuery("select numeroFraccion, serieFraccion, cantidadPremio from ganadores where numeroSorteo = '"+sorteo+"';");
+        ){
+            while (rs.next()) {
+                String name = rs.getString("numeroFraccion");
+                String type = rs.getString("serieFraccion");
+                String fracc = rs.getString("cantidadPremio");
+                double win = Double.parseDouble(fracc);
+                String[] data = {name, type, String.format ("%.1f", win)} ;
+
+                tableModel.addRow(data);
+            }
+            return tableModel;
+        }catch(SQLException ex){
+            System.out.println(ex);
+            return tableModel;
         }
     }
 }
