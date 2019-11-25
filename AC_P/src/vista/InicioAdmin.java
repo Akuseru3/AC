@@ -5,8 +5,11 @@
  */
 package vista;
 
+import datos.SorteoBDManager;
+import datos.Validate;
 import java.awt.Color;
 import java.awt.Cursor;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -22,6 +25,8 @@ public class InicioAdmin extends javax.swing.JFrame {
         homePanel.setVisible(true);
         checkPanel.setVisible(false);
         statPanel.setVisible(false);
+        winPanel.setVisible(false);
+        losePanel.setVisible(false);
     }
 
     /**
@@ -61,15 +66,38 @@ public class InicioAdmin extends javax.swing.JFrame {
         jSeparator2 = new javax.swing.JSeparator();
         jLabel99 = new javax.swing.JLabel();
         checkPanel = new javax.swing.JPanel();
+        losePanel = new javax.swing.JPanel();
+        btnVolverL = new javax.swing.JButton();
+        jLabel64 = new javax.swing.JLabel();
+        jLabel66 = new javax.swing.JLabel();
+        jLabel63 = new javax.swing.JLabel();
+        jLabel62 = new javax.swing.JLabel();
+        jLabel67 = new javax.swing.JLabel();
+        jLabel95 = new javax.swing.JLabel();
+        winPanel = new javax.swing.JPanel();
+        btnVolverW = new javax.swing.JButton();
+        jLabel72 = new javax.swing.JLabel();
+        jLabel68 = new javax.swing.JLabel();
+        jLabel65 = new javax.swing.JLabel();
+        winPremio = new javax.swing.JLabel();
+        winSerie = new javax.swing.JLabel();
+        winNum = new javax.swing.JLabel();
+        jLabel69 = new javax.swing.JLabel();
+        jLabel70 = new javax.swing.JLabel();
+        jLabel71 = new javax.swing.JLabel();
+        jLabel96 = new javax.swing.JLabel();
+        checkBillPanel = new javax.swing.JPanel();
+        jLabel61 = new javax.swing.JLabel();
+        tryFracc = new javax.swing.JTextField();
         jLabel53 = new javax.swing.JLabel();
         jLabel60 = new javax.swing.JLabel();
-        jTextField3 = new javax.swing.JTextField();
-        jComboBox1 = new javax.swing.JComboBox<>();
-        jButton2 = new javax.swing.JButton();
+        tryCode = new javax.swing.JTextField();
+        tryType = new javax.swing.JComboBox<>();
+        btnCheckNumbers = new javax.swing.JButton();
         jLabel51 = new javax.swing.JLabel();
         jLabel52 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
-        jTextField2 = new javax.swing.JTextField();
+        trySerie = new javax.swing.JTextField();
+        tryNum = new javax.swing.JTextField();
         jLabel50 = new javax.swing.JLabel();
         jLabel94 = new javax.swing.JLabel();
         homePanel = new javax.swing.JPanel();
@@ -357,48 +385,163 @@ public class InicioAdmin extends javax.swing.JFrame {
         checkPanel.setOpaque(false);
         checkPanel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        losePanel.setOpaque(false);
+        losePanel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        btnVolverL.setBackground(new java.awt.Color(255, 51, 51));
+        btnVolverL.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        btnVolverL.setForeground(new java.awt.Color(255, 255, 255));
+        btnVolverL.setText("VOLVER");
+        btnVolverL.setBorderPainted(false);
+        btnVolverL.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnVolverActionPerformed(evt);
+            }
+        });
+        losePanel.add(btnVolverL, new org.netbeans.lib.awtextra.AbsoluteConstraints(800, 480, 110, 30));
+
+        jLabel64.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jLabel64.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel64.setText("del sorteo ingresado.");
+        losePanel.add(jLabel64, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 260, 420, -1));
+
+        jLabel66.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/sad.gif"))); // NOI18N
+        losePanel.add(jLabel66, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 320, -1, -1));
+
+        jLabel63.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jLabel63.setText("El billete ingresado no ha ganado ningun premio");
+        losePanel.add(jLabel63, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 230, -1, -1));
+
+        jLabel62.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        jLabel62.setText("Lo sentimos...");
+        losePanel.add(jLabel62, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 190, -1, -1));
+
+        jLabel67.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
+        jLabel67.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel67.setText("Verificar Billete");
+        losePanel.add(jLabel67, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 10, -1, -1));
+
+        jLabel95.setBackground(new java.awt.Color(255, 255, 255));
+        jLabel95.setOpaque(true);
+        losePanel.add(jLabel95, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 110, 690, 410));
+
+        checkPanel.add(losePanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1140, 580));
+
+        winPanel.setOpaque(false);
+        winPanel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        btnVolverW.setBackground(new java.awt.Color(255, 51, 51));
+        btnVolverW.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        btnVolverW.setForeground(new java.awt.Color(255, 255, 255));
+        btnVolverW.setText("VOLVER");
+        btnVolverW.setBorderPainted(false);
+        btnVolverW.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnVolverActionPerformed(evt);
+            }
+        });
+        winPanel.add(btnVolverW, new org.netbeans.lib.awtextra.AbsoluteConstraints(800, 480, 110, 30));
+
+        jLabel72.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/firework.gif"))); // NOI18N
+        winPanel.add(jLabel72, new org.netbeans.lib.awtextra.AbsoluteConstraints(690, 290, 180, 160));
+
+        jLabel68.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/firework.gif"))); // NOI18N
+        winPanel.add(jLabel68, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 310, 180, 160));
+
+        jLabel65.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/danceMan.gif"))); // NOI18N
+        winPanel.add(jLabel65, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 340, 200, -1));
+
+        winPremio.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        winPremio.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        winPremio.setText("Tu premio es: ");
+        winPanel.add(winPremio, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 300, 490, -1));
+
+        winSerie.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        winSerie.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        winSerie.setText("Serie:");
+        winPanel.add(winSerie, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 240, 100, -1));
+
+        winNum.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        winNum.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        winNum.setText("Número:");
+        winPanel.add(winNum, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 240, 100, -1));
+
+        jLabel69.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jLabel69.setText("Tu billete es el ganador de un premio del sorteo ingresado");
+        winPanel.add(jLabel69, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 190, -1, -1));
+
+        jLabel70.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
+        jLabel70.setText("¡Felicidades!");
+        winPanel.add(jLabel70, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 130, -1, -1));
+
+        jLabel71.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
+        jLabel71.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel71.setText("Verificar Billete");
+        winPanel.add(jLabel71, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 10, -1, -1));
+
+        jLabel96.setBackground(new java.awt.Color(255, 255, 255));
+        jLabel96.setOpaque(true);
+        winPanel.add(jLabel96, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 110, 690, 410));
+
+        checkPanel.add(winPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1140, 580));
+
+        checkBillPanel.setOpaque(false);
+        checkBillPanel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel61.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jLabel61.setText("Fracciones:");
+        checkBillPanel.add(jLabel61, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 190, -1, -1));
+        checkBillPanel.add(tryFracc, new org.netbeans.lib.awtextra.AbsoluteConstraints(710, 190, 130, 30));
+
         jLabel53.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel53.setText("Número de Sorteo:");
-        checkPanel.add(jLabel53, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 190, -1, -1));
+        checkBillPanel.add(jLabel53, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 190, -1, -1));
 
         jLabel60.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel60.setText("Tipo de Sorteo:");
-        checkPanel.add(jLabel60, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 140, -1, -1));
-        checkPanel.add(jTextField3, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 190, 130, 30));
+        checkBillPanel.add(jLabel60, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 140, -1, -1));
+        checkBillPanel.add(tryCode, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 190, 130, 30));
 
-        jComboBox1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Lotería", "Chances" }));
-        checkPanel.add(jComboBox1, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 140, 130, 30));
+        tryType.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        tryType.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Lotería", "Chances" }));
+        checkBillPanel.add(tryType, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 140, 130, 30));
 
-        jButton2.setBackground(new java.awt.Color(255, 51, 51));
-        jButton2.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jButton2.setForeground(new java.awt.Color(255, 255, 255));
-        jButton2.setText("VERIFICAR");
-        jButton2.setBorderPainted(false);
-        checkPanel.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 430, 150, 40));
+        btnCheckNumbers.setBackground(new java.awt.Color(255, 51, 51));
+        btnCheckNumbers.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        btnCheckNumbers.setForeground(new java.awt.Color(255, 255, 255));
+        btnCheckNumbers.setText("VERIFICAR");
+        btnCheckNumbers.setBorderPainted(false);
+        btnCheckNumbers.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCheckNumbersActionPerformed(evt);
+            }
+        });
+        checkBillPanel.add(btnCheckNumbers, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 430, 150, 40));
 
         jLabel51.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel51.setText("Serie");
-        checkPanel.add(jLabel51, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 240, -1, -1));
+        checkBillPanel.add(jLabel51, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 240, -1, -1));
 
         jLabel52.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel52.setText("Número");
-        checkPanel.add(jLabel52, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 240, -1, -1));
+        checkBillPanel.add(jLabel52, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 240, -1, -1));
 
-        jTextField1.setFont(new java.awt.Font("Tahoma", 0, 48)); // NOI18N
-        checkPanel.add(jTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 270, 100, 100));
+        trySerie.setFont(new java.awt.Font("Tahoma", 0, 48)); // NOI18N
+        checkBillPanel.add(trySerie, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 270, 100, 100));
 
-        jTextField2.setFont(new java.awt.Font("Tahoma", 0, 48)); // NOI18N
-        checkPanel.add(jTextField2, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 270, 100, 100));
+        tryNum.setFont(new java.awt.Font("Tahoma", 0, 48)); // NOI18N
+        checkBillPanel.add(tryNum, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 270, 100, 100));
 
         jLabel50.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
         jLabel50.setForeground(new java.awt.Color(255, 255, 255));
         jLabel50.setText("Verificar Billete");
-        checkPanel.add(jLabel50, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 10, -1, -1));
+        checkBillPanel.add(jLabel50, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 10, -1, -1));
 
         jLabel94.setBackground(new java.awt.Color(255, 255, 255));
         jLabel94.setOpaque(true);
-        checkPanel.add(jLabel94, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 110, 690, 410));
+        checkBillPanel.add(jLabel94, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 110, 690, 410));
+
+        checkPanel.add(checkBillPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1140, 580));
 
         getContentPane().add(checkPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 160, 1140, 580));
 
@@ -592,6 +735,9 @@ public class InicioAdmin extends javax.swing.JFrame {
         checkPanel.setVisible(true);
         statPanel.setVisible(false);
         checkPanel.setBounds(60,160,1140,580);
+        winPanel.setVisible(false);
+        losePanel.setVisible(false);
+        checkBillPanel.setVisible(true);
     }//GEN-LAST:event_jButton5ActionPerformed
 
     private void jButton4MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton4MouseEntered
@@ -675,6 +821,33 @@ public class InicioAdmin extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_jButton12ActionPerformed
 
+    private void btnCheckNumbersActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCheckNumbersActionPerformed
+        SorteoBDManager manager = new SorteoBDManager();
+        String errors = Validate.validateCheck(tryCode.getText(), tryNum.getText(), trySerie.getText(), tryFracc.getText());
+        if(errors.equals("")){
+            double amount = manager.checkWin(tryCode.getText(), tryNum.getText(), trySerie.getText());
+            if(amount==0){
+                checkBillPanel.setVisible(false);
+                losePanel.setVisible(true);
+            }
+            else{
+                winNum.setText("Número: "+tryNum.getText());
+                winSerie.setText("Serie: "+trySerie.getText());
+                winPremio.setText("Tu premio es: ₡"+amount);
+                checkBillPanel.setVisible(false);
+                winPanel.setVisible(true);
+            }
+        }
+        else
+            JOptionPane.showMessageDialog(null,errors, "Error con datos ingresados", JOptionPane.INFORMATION_MESSAGE);
+    }//GEN-LAST:event_btnCheckNumbersActionPerformed
+
+    private void btnVolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVolverActionPerformed
+        winPanel.setVisible(false);
+        losePanel.setVisible(false);
+        checkBillPanel.setVisible(true);
+    }//GEN-LAST:event_btnVolverActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -712,15 +885,17 @@ public class InicioAdmin extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnCheckNumbers;
+    private javax.swing.JButton btnVolverL;
+    private javax.swing.JButton btnVolverW;
+    private javax.swing.JPanel checkBillPanel;
     private javax.swing.JPanel checkPanel;
     private javax.swing.JPanel homePanel;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton12;
-    private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
-    private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JComboBox<String> jComboBox2;
     private javax.swing.JComboBox<String> jComboBox3;
     private javax.swing.JLabel jLabel1;
@@ -781,10 +956,24 @@ public class InicioAdmin extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel59;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel60;
+    private javax.swing.JLabel jLabel61;
+    private javax.swing.JLabel jLabel62;
+    private javax.swing.JLabel jLabel63;
+    private javax.swing.JLabel jLabel64;
+    private javax.swing.JLabel jLabel65;
+    private javax.swing.JLabel jLabel66;
+    private javax.swing.JLabel jLabel67;
+    private javax.swing.JLabel jLabel68;
+    private javax.swing.JLabel jLabel69;
     private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel70;
+    private javax.swing.JLabel jLabel71;
+    private javax.swing.JLabel jLabel72;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JLabel jLabel94;
+    private javax.swing.JLabel jLabel95;
+    private javax.swing.JLabel jLabel96;
     private javax.swing.JLabel jLabel98;
     private javax.swing.JLabel jLabel99;
     private javax.swing.JScrollPane jScrollPane1;
@@ -795,9 +984,16 @@ public class InicioAdmin extends javax.swing.JFrame {
     private javax.swing.JTable jTable1;
     private javax.swing.JTable jTable2;
     private javax.swing.JTable jTable3;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
-    private javax.swing.JTextField jTextField3;
+    private javax.swing.JPanel losePanel;
     private javax.swing.JPanel statPanel;
+    private javax.swing.JTextField tryCode;
+    private javax.swing.JTextField tryFracc;
+    private javax.swing.JTextField tryNum;
+    private javax.swing.JTextField trySerie;
+    private javax.swing.JComboBox<String> tryType;
+    private javax.swing.JLabel winNum;
+    private javax.swing.JPanel winPanel;
+    private javax.swing.JLabel winPremio;
+    private javax.swing.JLabel winSerie;
     // End of variables declaration//GEN-END:variables
 }

@@ -16,6 +16,24 @@ import java.util.Calendar;
  * @author Kevin
  */
 public class Validate {
+    public static String validateCheck(String code,String num,String serie,String fracc){
+        String res = "";
+        if(code.trim().equals(""))
+            return "Codigo o numero de sorteo no existente.";
+        if(!checkIfInt(fracc))
+            return "La cantidad de fracciones debe ser un numero positivo.";
+        res = validateCheckNums(num,serie);
+        return res;
+    }
+    
+    private static String validateCheckNums(String num, String serie){
+        if(!checkIfInt(num) || !checkIntRange(Integer.parseInt(num),1,99))
+            return "El número debe ser un valor numerico entre 1 y 99";
+        if(!checkIfInt(serie) || !checkIntRange(Integer.parseInt(serie),1,999))
+            return "La serie debe ser un valor numerico entre 1 y 999";
+        return "";
+    }
+    
     public static String validatePlan(String name,String sorteo,ArrayList<Premio> premios){
         String res = "";
         if(name.trim().equals(""))
@@ -67,8 +85,10 @@ public class Validate {
     
     public static boolean checkIfInt(String value){
         try {  
-            Double.parseDouble(value);  
-            return true;
+            double val = Double.parseDouble(value); 
+            if(val>=0)
+                return true;
+            return false;
         } catch(NumberFormatException e){  
             return false;  
         }

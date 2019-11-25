@@ -202,4 +202,19 @@ public class SorteoBDManager {
             return tableModel;
         }
     }
+    
+    public double checkWin(String sorteo,String num,String serie){
+        try(Statement st = cn.createStatement();
+            ResultSet rs = st.executeQuery("select cantidadPremio from ganadores where numeroSorteo='"+sorteo+"' and numeroFraccion="+num+" and serieFraccion="+serie+";");
+        ){
+            if(rs.next()){
+                String winnin = rs.getString("cantidadPremio");
+                double amount = Double.valueOf(winnin);
+                return amount;
+            }  
+            return 0;
+        }catch(SQLException ex){
+            return 0;
+        }
+    }
 }
