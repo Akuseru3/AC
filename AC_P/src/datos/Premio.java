@@ -54,7 +54,8 @@ public class Premio {
         return premios;
     }
     
-    public static DefaultTableModel generateWinners(String sorteo,ArrayList<Premio> premios){
+    public static ArrayList<Premio> generateWinners(String sorteo,ArrayList<Premio> premios){
+        ArrayList<Premio> ganadores = new ArrayList<Premio>();
         String[] columnNames = {"Numero","Serie","Premio"};
         DefaultTableModel tableModel = new DefaultTableModel(columnNames, 0);
         SorteoBDManager connector = new SorteoBDManager();
@@ -65,12 +66,14 @@ public class Premio {
                 int numero = generateRandom(99);
                 int serie = generateRandom(999);
                 connector.addGanador(sorteo, Integer.toString(numero), Integer.toString(serie), temp.getGanancia());
+                Premio nuevo = new Premio(String.valueOf(numero),String.valueOf(serie),temp.ganancia);
+                ganadores.add(nuevo);
                 String[] data = { Integer.toString(numero), Integer.toString(serie), temp.ganancia} ;
                 tableModel.addRow(data);
             }
 
         }
-        return tableModel;
+        return ganadores;
     }
     
     private static int generateRandom(int end){

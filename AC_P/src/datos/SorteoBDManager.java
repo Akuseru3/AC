@@ -283,7 +283,7 @@ public class SorteoBDManager {
         try(Statement st = cn.createStatement();
             ResultSet rs = st.executeQuery("select numeroFraccion,sum(cantidadPremio) as totalPremios from ganadores \n" +
                                             "group by numeroFraccion \n" +
-                                            "order by totalPremios Desc; limit 5");
+                                            "order by totalPremios Desc limit 5;");
         ){
             while (rs.next()) {
                 String num = rs.getString("numeroFraccion");
@@ -310,9 +310,8 @@ public class SorteoBDManager {
         ){
             while (rs.next()) {
                 String num = rs.getString("numeroFraccion");
-                String times = rs.getString("totalPremios");
-                Double val = Double.parseDouble(times);
-                String[] data = {num,String.format ("%.1f", val)} ;
+                String times = rs.getString("vecesGanado");
+                String[] data = {num,times} ;
 
                 tableModel.addRow(data);
             }

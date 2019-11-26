@@ -77,9 +77,9 @@ public class Validate {
         if(!isDateValid(day,month,year))
             return "La fecha ingresada no es una fecha valida.";
         if(!validateDateLoteria(type,day,month,year))
-            return "La fecha de los sorteos de loteria debe ser martes o viernes.";
+            return "La fecha de los sorteos de loteria debe ser domingo.";
         if(!validateDateChances(type,day,month,year))
-            return "La fecha de los sorteos de chances debe ser domingo.";
+            return "La fecha de los sorteos de chances debe ser martes o viernes.";
         return "";
     }
     
@@ -126,8 +126,8 @@ public class Validate {
         }
     }
     
-    public static boolean validateDateLoteria(String type,String day, String month, String year){
-        if(type.equals("Loteria")){
+    public static boolean validateDateChances(String type,String day, String month, String year){
+        if(type.equals("Chances")){
             Calendar date = Calendar.getInstance();
             date.set(Integer.parseInt(year),Integer.parseInt(month)-1, Integer.parseInt(day));
             if(date.get(Calendar.DAY_OF_WEEK) == Calendar.FRIDAY || date.get(Calendar.DAY_OF_WEEK) == Calendar.TUESDAY)
@@ -139,8 +139,8 @@ public class Validate {
             return true;
     }
     
-    public static boolean validateDateChances(String type,String day, String month, String year){
-        if(type.equals("Chances")){
+    public static boolean validateDateLoteria(String type,String day, String month, String year){
+        if(type.equals("Loteria")){
             Calendar date = Calendar.getInstance();
             date.set(Integer.parseInt(year),Integer.parseInt(month)-1, Integer.parseInt(day));
             if(date.get(Calendar.DAY_OF_WEEK) == Calendar.SUNDAY)
