@@ -112,7 +112,7 @@ public class PlanBDManager {
                 String amount = rs.getString("gananciaPremio");
                 double win = Double.parseDouble(amount);
 
-                String[] data = { cant, new BigDecimal(win).toPlainString()} ;
+                String[] data = { cant, BigDecimal.valueOf(win).toPlainString()} ;
                 tableModel.addRow(data);
             }
             return tableModel;

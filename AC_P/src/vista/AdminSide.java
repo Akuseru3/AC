@@ -125,6 +125,7 @@ public class AdminSide extends javax.swing.JFrame {
     
     private void startGame(int row){
         Thread t = new Thread(){
+            Random rand = new Random();
             public void run(){
                 ArrayList<Premio> ganadores = genGanadores();
                 DefaultTableModel model = (DefaultTableModel) winnerTable.getModel();
@@ -153,7 +154,6 @@ public class AdminSide extends javax.swing.JFrame {
             }
             
             private int generateRandom(int end){
-                Random rand = new Random();
                 int n = rand.nextInt(end);
                 n+=1;
                 return n;

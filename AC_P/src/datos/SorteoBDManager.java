@@ -194,7 +194,7 @@ public class SorteoBDManager {
                 String type = rs.getString("serieFraccion");
                 String fracc = rs.getString("cantidadPremio");
                 double win = Double.parseDouble(fracc);
-                String[] data = {name, type, new BigDecimal(win).toPlainString()} ;
+                String[] data = {name, type, BigDecimal.valueOf(win).toPlainString()} ;
 
                 tableModel.addRow(data);
             }
@@ -247,7 +247,7 @@ public class SorteoBDManager {
                 String serie = rs.getString("serieFraccion");
                 String premio = rs.getString("cantidadPremio");
                 Double premioM = Double.parseDouble(premio);
-                Premio temp = new Premio(num,serie,new BigDecimal(premioM).toPlainString());
+                Premio temp = new Premio(num,serie,BigDecimal.valueOf(premioM).toPlainString());
                 params.add(temp);
             }  
             return params;
@@ -290,7 +290,7 @@ public class SorteoBDManager {
                 String num = rs.getString("numeroFraccion");
                 String times = rs.getString("totalPremios");
                 Double val = Double.parseDouble(times);
-                String[] data = {num,new BigDecimal(val).toPlainString()} ;
+                String[] data = {num,BigDecimal.valueOf(val).toPlainString()} ;
 
                 tableModel.addRow(data);
             }
