@@ -6,6 +6,7 @@
 package datos;
 
 import java.awt.List;
+import java.math.BigDecimal;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -18,7 +19,7 @@ import javax.swing.table.DefaultTableModel;
  * @author Kevin
  */
 public class SorteoBDManager {
-    Connection cn = SQLConManager.createCon();;
+    Connection cn = SQLConManager.createCon();
     
     public int addSorteo(String name,String date,String type,String price,String state,String fracCant){
         if(type.equals("Chances"))
@@ -82,7 +83,6 @@ public class SorteoBDManager {
                 String total = rs.getString("totalPremios");
 
                 String[] data = { num, name, type, price, date,plan,total} ;
-
                 tableModel.addRow(data);
             }
             return tableModel;
@@ -187,14 +187,14 @@ public class SorteoBDManager {
         String[] columnNames = {"Numero", "Serie", "Premio"};
         DefaultTableModel tableModel = new DefaultTableModel(columnNames, 0);
         try(Statement st = cn.createStatement();
-            ResultSet rs = st.executeQuery("select numeroFraccion, serieFraccion, cantidadPremio from ganadores where numeroSorteo = '"+sorteo+"';");
+            ResultSet rs = st.executeQuery("select numeroFraccion, serieFraccion, cantidadPremio from ganadores where numeroSorteo = '"+sorteo+"' order by cantidadPremio DESC;");
         ){
             while (rs.next()) {
                 String name = rs.getString("numeroFraccion");
                 String type = rs.getString("serieFraccion");
                 String fracc = rs.getString("cantidadPremio");
                 double win = Double.parseDouble(fracc);
-                String[] data = {name, type, String.format ("%.1f", win)} ;
+                String[] data = {name, type, new BigDecimal(win).toPlainString()} ;
 
                 tableModel.addRow(data);
             }
@@ -246,7 +246,8 @@ public class SorteoBDManager {
                 String num = rs.getString("numeroFraccion");
                 String serie = rs.getString("serieFraccion");
                 String premio = rs.getString("cantidadPremio");
-                Premio temp = new Premio(num,serie,premio);
+                Double premioM = Double.parseDouble(premio);
+                Premio temp = new Premio(num,serie,new BigDecimal(premioM).toPlainString());
                 params.add(temp);
             }  
             return params;
@@ -289,7 +290,7 @@ public class SorteoBDManager {
                 String num = rs.getString("numeroFraccion");
                 String times = rs.getString("totalPremios");
                 Double val = Double.parseDouble(times);
-                String[] data = {num,String.format ("%.1f", val)} ;
+                String[] data = {num,new BigDecimal(val).toPlainString()} ;
 
                 tableModel.addRow(data);
             }

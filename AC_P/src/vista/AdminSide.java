@@ -13,6 +13,8 @@ import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.Font;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Random;
 import javax.swing.JOptionPane;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
@@ -81,6 +83,7 @@ public class AdminSide extends javax.swing.JFrame {
         sorteoA.setVisible(false);
         sorteoM.setVisible(false);
         sorteoE.setVisible(false);
+        btnEndGame.setVisible(false);
     }
     
     private void setFonts(){
@@ -120,24 +123,61 @@ public class AdminSide extends javax.swing.JFrame {
         planesTablaE.setModel(modelo);
     }
     
-    private void startGame(){
+    private void startGame(int row){
         Thread t = new Thread(){
             public void run(){
-                btnPlayGame.setEnabled(false);
-                btnGestionS.setEnabled(false);
-                btnGestionP.setEnabled(false);
-                btnReports.setEnabled(false);
-                btnStartG.setEnabled(false);
-                for(int i = 0;i<10;i++){
-                    gameNum.setText(String.valueOf(i));
-                    gameSer.setText(String.valueOf(i));
-                    gamePrem.setText(String.valueOf(i));
+                ArrayList<Premio> ganadores = genGanadores();
+                DefaultTableModel model = (DefaultTableModel) winnerTable.getModel();
+                for(int i = 0;i<ganadores.size();i++){
+                    gameInfo.setText("Generando Premio");
+                    setInfo(0,0,ganadores.get(i).getGanancia());
                     long initTime = System.currentTimeMillis();
-                    while(System.currentTimeMillis()-initTime<1000){
+                    int cont = 0;
+                    while(System.currentTimeMillis()-initTime<1500){
+                        if(cont == 200){
+                            setInfo(generateRandom(99),generateRandom(999),gamePrem.getText());
+                            cont = 0;
+                        }
+                        cont+=1;
+                    }
+                    setInfoStr(ganadores.get(i).getNombre(), ganadores.get(i).getCantidad(), ganadores.get(i).getGanancia());
+                    gameInfo.setText("¡Ganador!");
+                    model.addRow(new Object[]{ganadores.get(i).getNombre(), ganadores.get(i).getCantidad(), ganadores.get(i).getGanancia()});
+                    initTime = System.currentTimeMillis();
+                    while(System.currentTimeMillis()-initTime<2000){
                         
                     }
                 }
+                btnEndGame.setVisible(true);
                 this.interrupt();
+            }
+            
+            private int generateRandom(int end){
+                Random rand = new Random();
+                int n = rand.nextInt(end);
+                n+=1;
+                return n;
+            }
+            
+            private void setInfoStr(String val1,String val2,String val3){
+                gameNum.setText(val1);
+                gameSer.setText(val2);
+                gamePrem.setText(val3);
+            }
+            
+            private void setInfo(int val1,int val2,String val3){
+                gameNum.setText(String.valueOf(val1));
+                gameSer.setText(String.valueOf(val2));
+                gamePrem.setText(val3);
+            }
+            private ArrayList<Premio> genGanadores(){
+                String idSort = sorteoPlayTable.getModel().getValueAt(row, 0).toString();
+                String value = sorteoPlayTable.getModel().getValueAt(row, 5).toString();
+                PlanBDManager connector = new PlanBDManager();
+                ArrayList<Premio> prices = Premio.getTablePrices(connector.getPremios(value));
+                ArrayList<Premio> ganadores = Premio.generateWinners(idSort, prices);
+                Collections.reverse(ganadores);
+                return ganadores;
             }
         };
         t.start();
@@ -181,6 +221,7 @@ public class AdminSide extends javax.swing.JFrame {
         infoMess = new javax.swing.JLabel();
         jLabel100 = new javax.swing.JLabel();
         panelInGame = new javax.swing.JPanel();
+        gameInfo = new javax.swing.JLabel();
         bolaLot = new javax.swing.JLabel();
         jLabel77 = new javax.swing.JLabel();
         jLabel55 = new javax.swing.JLabel();
@@ -191,6 +232,7 @@ public class AdminSide extends javax.swing.JFrame {
         gamePrem = new javax.swing.JLabel();
         jScrollPane14 = new javax.swing.JScrollPane();
         winnerTable = new javax.swing.JTable();
+        btnEndGame = new javax.swing.JButton();
         btnPlayGame = new javax.swing.JButton();
         jSeparator1 = new javax.swing.JSeparator();
         jScrollPane13 = new javax.swing.JScrollPane();
@@ -517,6 +559,11 @@ public class AdminSide extends javax.swing.JFrame {
         panelInGame.setBackground(new java.awt.Color(255, 255, 255));
         panelInGame.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        gameInfo.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        gameInfo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        gameInfo.setText("Generando Premio");
+        panelInGame.add(gameInfo, new org.netbeans.lib.awtextra.AbsoluteConstraints(19, 160, 460, 30));
+
         bolaLot.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/loteria2.gif"))); // NOI18N
         panelInGame.add(bolaLot, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 20, 120, 120));
 
@@ -525,39 +572,32 @@ public class AdminSide extends javax.swing.JFrame {
 
         jLabel55.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel55.setText("Número Ganador");
-        panelInGame.add(jLabel55, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 160, -1, -1));
+        panelInGame.add(jLabel55, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 200, -1, -1));
 
         gameNum.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         gameNum.setText("0");
-        panelInGame.add(gameNum, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 190, 120, -1));
+        panelInGame.add(gameNum, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 230, 120, -1));
 
         jLabel56.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel56.setText("Serie Ganador");
-        panelInGame.add(jLabel56, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 160, -1, -1));
+        panelInGame.add(jLabel56, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 200, -1, -1));
 
         gameSer.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         gameSer.setText("0");
-        panelInGame.add(gameSer, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 190, 100, -1));
+        panelInGame.add(gameSer, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 230, 100, -1));
 
         jLabel68.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jLabel68.setText("Premio Obtenido");
-        panelInGame.add(jLabel68, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 160, -1, -1));
+        jLabel68.setText("Premio");
+        panelInGame.add(jLabel68, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 200, -1, -1));
 
         gamePrem.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         gamePrem.setText("0");
-        panelInGame.add(gamePrem, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 190, 120, -1));
+        panelInGame.add(gamePrem, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 230, 120, -1));
 
         winnerTable.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         winnerTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null}
+
             },
             new String [] {
                 "Numero", "Serie", "Premio"
@@ -567,6 +607,18 @@ public class AdminSide extends javax.swing.JFrame {
         jScrollPane14.setViewportView(winnerTable);
 
         panelInGame.add(jScrollPane14, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 270, 270, 180));
+
+        btnEndGame.setBackground(new java.awt.Color(21, 57, 90));
+        btnEndGame.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        btnEndGame.setForeground(new java.awt.Color(255, 255, 255));
+        btnEndGame.setText("TERMINAR");
+        btnEndGame.setBorderPainted(false);
+        btnEndGame.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEndGameActionPerformed(evt);
+            }
+        });
+        panelInGame.add(btnEndGame, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 330, 120, 40));
 
         startSorteoPanel.add(panelInGame, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 100, 500, 470));
 
@@ -1807,7 +1859,22 @@ public class AdminSide extends javax.swing.JFrame {
     }//GEN-LAST:event_btnGenerateReportCActionPerformed
 
     private void btnGenerateReportLActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGenerateReportLActionPerformed
-        
+        int row = loteriaTable.getSelectedRow();
+        if(row>=0){
+            String idSort = loteriaTable.getModel().getValueAt(row, 0).toString();
+            String nameSort = loteriaTable.getModel().getValueAt(row, 1).toString();
+            String typeSort = loteriaTable.getModel().getValueAt(row, 2).toString();
+            String priceSort = loteriaTable.getModel().getValueAt(row, 3).toString();
+            String dateSort = loteriaTable.getModel().getValueAt(row, 4).toString();
+            String idPlan = loteriaTable.getModel().getValueAt(row, 5).toString();
+            String planTotal = loteriaTable.getModel().getValueAt(row, 6).toString();
+            reportGenerator(idSort,nameSort,typeSort,priceSort,dateSort,idPlan,planTotal);
+            reportPanel.setVisible(false);
+            reportInfoPanel.setVisible(true);
+        }
+        else{
+            JOptionPane.showMessageDialog(null,"Se debe seleccionar un sorteo de la tabla para jugar", "Error de seleccion", JOptionPane.INFORMATION_MESSAGE);
+        }
     }//GEN-LAST:event_btnGenerateReportLActionPerformed
 
     private void btnStartGActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnStartGActionPerformed
@@ -1819,17 +1886,13 @@ public class AdminSide extends javax.swing.JFrame {
     }//GEN-LAST:event_btnStartGActionPerformed
 
     private void btnPlayGameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPlayGameActionPerformed
-        panelInGame.setVisible(true);
-        infoMess.setForeground(Color.white);
+        infoMess.setVisible(false);
         int row = sorteoPlayTable.getSelectedRow();
         if(row>=0){
-            /*String idSort = sorteoPlayTable.getModel().getValueAt(row, 0).toString();
-            String value = sorteoPlayTable.getModel().getValueAt(row, 5).toString();
-            PlanBDManager connector = new PlanBDManager();
-            ArrayList<Premio> prices = Premio.getTablePrices(connector.getPremios(value));
-            winnerTable.setModel(Premio.generateWinners(idSort,prices));
-            fillSorteos();*/
-            startGame();
+            panelInGame.setVisible(true);
+            btnPlayGame.setEnabled(false);
+            startGame(row);
+            fillSorteos();
         }
         else{
             JOptionPane.showMessageDialog(null,"Se debe seleccionar un sorteo de la tabla para jugar", "Error de seleccion", JOptionPane.INFORMATION_MESSAGE);
@@ -1983,6 +2046,18 @@ public class AdminSide extends javax.swing.JFrame {
         reportInfoPanel.setVisible(false);
     }//GEN-LAST:event_jButton11ActionPerformed
 
+    private void btnEndGameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEndGameActionPerformed
+        panelInGame.setVisible(false);
+        btnEndGame.setVisible(false);
+        btnPlayGame.setEnabled(true);
+        gameNum.setText("0");
+        gameSer.setText("0");
+        gamePrem.setText("0");
+        infoMess.setVisible(true);
+        DefaultTableModel model = (DefaultTableModel) winnerTable.getModel();
+        model.setRowCount(0);
+    }//GEN-LAST:event_btnEndGameActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -2033,6 +2108,7 @@ public class AdminSide extends javax.swing.JFrame {
     private javax.swing.JButton btnEliminarPlan;
     private javax.swing.JButton btnEliminarPremio;
     private javax.swing.JButton btnEliminarPremioM;
+    private javax.swing.JButton btnEndGame;
     private javax.swing.JButton btnGenerateReportC;
     private javax.swing.JButton btnGenerateReportL;
     private javax.swing.JButton btnGestionP;
@@ -2048,6 +2124,7 @@ public class AdminSide extends javax.swing.JFrame {
     private javax.swing.JTable chanceTable;
     private javax.swing.JButton delPlanB;
     private javax.swing.JButton delSortB;
+    private javax.swing.JLabel gameInfo;
     private javax.swing.JLabel gameNum;
     private javax.swing.JLabel gamePrem;
     private javax.swing.JLabel gameSer;

@@ -5,6 +5,7 @@
  */
 package datos;
 
+import java.math.BigDecimal;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -111,7 +112,7 @@ public class PlanBDManager {
                 String amount = rs.getString("gananciaPremio");
                 double win = Double.parseDouble(amount);
 
-                String[] data = { cant, String.format ("%.1f", win)} ;
+                String[] data = { cant, new BigDecimal(win).toPlainString()} ;
                 tableModel.addRow(data);
             }
             return tableModel;

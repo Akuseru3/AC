@@ -56,20 +56,17 @@ public class Premio {
     
     public static ArrayList<Premio> generateWinners(String sorteo,ArrayList<Premio> premios){
         ArrayList<Premio> ganadores = new ArrayList<Premio>();
-        String[] columnNames = {"Numero","Serie","Premio"};
-        DefaultTableModel tableModel = new DefaultTableModel(columnNames, 0);
         SorteoBDManager connector = new SorteoBDManager();
-        connector.jugarSorteo(sorteo);
+        //connector.jugarSorteo(sorteo);
         for(Premio temp:premios){
             int cant = Validate.toInt(temp.cantidad);
             for(int i = 0;i<cant;i++){
                 int numero = generateRandom(99);
                 int serie = generateRandom(999);
-                connector.addGanador(sorteo, Integer.toString(numero), Integer.toString(serie), temp.getGanancia());
+                //connector.addGanador(sorteo, Integer.toString(numero), Integer.toString(serie), temp.getGanancia());
                 Premio nuevo = new Premio(String.valueOf(numero),String.valueOf(serie),temp.ganancia);
                 ganadores.add(nuevo);
                 String[] data = { Integer.toString(numero), Integer.toString(serie), temp.ganancia} ;
-                tableModel.addRow(data);
             }
 
         }
