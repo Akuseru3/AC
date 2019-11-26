@@ -20,7 +20,16 @@ import javax.swing.table.DefaultTableModel;
  */
 public class SorteoBDManager {
     Connection cn = SQLConManager.createCon();
-    
+    /**
+     * Añade un nuevo sorteo de chances o loteria y su informacion
+     * @param name
+     * @param date
+     * @param type
+     * @param price
+     * @param state
+     * @param fracCant
+     * @return 
+     */
     public int addSorteo(String name,String date,String type,String price,String state,String fracCant){
         if(type.equals("Chances"))
                 type = "1";
@@ -36,6 +45,10 @@ public class SorteoBDManager {
         }
     }
     
+    /**
+     * Muestra la informacion de un sorteo y la informacion de su plan asociado
+     * @return 
+     */
     public DefaultTableModel getPlanInnSorteo(){
         String[] columnNames = {"Número", "Nombre", "Tipo","Precio","Fecha"};
         DefaultTableModel tableModel = new DefaultTableModel(columnNames, 0);
@@ -51,6 +64,11 @@ public class SorteoBDManager {
         }
     }
     
+    /**
+     * Obtiene la informacion de los sorteos jugados y su plan asociado
+     * @param type
+     * @return 
+     */
     public DefaultTableModel getPlanInnSorteoType(String type){
         String[] columnNames = {"Número", "Nombre", "Tipo","Precio","Fecha"};
         DefaultTableModel tableModel = new DefaultTableModel(columnNames, 0);
@@ -66,6 +84,12 @@ public class SorteoBDManager {
         }
     }
     
+    /**
+     * Obtiene la informacion para cargar a la tabla de los sorteos.
+     * @param rs
+     * @return
+     * @throws SQLException 
+     */
     private DefaultTableModel createPINSTable(ResultSet rs) throws SQLException{
         String[] columnNames = {"Número", "Nombre", "Tipo","Precio","Fecha","Plan","Premios"};
         DefaultTableModel tableModel = new DefaultTableModel(columnNames, 0);
@@ -88,6 +112,12 @@ public class SorteoBDManager {
             return tableModel;
     }
     
+    /**
+     * Obtiene los sorteos
+     * @param filter
+     * @param typeFilt
+     * @return 
+     */
     public DefaultTableModel getSorteos(String[] filter, String typeFilt){
         String[] columnNames = {"Número", "Nombre", "Tipo","Fracciones","Precio","Fecha"};
         DefaultTableModel tableModel = new DefaultTableModel(columnNames, 0);
@@ -101,6 +131,12 @@ public class SorteoBDManager {
         }
     }
     
+    /**
+     * Crea la informacion de la tabla de sorteos.
+     * @param rs
+     * @return
+     * @throws SQLException 
+     */
     private DefaultTableModel createSorteosTable(ResultSet rs) throws SQLException{
         String[] columnNames = {"Número", "Nombre", "Tipo","Fracciones","Precio","Fecha"};
         DefaultTableModel tableModel = new DefaultTableModel(columnNames, 0);
@@ -123,6 +159,12 @@ public class SorteoBDManager {
         return tableModel;
     }
     
+    /**
+     * Selecciona los sorteos filtrados por un estado especifico
+     * @param filters
+     * @param type
+     * @return 
+     */
     private String generateQuery(String[] filters,String type){
         String query = "select * from sorteos where (estadoSorteo = "+filters[0];
         for(int i = 1; i<filters.length;i++){
@@ -135,6 +177,11 @@ public class SorteoBDManager {
         return query;
     }
     
+    /**
+     * Cambia el esatdo de un sorteo a inactivo
+     * @param num
+     * @return 
+     */
     public int deleteSorteo(String num){        
         try(Statement st = cn.createStatement();
             ResultSet rs = st.executeQuery("call deleteSorteo('"+num+"')");
@@ -146,6 +193,11 @@ public class SorteoBDManager {
         }
     }
     
+    /**
+     * Inicia un sorteo
+     * @param num
+     * @return 
+     */
     public int jugarSorteo(String num){        
         try(Statement st = cn.createStatement();
             ResultSet rs = st.executeQuery("call jugarSorteo('"+num+"')");
@@ -157,6 +209,16 @@ public class SorteoBDManager {
         }
     }
     
+    /**
+     * Modifica la informacion de un sorteo
+     * @param id
+     * @param name
+     * @param date
+     * @param type
+     * @param price
+     * @param fracCant
+     * @return 
+     */
     public int modifySorteo(String id,String name,String date,String type,String price,String fracCant){        
         if(type.equals("Chances"))
                 type = "1";
@@ -172,6 +234,14 @@ public class SorteoBDManager {
         }
     }
     
+    /**
+     * Añade un nuevo numero ganador
+     * @param sorteo
+     * @param numWin
+     * @param serieWin
+     * @param priceWin
+     * @return 
+     */
     public int addGanador(String sorteo, String numWin, String serieWin, String priceWin){
         try(Statement st = cn.createStatement();
             ResultSet rs = st.executeQuery("call createGanador('"+sorteo+"',"+numWin+","+serieWin+","+priceWin+")");
@@ -183,6 +253,11 @@ public class SorteoBDManager {
         }
     }
     
+    /**
+     * Obtiene los ganadores
+     * @param sorteo
+     * @return 
+     */
     public DefaultTableModel getWinners(String sorteo){
         String[] columnNames = {"Numero", "Serie", "Premio"};
         DefaultTableModel tableModel = new DefaultTableModel(columnNames, 0);
@@ -205,6 +280,13 @@ public class SorteoBDManager {
         }
     }
     
+    /**
+     * Verifica si un usuario ha sido ganador
+     * @param sorteo
+     * @param num
+     * @param serie
+     * @return 
+     */
     public double checkWin(String sorteo,String num,String serie){
         try(Statement st = cn.createStatement();
             ResultSet rs = st.executeQuery("select cantidadPremio from ganadores where numeroSorteo='"+sorteo+"' and numeroFraccion="+num+" and serieFraccion="+serie+";");
@@ -220,6 +302,11 @@ public class SorteoBDManager {
         }
     }
     
+    /**
+     * Obtiene informacion del ultimo sorteo
+     * @param type
+     * @return 
+     */
     public ArrayList<String> lastSorteo(String type){
         ArrayList<String> params = new ArrayList<String>();
         try(Statement st = cn.createStatement();
@@ -237,6 +324,11 @@ public class SorteoBDManager {
         }
     }
     
+    /**
+     * Obtiene los mayores premios
+     * @param sorteo
+     * @return 
+     */
     public ArrayList<Premio> topPremios(String sorteo){
         ArrayList<Premio> params = new ArrayList<Premio>();
         try(Statement st = cn.createStatement();
@@ -256,6 +348,10 @@ public class SorteoBDManager {
         }
     }
     
+    /**
+     * Obtiene las estadisticas de los numeros mas jugados
+     * @return 
+     */
     public DefaultTableModel getStatMasJugados(){
         String[] columnNames = {"Numero", "Veces Jugado"};
         DefaultTableModel tableModel = new DefaultTableModel(columnNames, 0);
@@ -278,6 +374,10 @@ public class SorteoBDManager {
         }
     }
     
+    /**
+     * Obtiene las estadisticas de los numeros mas premiados
+     * @return 
+     */
     public DefaultTableModel getStatMasPremiadoGen(){
         String[] columnNames = {"Numero", "Total ganado"};
         DefaultTableModel tableModel = new DefaultTableModel(columnNames, 0);
@@ -301,6 +401,10 @@ public class SorteoBDManager {
         }
     }
     
+    /**
+     * Obtiene la probabilidad del mayor ganador.
+     * @return 
+     */
     public DefaultTableModel getStatGanadoMayorGen(){
         String[] columnNames = {"Numero", "Veces Ganado"};
         DefaultTableModel tableModel = new DefaultTableModel(columnNames, 0);
@@ -323,6 +427,10 @@ public class SorteoBDManager {
         }
     }
     
+    /**
+     * genera la tabla de estadisticas con lso porcentajes de nuemros jugados
+     * @return 
+     */
     public DefaultTableModel getStatPercentage(){
         String[] columnNames = {"Numero", "Probabilidad"};
         DefaultTableModel tableModel = new DefaultTableModel(columnNames, 0);

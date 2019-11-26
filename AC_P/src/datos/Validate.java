@@ -16,6 +16,14 @@ import java.util.Calendar;
  * @author Kevin
  */
 public class Validate {
+    /**
+     * Valida la revision de un numero para ver si gano
+     * @param code
+     * @param num
+     * @param serie
+     * @param fracc
+     * @return 
+     */
     public static String validateCheck(String code,String num,String serie,String fracc){
         String res = "";
         if(code.trim().equals(""))
@@ -26,6 +34,12 @@ public class Validate {
         return res;
     }
     
+    /**
+     * valida los numeros de la revision de ganador
+     * @param num
+     * @param serie
+     * @return 
+     */
     private static String validateCheckNums(String num, String serie){
         if(!checkIfInt(num) || !checkIntRange(Integer.parseInt(num),1,99))
             return "El número debe ser un valor numerico entre 1 y 99";
@@ -34,6 +48,7 @@ public class Validate {
         return "";
     }
     
+    /*Valida si es un plan valido al modificar*/
     public static String validatePlanM(String name,String sorteo,ArrayList<Premio> premios){
         String res = "";
         if(name.trim().equals(""))
@@ -44,6 +59,7 @@ public class Validate {
         return res;
     }
     
+    /*Valida si es un plan valido*/
     public static String validatePlan(String name,String sorteo,ArrayList<Premio> premios){
         String res = "";
         if(name.trim().equals(""))
@@ -56,11 +72,13 @@ public class Validate {
         return res;
     }
     
+    /*Valida si existe el nombre del plan*/
     private static boolean checkDubName(String name){
         PlanBDManager con = new PlanBDManager();
         return con.checkDoubleName(name);
     }
     
+    /*Valida los premios*/
     private static String validatePrices(ArrayList<Premio> premios,String sorteo){
         String type = sorteo.substring(0, 1);
         if(type.equals("C") && premios.size() != 3)
@@ -72,6 +90,7 @@ public class Validate {
         return "";
     }
     
+    /*Valida si es un sorteo valido*/
     public static String validateSorteo(String name,String type,String day, String month, String year,String price,String fracc){
         System.out.println(type);
         String res = "";
@@ -85,6 +104,7 @@ public class Validate {
         return res;
     }
     
+    /*Valida si es fecha valida de sorteo*/
     private static String validateDateSorteo(String type,String day, String month, String year){
         if(!isDateValid(day,month,year))
             return "La fecha ingresada no es una fecha valida.";
@@ -95,6 +115,7 @@ public class Validate {
         return "";
     }
     
+    /*Valida si una entrada es valor numerico*/
     public static boolean checkIfInt(String value){
         try {  
             double val = Double.parseDouble(value); 
@@ -106,6 +127,7 @@ public class Validate {
         }
     }
     
+    /*Valida si una entrada esta en un rango numerico*/
     public static boolean checkIntRange(int value,int start,int end){
         if(value<=end && value>=start){
             return true;
@@ -113,6 +135,7 @@ public class Validate {
         return false;
     }
     
+    /*Valida si es fecha valida*/
     public static boolean isDateValid(String day, String month, String year){
         if(checkIfInt(day) && checkIfInt(month) && checkIfInt(year)){
             try {
@@ -129,6 +152,11 @@ public class Validate {
         }
     }
     
+    /**
+     * COnvierte un nuemro a entero
+     * @param toInt
+     * @return 
+     */
     public static int toInt(String toInt){
         try {  
             int transformed = Integer.parseInt(toInt);  
@@ -138,6 +166,7 @@ public class Validate {
         }
     }
     
+    /*Valida la fecha de un chance*/
     public static boolean validateDateChances(String type,String day, String month, String year){
         if(type.equals("Chances")){
             Calendar date = Calendar.getInstance();
@@ -151,6 +180,7 @@ public class Validate {
             return true;
     }
     
+    /*Valida la fecha de una loteria*/
     public static boolean validateDateLoteria(String type,String day, String month, String year){
         if(type.equals("Loteria")){
             Calendar date = Calendar.getInstance();
@@ -164,6 +194,11 @@ public class Validate {
             return true;
     }
     
+    /**
+     * valida los premios
+     * @param premios
+     * @return 
+     */
     public static boolean validatePremios(ArrayList<Premio> premios){
         ArrayList<Premio> mayores = getMaxThree(premios);
         for(int i = 0;i<mayores.size();i++){
@@ -174,6 +209,11 @@ public class Validate {
         return true;
     }
     
+    /**
+     * retorna los tres premios mayores
+     * @param premios
+     * @return 
+     */
     public static ArrayList<Premio> getMaxThree(ArrayList<Premio> premios){
         ArrayList<Premio> mayores = new ArrayList<>();
         for(int i=0;i<3;i++){

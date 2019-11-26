@@ -119,10 +119,6 @@ public class InicioAdmin extends javax.swing.JFrame {
         statMasGanadoPP = new javax.swing.JTable();
         jScrollPane3 = new javax.swing.JScrollPane();
         statNumMonetario = new javax.swing.JTable();
-        jLabel59 = new javax.swing.JLabel();
-        jComboBox3 = new javax.swing.JComboBox<>();
-        jLabel55 = new javax.swing.JLabel();
-        jComboBox2 = new javax.swing.JComboBox<>();
         jLabel58 = new javax.swing.JLabel();
         jLabel57 = new javax.swing.JLabel();
         jLabel100 = new javax.swing.JLabel();
@@ -153,8 +149,6 @@ public class InicioAdmin extends javax.swing.JFrame {
         jLabel71 = new javax.swing.JLabel();
         jLabel96 = new javax.swing.JLabel();
         checkBillPanel = new javax.swing.JPanel();
-        jLabel61 = new javax.swing.JLabel();
-        tryFracc = new javax.swing.JTextField();
         jLabel53 = new javax.swing.JLabel();
         jLabel60 = new javax.swing.JLabel();
         tryCode = new javax.swing.JTextField();
@@ -361,9 +355,10 @@ public class InicioAdmin extends javax.swing.JFrame {
                 "Número", "Premio Total"
             }
         ));
+        statMasGanadoPP.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         jScrollPane2.setViewportView(statMasGanadoPP);
 
-        statPanel.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 150, 280, 110));
+        statPanel.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 140, 280, 110));
 
         statNumMonetario.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -379,23 +374,7 @@ public class InicioAdmin extends javax.swing.JFrame {
         ));
         jScrollPane3.setViewportView(statNumMonetario);
 
-        statPanel.add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(800, 150, 290, 110));
-
-        jLabel59.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        jLabel59.setText("Tipo de Sorteo:");
-        statPanel.add(jLabel59, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 170, -1, -1));
-
-        jComboBox3.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jComboBox3.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "General", "Lotería", "Chances" }));
-        statPanel.add(jComboBox3, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 200, 130, 30));
-
-        jLabel55.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        jLabel55.setText("Tipo de Sorteo:");
-        statPanel.add(jLabel55, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 170, -1, -1));
-
-        jComboBox2.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "General", "Lotería", "Chances" }));
-        statPanel.add(jComboBox2, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 200, 130, 30));
+        statPanel.add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(710, 130, 290, 110));
 
         jLabel58.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel58.setForeground(new java.awt.Color(255, 255, 255));
@@ -540,19 +519,14 @@ public class InicioAdmin extends javax.swing.JFrame {
         checkBillPanel.setOpaque(false);
         checkBillPanel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel61.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        jLabel61.setText("Fracciones:");
-        checkBillPanel.add(jLabel61, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 190, -1, -1));
-        checkBillPanel.add(tryFracc, new org.netbeans.lib.awtextra.AbsoluteConstraints(710, 190, 130, 30));
-
         jLabel53.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel53.setText("Número de Sorteo:");
-        checkBillPanel.add(jLabel53, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 190, -1, -1));
+        checkBillPanel.add(jLabel53, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 190, -1, -1));
 
         jLabel60.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel60.setText("Tipo de Sorteo:");
         checkBillPanel.add(jLabel60, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 140, -1, -1));
-        checkBillPanel.add(tryCode, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 190, 130, 30));
+        checkBillPanel.add(tryCode, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 190, 130, 30));
 
         tryType.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         tryType.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Lotería", "Chances" }));
@@ -833,7 +807,7 @@ public class InicioAdmin extends javax.swing.JFrame {
 
     private void btnCheckNumbersActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCheckNumbersActionPerformed
         SorteoBDManager manager = new SorteoBDManager();
-        String errors = Validate.validateCheck(tryCode.getText(), tryNum.getText(), trySerie.getText(), tryFracc.getText());
+        String errors = Validate.validateCheck(tryCode.getText(), tryNum.getText(), trySerie.getText(), "10");
         if(errors.equals("")){
             double amount = manager.checkWin(tryCode.getText(), tryNum.getText(), trySerie.getText());
             if(amount==0){
@@ -908,8 +882,6 @@ public class InicioAdmin extends javax.swing.JFrame {
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
-    private javax.swing.JComboBox<String> jComboBox2;
-    private javax.swing.JComboBox<String> jComboBox3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel100;
     private javax.swing.JLabel jLabel12;
@@ -938,14 +910,11 @@ public class InicioAdmin extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel52;
     private javax.swing.JLabel jLabel53;
     private javax.swing.JLabel jLabel54;
-    private javax.swing.JLabel jLabel55;
     private javax.swing.JLabel jLabel56;
     private javax.swing.JLabel jLabel57;
     private javax.swing.JLabel jLabel58;
-    private javax.swing.JLabel jLabel59;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel60;
-    private javax.swing.JLabel jLabel61;
     private javax.swing.JLabel jLabel62;
     private javax.swing.JLabel jLabel63;
     private javax.swing.JLabel jLabel64;
@@ -999,7 +968,6 @@ public class InicioAdmin extends javax.swing.JFrame {
     private javax.swing.JLabel trSer;
     private javax.swing.JLabel trSerL;
     private javax.swing.JTextField tryCode;
-    private javax.swing.JTextField tryFracc;
     private javax.swing.JTextField tryNum;
     private javax.swing.JTextField trySerie;
     private javax.swing.JComboBox<String> tryType;

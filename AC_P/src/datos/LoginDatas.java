@@ -13,8 +13,17 @@ import java.sql.*;
  */
 
 public class LoginDatas {
+    /**
+	 * Variable global que maneja la conexion.
+	 */
     Connection cn = SQLConManager.createCon();;
     
+    /**
+	 * Objetivo: Obtener la contraseña de un usuario.
+	 * @param usuario
+	 * @param contra
+	 * @return 
+	 */
     public int checkContraseña(String usuario,String contra){        
         try(Statement st = cn.createStatement();
             ResultSet rs = st.executeQuery("call getContraseña('"+usuario+"')");
@@ -28,6 +37,13 @@ public class LoginDatas {
         }
     }
     
+    /**
+	 * Objetivo: Verifica en los usuarios encontrados la contraseña dada
+	 * @param rs
+	 * @param contra
+	 * @return
+	 * @throws SQLException 
+	 */
     private int resultLooper(ResultSet rs, String contra) throws SQLException{
         if (rs.next() == false) {           
                 return -1;

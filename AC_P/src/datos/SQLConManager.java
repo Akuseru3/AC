@@ -17,6 +17,10 @@ import java.util.Properties;
 public class SQLConManager {    
     //Nuevo objeto de tipo connection
     private static Connection conectar = null;
+    /**
+     * Genera una conexion a la base de datos y la retorna
+     * @return 
+     */
     private static Connection conexion(){
         //Proceso de conexion de java con la base de datos
         String url = "jdbc:mysql://localhost:3306/loteria?serverTimezone=UTC&useUnicode=true&characterEncoding=utf-8&useSSL=false";
@@ -35,6 +39,10 @@ public class SQLConManager {
         return conectar;
     }
     
+    /**
+     * revisa que haya una conexion activa y si no hay la cera
+     * @return 
+     */
     public static Connection createCon(){
         if(conectar == null)
             conectar = conexion();

@@ -21,17 +21,29 @@ public class Premio {
     private String nombre;
     private  String cantidad;
     private String ganancia;
+    /**
+     * Constructor de premio
+     * @param cantidad
+     * @param ganancia 
+     */
     public Premio(String cantidad,String ganancia){
         this.cantidad = cantidad;
         this.ganancia = ganancia;
     }
     
+    /**
+     * Constructor de premio
+     * @param nombre
+     * @param cantidad
+     * @param ganancia 
+     */
     public Premio(String nombre,String cantidad,String ganancia){
         this.cantidad = cantidad;
         this.ganancia = ganancia;
         this.nombre = nombre;
     }
     
+    /*Las siguientes 3 funciones obtienen informacion de la clase.*/
     public String getCantidad(){
         return cantidad;
     }
@@ -44,6 +56,7 @@ public class Premio {
         return nombre;
     }
     
+    /*Obtiene los precios de los premios*/
     public static ArrayList<Premio> getTablePrices(TableModel table){
         int cantPremios = table.getRowCount();
         ArrayList<Premio> premios = new ArrayList<>();
@@ -56,6 +69,12 @@ public class Premio {
         return premios;
     }
     
+    /**
+     * Genera los ganadores un juego
+     * @param sorteo
+     * @param premios
+     * @return 
+     */
     public static ArrayList<Premio> generateWinners(String sorteo,ArrayList<Premio> premios){
         ArrayList<Premio> ganadores = new ArrayList<Premio>();
         SorteoBDManager connector = new SorteoBDManager();
@@ -75,6 +94,11 @@ public class Premio {
         return ganadores;
     }
     
+    /**
+     * Suma todos los premios y retorna el total
+     * @param premios
+     * @return 
+     */
     public static Double sumTotalPremios(ArrayList<Premio> premios){
         Double total = 0.0;
         System.out.println(premios.size());
@@ -87,7 +111,11 @@ public class Premio {
     }
     
     
-    
+    /**
+     * Genera el siguiente random
+     * @param end
+     * @return 
+     */
     private static int generateRandom(int end){
         int n = rand.nextInt(end);
         n+=1;
