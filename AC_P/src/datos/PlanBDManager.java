@@ -20,12 +20,12 @@ import javax.swing.table.DefaultTableModel;
 public class PlanBDManager {
     Connection cn = SQLConManager.createCon();
     
-    public int addPlan(String name,String numSorteo,ArrayList<Premio> prices){
+    public int addPlan(String name,String numSorteo,ArrayList<Premio> prices,String total){
         try(Statement st = cn.createStatement();
-            ResultSet rs = st.executeQuery("call createPlan('"+name+"','"+numSorteo+"',"+0+")");
+            ResultSet rs = st.executeQuery("call createPlan('"+name+"','"+numSorteo+"',"+total+")");
         ){
             for(int i = 0; i<prices.size();i++){
-                addPrice(name,prices.get(i).getCantidad(),prices.get(i).getGanancia());
+                addPrice(name,prices.get(i).getNombre(),prices.get(i).getCantidad(),prices.get(i).getGanancia());
             }
             return 1;
         }catch(SQLException ex){
@@ -34,9 +34,9 @@ public class PlanBDManager {
         }
     }
     
-    private int addPrice(String name,String cant,String winn) throws SQLException{
+    private int addPrice(String name,String namePrem,String cant,String winn) throws SQLException{
         try(Statement st = cn.createStatement();
-            ResultSet rs = st.executeQuery("call createPremio('"+name+"','"+"Premio"+"',"+cant+","+winn+")");
+            ResultSet rs = st.executeQuery("call createPremio('"+name+"','"+namePrem+"',"+cant+","+winn+")");
         ){
             return 1;
         }
@@ -67,9 +67,9 @@ public class PlanBDManager {
                 String name = rs.getString("nombrePlan");
                 String num = rs.getString("numeroSorteo");
                 String total = rs.getString("totalPremios");
-
+                Double tot = Double.parseDouble(total);
                 // create a single array of one row's worth of data
-                String[] data = { name, num, total} ;
+                String[] data = { name, num, BigDecimal.valueOf(tot).toPlainString()} ;
 
                 // and add this row of data into the table model
                 tableModel.addRow(data);
@@ -102,17 +102,18 @@ public class PlanBDManager {
     }
     
     public DefaultTableModel getPremios(String name){
-        String[] columnNames = {"Cantidad", "Ganancia"};
+        String[] columnNames = {"Nombre","Cantidad", "Ganancia"};
         DefaultTableModel tableModel = new DefaultTableModel(columnNames, 0);
         try(Statement st = cn.createStatement();
             ResultSet rs = st.executeQuery("select * from premios where planAsociado='"+name+"' order by gananciaPremio DESC;");
         ){
             while (rs.next()) {
+                String nameP = rs.getString("nombrePremio");
                 String cant = rs.getString("cantidadPremios");
                 String amount = rs.getString("gananciaPremio");
                 double win = Double.parseDouble(amount);
 
-                String[] data = { cant, BigDecimal.valueOf(win).toPlainString()} ;
+                String[] data = { nameP,cant, BigDecimal.valueOf(win).toPlainString()} ;
                 tableModel.addRow(data);
             }
             return tableModel;
@@ -122,13 +123,13 @@ public class PlanBDManager {
         }
     }
     
-    public int updatePlan(String name,String numSorteo,String oldNum,ArrayList<Premio> prices){
+    public int updatePlan(String name,String numSorteo,String oldNum,ArrayList<Premio> prices,String total){
         try(Statement st = cn.createStatement();
-            ResultSet rs = st.executeQuery("call updatePlan('"+name+"','"+numSorteo+"',"+0+",'"+oldNum+"')");
+            ResultSet rs = st.executeQuery("call updatePlan('"+name+"','"+numSorteo+"',"+total+",'"+oldNum+"')");
         ){
             trueDeletePrices(name);
             for(int i = 0; i<prices.size();i++){
-                addPrice(name,prices.get(i).getCantidad(),prices.get(i).getGanancia());
+                addPrice(name,prices.get(i).getNombre(),prices.get(i).getCantidad(),prices.get(i).getGanancia());
             }
             return 1;
         }catch(SQLException ex){

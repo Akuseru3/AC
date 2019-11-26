@@ -19,9 +19,12 @@ public class SQLConManager {
     private static Connection conectar = null;
     private static Connection conexion(){
         //Proceso de conexion de java con la base de datos
+        String url = "jdbc:mysql://localhost:3306/loteria?serverTimezone=UTC&useUnicode=true&characterEncoding=utf-8&useSSL=false";
+        String user = "root";
+        String pass = "kedareto";
         try{
             Class.forName("com.mysql.cj.jdbc.Driver");
-            conectar = DriverManager.getConnection("jdbc:mysql://localhost:3306/loteria?serverTimezone=UTC&useUnicode=true&characterEncoding=utf-8&useSSL=false","root","kedareto");
+            conectar = DriverManager.getConnection(url,user,pass);
             System.out.println("Conexion exitosa");
             
         }catch(ClassNotFoundException | SQLException e){

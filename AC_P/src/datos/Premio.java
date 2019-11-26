@@ -5,6 +5,7 @@
  */
 package datos;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Random;
 import javax.swing.JTable;
@@ -47,9 +48,10 @@ public class Premio {
         int cantPremios = table.getRowCount();
         ArrayList<Premio> premios = new ArrayList<>();
         for(int i = 0;i<cantPremios;i++){
-            String cant = table.getValueAt(i, 0).toString();
-            String amount = table.getValueAt(i, 1).toString();
-            premios.add(new Premio(cant,amount));
+            String name = table.getValueAt(i, 0).toString();
+            String cant = table.getValueAt(i, 1).toString();
+            String amount = table.getValueAt(i, 2).toString();
+            premios.add(new Premio(name,cant,amount));
         }
         return premios;
     }
@@ -57,13 +59,13 @@ public class Premio {
     public static ArrayList<Premio> generateWinners(String sorteo,ArrayList<Premio> premios){
         ArrayList<Premio> ganadores = new ArrayList<Premio>();
         SorteoBDManager connector = new SorteoBDManager();
-        //connector.jugarSorteo(sorteo);
+        connector.jugarSorteo(sorteo);
         for(Premio temp:premios){
             int cant = Validate.toInt(temp.cantidad);
             for(int i = 0;i<cant;i++){
                 int numero = generateRandom(99);
                 int serie = generateRandom(999);
-                //connector.addGanador(sorteo, Integer.toString(numero), Integer.toString(serie), temp.getGanancia());
+                connector.addGanador(sorteo, Integer.toString(numero), Integer.toString(serie), temp.getGanancia());
                 Premio nuevo = new Premio(String.valueOf(numero),String.valueOf(serie),temp.ganancia);
                 ganadores.add(nuevo);
                 String[] data = { Integer.toString(numero), Integer.toString(serie), temp.ganancia} ;
@@ -72,6 +74,19 @@ public class Premio {
         }
         return ganadores;
     }
+    
+    public static Double sumTotalPremios(ArrayList<Premio> premios){
+        Double total = 0.0;
+        System.out.println(premios.size());
+        for(Premio temp : premios){
+            Double val = Double.parseDouble(temp.getGanancia());
+            total += val;
+        }
+        System.out.println(total);
+        return total;
+    }
+    
+    
     
     private static int generateRandom(int end){
         int n = rand.nextInt(end);

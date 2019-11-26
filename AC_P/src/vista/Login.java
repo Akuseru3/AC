@@ -107,13 +107,13 @@ public class Login extends javax.swing.JFrame {
     private void loginBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loginBtnActionPerformed
         LoginDatas loginObj = new LoginDatas();
         if(loginObj.checkContraseña(userTxtF.getText().trim(),passTxtF.getText().trim()) == 1){
-            InicioAdmin secondForm = new InicioAdmin();
+            InicioAdmin secondForm = new InicioAdmin(1);
             secondForm.show();            
             this.dispose();
         }
         else if(loginObj.checkContraseña(userTxtF.getText().trim(),passTxtF.getText().trim()) == 2){
             System.out.println("Administrador");
-            InicioAdmin secondForm = new InicioAdmin();
+            InicioAdmin secondForm = new InicioAdmin(2);
             secondForm.show();
             this.dispose();
         }

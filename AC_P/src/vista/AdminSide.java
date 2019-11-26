@@ -12,6 +12,7 @@ import datos.Validate;
 import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.Font;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Random;
@@ -208,7 +209,6 @@ public class AdminSide extends javax.swing.JFrame {
     private void initComponents() {
 
         jButton13 = new javax.swing.JButton();
-        jLabel4 = new javax.swing.JLabel();
         btnStartG = new javax.swing.JButton();
         btnReports = new javax.swing.JButton();
         btnGestionS = new javax.swing.JButton();
@@ -296,12 +296,14 @@ public class AdminSide extends javax.swing.JFrame {
         jLabel90 = new javax.swing.JLabel();
         jLabel91 = new javax.swing.JLabel();
         jLabel89 = new javax.swing.JLabel();
+        jLabel49 = new javax.swing.JLabel();
+        jLabel50 = new javax.swing.JLabel();
         planModOldNum = new javax.swing.JLabel();
         planModName = new javax.swing.JLabel();
         jLabel88 = new javax.swing.JLabel();
         jLabel82 = new javax.swing.JLabel();
         planModNum = new javax.swing.JLabel();
-        premioAddName1 = new javax.swing.JTextField();
+        premioAddNameM = new javax.swing.JTextField();
         jLabel84 = new javax.swing.JLabel();
         jLabel85 = new javax.swing.JLabel();
         premioAddCantM = new javax.swing.JTextField();
@@ -312,7 +314,6 @@ public class AdminSide extends javax.swing.JFrame {
         jScrollPane16 = new javax.swing.JScrollPane();
         premiosTablaM = new javax.swing.JTable();
         jLabel83 = new javax.swing.JLabel();
-        jLabel87 = new javax.swing.JLabel();
         btnModPlan = new javax.swing.JButton();
         jLabel59 = new javax.swing.JLabel();
         jLabel62 = new javax.swing.JLabel();
@@ -327,6 +328,7 @@ public class AdminSide extends javax.swing.JFrame {
         premiosTablaA = new javax.swing.JTable();
         jLabel37 = new javax.swing.JLabel();
         btnSelectSorteo = new javax.swing.JButton();
+        jLabel43 = new javax.swing.JLabel();
         planAddName = new javax.swing.JTextField();
         jLabel38 = new javax.swing.JLabel();
         premioAddName = new javax.swing.JTextField();
@@ -411,6 +413,7 @@ public class AdminSide extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setResizable(false);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jButton13.setBackground(new java.awt.Color(21, 57, 90));
@@ -435,9 +438,6 @@ public class AdminSide extends javax.swing.JFrame {
         });
         getContentPane().add(jButton13, new org.netbeans.lib.awtextra.AbsoluteConstraints(1140, 0, 120, 30));
 
-        jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/lilLogo.png"))); // NOI18N
-        getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 0, 130, 100));
-
         btnStartG.setBackground(new java.awt.Color(21, 57, 90));
         btnStartG.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
         btnStartG.setForeground(new java.awt.Color(255, 255, 255));
@@ -458,7 +458,7 @@ public class AdminSide extends javax.swing.JFrame {
                 btnStartGActionPerformed(evt);
             }
         });
-        getContentPane().add(btnStartG, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 100, 150, 50));
+        getContentPane().add(btnStartG, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 30, 150, 50));
 
         btnReports.setBackground(new java.awt.Color(21, 57, 90));
         btnReports.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
@@ -480,7 +480,7 @@ public class AdminSide extends javax.swing.JFrame {
                 btnReportsActionPerformed(evt);
             }
         });
-        getContentPane().add(btnReports, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 100, 130, 50));
+        getContentPane().add(btnReports, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 30, 130, 50));
 
         btnGestionS.setBackground(new java.awt.Color(21, 57, 90));
         btnGestionS.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
@@ -502,7 +502,7 @@ public class AdminSide extends javax.swing.JFrame {
                 btnGestionSActionPerformed(evt);
             }
         });
-        getContentPane().add(btnGestionS, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 100, 190, 50));
+        getContentPane().add(btnGestionS, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 30, 190, 50));
 
         btnGestionP.setBackground(new java.awt.Color(21, 57, 90));
         btnGestionP.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
@@ -524,15 +524,15 @@ public class AdminSide extends javax.swing.JFrame {
                 btnGestionPActionPerformed(evt);
             }
         });
-        getContentPane().add(btnGestionP, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 100, 160, 50));
+        getContentPane().add(btnGestionP, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 30, 160, 50));
 
         jLabel3.setBackground(new java.awt.Color(21, 57, 90));
         jLabel3.setOpaque(true);
-        getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 100, 1260, 50));
+        getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 30, 1260, 50));
 
         jLabel2.setBackground(new java.awt.Color(16, 47, 75));
         jLabel2.setOpaque(true);
-        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1260, 160));
+        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, -60, 1260, 150));
 
         startSorteoPanel.setOpaque(false);
         startSorteoPanel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -672,7 +672,7 @@ public class AdminSide extends javax.swing.JFrame {
         jLabel101.setOpaque(true);
         startSorteoPanel.add(jLabel101, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 60, 1100, 520));
 
-        getContentPane().add(startSorteoPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 160, 1260, 640));
+        getContentPane().add(startSorteoPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 90, 1260, 640));
 
         reportInfoPanel.setOpaque(false);
         reportInfoPanel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -776,7 +776,7 @@ public class AdminSide extends javax.swing.JFrame {
         jLabel103.setOpaque(true);
         reportInfoPanel.add(jLabel103, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 20, 1100, 560));
 
-        getContentPane().add(reportInfoPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 160, 1260, 640));
+        getContentPane().add(reportInfoPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 90, 1260, 640));
 
         reportPanel.setOpaque(false);
         reportPanel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -887,7 +887,7 @@ public class AdminSide extends javax.swing.JFrame {
         jLabel99.setOpaque(true);
         reportPanel.add(jLabel99, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 60, 1100, 520));
 
-        getContentPane().add(reportPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 160, 1260, 640));
+        getContentPane().add(reportPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 90, 1260, 640));
 
         planPanel.setOpaque(false);
         planPanel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -1077,6 +1077,14 @@ public class AdminSide extends javax.swing.JFrame {
         jLabel89.setText("Sorteo N.");
         planM.add(jLabel89, new org.netbeans.lib.awtextra.AbsoluteConstraints(940, 120, 80, -1));
 
+        jLabel49.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel49.setText("Agregados");
+        planM.add(jLabel49, new org.netbeans.lib.awtextra.AbsoluteConstraints(820, 220, -1, -1));
+
+        jLabel50.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jLabel50.setText("Información de premios");
+        planM.add(jLabel50, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 200, -1, -1));
+
         planModOldNum.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         planModOldNum.setText("--");
         planM.add(planModOldNum, new org.netbeans.lib.awtextra.AbsoluteConstraints(1030, 120, 40, -1));
@@ -1097,26 +1105,26 @@ public class AdminSide extends javax.swing.JFrame {
         planModNum.setText("--");
         planM.add(planModNum, new org.netbeans.lib.awtextra.AbsoluteConstraints(1030, 160, 40, -1));
 
-        premioAddName1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        planM.add(premioAddName1, new org.netbeans.lib.awtextra.AbsoluteConstraints(730, 240, 130, 20));
+        premioAddNameM.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        planM.add(premioAddNameM, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 260, 130, 20));
 
         jLabel84.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jLabel84.setText("Nombre de premio");
-        planM.add(jLabel84, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 240, -1, -1));
+        jLabel84.setText("Nombre");
+        planM.add(jLabel84, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 260, -1, -1));
 
         jLabel85.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jLabel85.setText("Cantidad de fracciones");
-        planM.add(jLabel85, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 290, -1, -1));
+        jLabel85.setText("Cantidad");
+        planM.add(jLabel85, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 310, -1, -1));
 
         premioAddCantM.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        planM.add(premioAddCantM, new org.netbeans.lib.awtextra.AbsoluteConstraints(730, 290, 130, 20));
+        planM.add(premioAddCantM, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 310, 130, 20));
 
         jLabel86.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel86.setText("Ganancia");
-        planM.add(jLabel86, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 340, -1, -1));
+        planM.add(jLabel86, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 360, -1, -1));
 
         premioAddAmountM.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        planM.add(premioAddAmountM, new org.netbeans.lib.awtextra.AbsoluteConstraints(730, 340, 130, 20));
+        planM.add(premioAddAmountM, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 360, 130, 20));
 
         btnAgregarPremioM.setBackground(new java.awt.Color(21, 57, 90));
         btnAgregarPremioM.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
@@ -1129,7 +1137,7 @@ public class AdminSide extends javax.swing.JFrame {
                 btnAgregarPremioMActionPerformed(evt);
             }
         });
-        planM.add(btnAgregarPremioM, new org.netbeans.lib.awtextra.AbsoluteConstraints(690, 420, -1, -1));
+        planM.add(btnAgregarPremioM, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 420, -1, -1));
 
         btnEliminarPremioM.setBackground(new java.awt.Color(21, 57, 90));
         btnEliminarPremioM.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
@@ -1142,26 +1150,22 @@ public class AdminSide extends javax.swing.JFrame {
                 btnEliminarPremioMActionPerformed(evt);
             }
         });
-        planM.add(btnEliminarPremioM, new org.netbeans.lib.awtextra.AbsoluteConstraints(930, 420, 90, 30));
+        planM.add(btnEliminarPremioM, new org.netbeans.lib.awtextra.AbsoluteConstraints(890, 420, 90, 30));
 
         premiosTablaM.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "Cantidad", "Ganancia"
+                "Nombre", "Cantidad", "Ganancia"
             }
         ));
         jScrollPane16.setViewportView(premiosTablaM);
 
-        planM.add(jScrollPane16, new org.netbeans.lib.awtextra.AbsoluteConstraints(890, 240, 180, 160));
+        planM.add(jScrollPane16, new org.netbeans.lib.awtextra.AbsoluteConstraints(820, 240, 250, 160));
 
         jLabel83.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         planM.add(jLabel83, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 200, 540, 270));
-
-        jLabel87.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        jLabel87.setText("Premios");
-        planM.add(jLabel87, new org.netbeans.lib.awtextra.AbsoluteConstraints(890, 210, -1, -1));
 
         btnModPlan.setBackground(new java.awt.Color(21, 57, 90));
         btnModPlan.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
@@ -1237,12 +1241,12 @@ public class AdminSide extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Cantidad", "Ganancia"
+                "Nombre", "Cantidad", "Ganancia"
             }
         ));
         jScrollPane11.setViewportView(premiosTablaA);
 
-        planA.add(jScrollPane11, new org.netbeans.lib.awtextra.AbsoluteConstraints(890, 240, 180, 160));
+        planA.add(jScrollPane11, new org.netbeans.lib.awtextra.AbsoluteConstraints(820, 240, 270, 160));
 
         jLabel37.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel37.setText("Sorteo N.");
@@ -1261,29 +1265,33 @@ public class AdminSide extends javax.swing.JFrame {
         });
         planA.add(btnSelectSorteo, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 480, -1, -1));
 
+        jLabel43.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel43.setText("Agregados");
+        planA.add(jLabel43, new org.netbeans.lib.awtextra.AbsoluteConstraints(820, 220, -1, -1));
+
         planAddName.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         planA.add(planAddName, new org.netbeans.lib.awtextra.AbsoluteConstraints(720, 140, 150, 30));
 
         jLabel38.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jLabel38.setText("Nombre de premio");
-        planA.add(jLabel38, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 240, -1, -1));
+        jLabel38.setText("Nombre");
+        planA.add(jLabel38, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 250, -1, -1));
 
         premioAddName.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        planA.add(premioAddName, new org.netbeans.lib.awtextra.AbsoluteConstraints(730, 240, 130, 20));
+        planA.add(premioAddName, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 250, 130, 20));
 
         jLabel39.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jLabel39.setText("Cantidad de fracciones");
-        planA.add(jLabel39, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 290, -1, -1));
+        jLabel39.setText("Cantidad");
+        planA.add(jLabel39, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 300, -1, -1));
 
         premioAddCant.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        planA.add(premioAddCant, new org.netbeans.lib.awtextra.AbsoluteConstraints(730, 290, 130, 20));
+        planA.add(premioAddCant, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 300, 130, 20));
 
         jLabel40.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel40.setText("Ganancia");
-        planA.add(jLabel40, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 340, -1, -1));
+        planA.add(jLabel40, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 350, -1, -1));
 
         premioAddAmount.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        planA.add(premioAddAmount, new org.netbeans.lib.awtextra.AbsoluteConstraints(730, 340, 130, 20));
+        planA.add(premioAddAmount, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 350, 130, 20));
 
         btnAgregarPremio.setBackground(new java.awt.Color(21, 57, 90));
         btnAgregarPremio.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
@@ -1299,8 +1307,8 @@ public class AdminSide extends javax.swing.JFrame {
         planA.add(btnAgregarPremio, new org.netbeans.lib.awtextra.AbsoluteConstraints(690, 420, -1, -1));
 
         jLabel41.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        jLabel41.setText("Premios");
-        planA.add(jLabel41, new org.netbeans.lib.awtextra.AbsoluteConstraints(890, 210, -1, -1));
+        jLabel41.setText("Información de premios");
+        planA.add(jLabel41, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 200, -1, -1));
 
         btnEliminarPremio.setBackground(new java.awt.Color(21, 57, 90));
         btnEliminarPremio.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
@@ -1313,7 +1321,7 @@ public class AdminSide extends javax.swing.JFrame {
                 btnEliminarPremioActionPerformed(evt);
             }
         });
-        planA.add(btnEliminarPremio, new org.netbeans.lib.awtextra.AbsoluteConstraints(930, 420, 90, 30));
+        planA.add(btnEliminarPremio, new org.netbeans.lib.awtextra.AbsoluteConstraints(910, 420, 90, 30));
 
         btnCrearPlan.setBackground(new java.awt.Color(21, 57, 90));
         btnCrearPlan.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
@@ -1346,7 +1354,7 @@ public class AdminSide extends javax.swing.JFrame {
 
         planPanel.add(planA, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 30, 1180, 590));
 
-        getContentPane().add(planPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 160, 1260, 640));
+        getContentPane().add(planPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 90, 1260, 640));
 
         sorteoPanel.setOpaque(false);
         sorteoPanel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -1730,10 +1738,10 @@ public class AdminSide extends javax.swing.JFrame {
 
         sorteoPanel.add(sorteoA, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 30, 1200, 590));
 
-        getContentPane().add(sorteoPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 160, 1260, 640));
+        getContentPane().add(sorteoPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 90, 1260, 640));
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Lottery (1).jpg"))); // NOI18N
-        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1260, 800));
+        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, -60, 1260, 800));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -1808,8 +1816,8 @@ public class AdminSide extends javax.swing.JFrame {
 
     private void btnAgregarPremioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarPremioActionPerformed
         DefaultTableModel model = (DefaultTableModel) premiosTablaA.getModel();
-        if(Validate.checkIfInt(premioAddCant.getText()) && Validate.checkIfInt(premioAddAmount.getText())){
-            model.addRow(new Object[]{premioAddCant.getText(),premioAddAmount.getText()});
+        if(!premioAddName.getText().trim().equals("") && Validate.checkIfInt(premioAddCant.getText()) && Validate.checkIfInt(premioAddAmount.getText())){
+            model.addRow(new Object[]{premioAddName.getText(),premioAddCant.getText(),premioAddAmount.getText()});
         }
         else
             JOptionPane.showMessageDialog(null,"Tanto el premio como la cantidad deben ser numeros enteros positivos", "Error con datos ingresados", JOptionPane.INFORMATION_MESSAGE);
@@ -1827,10 +1835,11 @@ public class AdminSide extends javax.swing.JFrame {
         String nombre = planAddName.getText();
         String sorteo = planAddNum.getText();
         ArrayList<Premio> premios = Premio.getTablePrices(premiosTablaA.getModel());
+        Double totalP = Premio.sumTotalPremios(premios);
         String errors = Validate.validatePlan(nombre, sorteo, premios);
         if(errors.equals("")){
             PlanBDManager conector = new PlanBDManager();
-            conector.addPlan(nombre, sorteo, premios);
+            conector.addPlan(nombre, sorteo, premios, BigDecimal.valueOf(totalP).toPlainString());
             fillPlanes();
             fillSorteos();
         }
@@ -1900,7 +1909,7 @@ public class AdminSide extends javax.swing.JFrame {
     }//GEN-LAST:event_btnPlayGameActionPerformed
 
     private void jButton13ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton13ActionPerformed
-        InicioAdmin secondForm = new InicioAdmin();
+        InicioAdmin secondForm = new InicioAdmin(2);
         secondForm.show();
 
         this.dispose();
@@ -1990,8 +1999,8 @@ public class AdminSide extends javax.swing.JFrame {
 
     private void btnAgregarPremioMActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarPremioMActionPerformed
         DefaultTableModel model = (DefaultTableModel) premiosTablaM.getModel();
-        if(Validate.checkIfInt(premioAddCantM.getText()) && Validate.checkIfInt(premioAddAmountM.getText())){
-            model.addRow(new Object[]{premioAddCantM.getText(),premioAddAmountM.getText()});
+        if(!premioAddNameM.getText().trim().equals("") && Validate.checkIfInt(premioAddCantM.getText()) && Validate.checkIfInt(premioAddAmountM.getText())){
+            model.addRow(new Object[]{premioAddNameM.getText(),premioAddCantM.getText(),premioAddAmountM.getText()});
         }
         else
             JOptionPane.showMessageDialog(null,"Tanto el premio como la cantidad deben ser numeros enteros positivos", "Error con datos ingresados", JOptionPane.INFORMATION_MESSAGE);
@@ -2010,10 +2019,11 @@ public class AdminSide extends javax.swing.JFrame {
         String sorteo = planModNum.getText();
         String oldSorteo = planModOldNum.getText();
         ArrayList<Premio> premios = Premio.getTablePrices(premiosTablaM.getModel());
-        String errors = Validate.validatePlan(nombre, sorteo, premios);
+        Double totalP = Premio.sumTotalPremios(premios);
+        String errors = Validate.validatePlanM(nombre, sorteo, premios);
         if(errors.equals("")){
             PlanBDManager conector = new PlanBDManager();
-            conector.updatePlan(nombre, sorteo,oldSorteo, premios);
+            conector.updatePlan(nombre, sorteo,oldSorteo, premios,BigDecimal.valueOf(totalP).toPlainString());
             fillPlanes();
             fillSorteos();
             planM.setVisible(false);
@@ -2168,16 +2178,18 @@ public class AdminSide extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel37;
     private javax.swing.JLabel jLabel38;
     private javax.swing.JLabel jLabel39;
-    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel40;
     private javax.swing.JLabel jLabel41;
     private javax.swing.JLabel jLabel42;
+    private javax.swing.JLabel jLabel43;
     private javax.swing.JLabel jLabel44;
     private javax.swing.JLabel jLabel45;
     private javax.swing.JLabel jLabel46;
     private javax.swing.JLabel jLabel47;
     private javax.swing.JLabel jLabel48;
+    private javax.swing.JLabel jLabel49;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel50;
     private javax.swing.JLabel jLabel52;
     private javax.swing.JLabel jLabel53;
     private javax.swing.JLabel jLabel54;
@@ -2212,7 +2224,6 @@ public class AdminSide extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel84;
     private javax.swing.JLabel jLabel85;
     private javax.swing.JLabel jLabel86;
-    private javax.swing.JLabel jLabel87;
     private javax.swing.JLabel jLabel88;
     private javax.swing.JLabel jLabel89;
     private javax.swing.JLabel jLabel9;
@@ -2258,7 +2269,7 @@ public class AdminSide extends javax.swing.JFrame {
     private javax.swing.JTextField premioAddCant;
     private javax.swing.JTextField premioAddCantM;
     private javax.swing.JTextField premioAddName;
-    private javax.swing.JTextField premioAddName1;
+    private javax.swing.JTextField premioAddNameM;
     private javax.swing.JTable premiosTablaA;
     private javax.swing.JTable premiosTablaE;
     private javax.swing.JTable premiosTablaM;

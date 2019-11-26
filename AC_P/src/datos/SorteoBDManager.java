@@ -81,8 +81,8 @@ public class SorteoBDManager {
                 String date = rs.getString("fechaSorteo");
                 String plan = rs.getString("nombrePlan");
                 String total = rs.getString("totalPremios");
-
-                String[] data = { num, name, type, price, date,plan,total} ;
+                Double tot = Double.parseDouble(total);
+                String[] data = { num, name, type, price, date,plan,BigDecimal.valueOf(tot).toPlainString()} ;
                 tableModel.addRow(data);
             }
             return tableModel;
@@ -302,7 +302,7 @@ public class SorteoBDManager {
     }
     
     public DefaultTableModel getStatGanadoMayorGen(){
-        String[] columnNames = {"Numero", "Total ganado"};
+        String[] columnNames = {"Numero", "Veces Ganado"};
         DefaultTableModel tableModel = new DefaultTableModel(columnNames, 0);
         try(Statement st = cn.createStatement();
             ResultSet rs = st.executeQuery("select numeroFraccion, count(numeroFraccion) as vecesGanado from PrimerPremioXsorteo as PPS\n" +
@@ -312,6 +312,29 @@ public class SorteoBDManager {
             while (rs.next()) {
                 String num = rs.getString("numeroFraccion");
                 String times = rs.getString("vecesGanado");
+                String[] data = {num,times} ;
+
+                tableModel.addRow(data);
+            }
+            return tableModel;
+        }catch(SQLException ex){
+            System.out.println(ex);
+            return tableModel;
+        }
+    }
+    
+    public DefaultTableModel getStatPercentage(){
+        String[] columnNames = {"Numero", "Probabilidad"};
+        DefaultTableModel tableModel = new DefaultTableModel(columnNames, 0);
+        try(Statement st = cn.createStatement();
+            ResultSet rs = st.executeQuery("SELECT numeroFraccion, COUNT( numeroFraccion ) AS test, concat(round(( COUNT( numeroFraccion )/Tot * 100 ),2),'%') AS percentage\n" +
+                                            "FROM ganadores\n" +
+                                            "inner join (select count(numeroFraccion) as Tot from ganadores)as nueva  on 1=1\n" +
+                                            "GROUP BY numeroFraccion;");
+        ){
+            while (rs.next()) {
+                String num = rs.getString("numeroFraccion");
+                String times = rs.getString("percentage");
                 String[] data = {num,times} ;
 
                 tableModel.addRow(data);

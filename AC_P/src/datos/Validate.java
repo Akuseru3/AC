@@ -34,6 +34,16 @@ public class Validate {
         return "";
     }
     
+    public static String validatePlanM(String name,String sorteo,ArrayList<Premio> premios){
+        String res = "";
+        if(name.trim().equals(""))
+            return "El campo nombre no puede quedar vacio";
+        if(sorteo.equals("--"))
+            return "Se debe seleccionar un sorteo al cual se vinculara el plan";
+        res = validatePrices(premios,sorteo);
+        return res;
+    }
+    
     public static String validatePlan(String name,String sorteo,ArrayList<Premio> premios){
         String res = "";
         if(name.trim().equals(""))
@@ -57,6 +67,8 @@ public class Validate {
             return "Los sorteos de chances deben tener una cantidad de 3 premios.";
         if(type.equals("L") && premios.size() < 3)
             return "Los sorteos de loteria deben tener al menos 3 premios.";
+        if(!validatePremios(premios))
+            return "Los tres premios mayores solo pueden tener una cantidad = 1";
         return "";
     }
     
@@ -150,5 +162,32 @@ public class Validate {
         }
         else
             return true;
+    }
+    
+    public static boolean validatePremios(ArrayList<Premio> premios){
+        ArrayList<Premio> mayores = getMaxThree(premios);
+        for(int i = 0;i<mayores.size();i++){
+            premios.add(mayores.get(i));
+            if(!mayores.get(i).getCantidad().equals("1"))
+                return false;
+        }
+        return true;
+    }
+    
+    public static ArrayList<Premio> getMaxThree(ArrayList<Premio> premios){
+        ArrayList<Premio> mayores = new ArrayList<>();
+        for(int i=0;i<3;i++){
+            double max = 0;
+            int index = 0;
+            for(int j = 0;j<premios.size();j++){
+                if(Double.parseDouble(premios.get(j).getGanancia()) > max){
+                    max = Double.parseDouble(premios.get(j).getGanancia());
+                    index = j;
+                }
+            }
+            mayores.add(premios.get(index));
+            premios.remove(index);
+        }
+        return mayores;
     }
 }

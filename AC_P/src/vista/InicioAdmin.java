@@ -33,11 +33,25 @@ public class InicioAdmin extends javax.swing.JFrame {
         checkExistingSorteos();
     }
     
+    public InicioAdmin(int i) {
+        initComponents();
+        homePanel.setVisible(true);
+        checkPanel.setVisible(false);
+        statPanel.setVisible(false);
+        winPanel.setVisible(false);
+        losePanel.setVisible(false);
+        statGenerator();
+        checkExistingSorteos();
+        if(i == 1)
+            jButton3.setVisible(false);
+    }
+    
     private void statGenerator(){
         SorteoBDManager manager = new SorteoBDManager();
         statMasJugadoTable.setModel(manager.getStatMasJugados());
         statNumMonetario.setModel(manager.getStatMasPremiadoGen());
         statMasGanadoPP.setModel(manager.getStatGanadoMayorGen());
+        statProb.setModel(manager.getStatPercentage());
     }
     
     private void checkExistingSorteos(){
@@ -52,7 +66,7 @@ public class InicioAdmin extends javax.swing.JFrame {
     
     private void chancesHomeFill(String sorteo,String date,ArrayList<Premio> data){
         chanceCode.setText("Sorteo "+sorteo);
-        chanceDate.setText(date);
+        chanceDate.setText("Fecha de Juego: "+date);
         prNum.setText(data.get(0).getNombre());
         prSer.setText(data.get(0).getCantidad());
         prPrem.setText("₡"+data.get(0).getGanancia()+" por entero");
@@ -65,8 +79,8 @@ public class InicioAdmin extends javax.swing.JFrame {
     }
     
     private void loteriaHomeFill(String sorteo,String date,ArrayList<Premio> data){
-        chanceCode.setText("Sorteo "+sorteo);
-        chanceDate.setText(date);
+        loteriaCode.setText("Sorteo "+sorteo);
+        loteriaDate.setText("Fecha de Juego: "+date);
         prNumL.setText(data.get(0).getNombre());
         prSerL.setText(data.get(0).getCantidad());
         prPremL.setText("₡"+data.get(0).getGanancia()+" por entero");
@@ -89,7 +103,6 @@ public class InicioAdmin extends javax.swing.JFrame {
     private void initComponents() {
 
         jButton12 = new javax.swing.JButton();
-        jLabel4 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
         jButton5 = new javax.swing.JButton();
@@ -97,6 +110,9 @@ public class InicioAdmin extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         statPanel = new javax.swing.JPanel();
+        jLabel73 = new javax.swing.JLabel();
+        jScrollPane4 = new javax.swing.JScrollPane();
+        statProb = new javax.swing.JTable();
         jScrollPane1 = new javax.swing.JScrollPane();
         statMasJugadoTable = new javax.swing.JTable();
         jScrollPane2 = new javax.swing.JScrollPane();
@@ -200,6 +216,7 @@ public class InicioAdmin extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setResizable(false);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jButton12.setBackground(new java.awt.Color(21, 57, 90));
@@ -216,9 +233,6 @@ public class InicioAdmin extends javax.swing.JFrame {
         });
         getContentPane().add(jButton12, new org.netbeans.lib.awtextra.AbsoluteConstraints(1140, 0, 120, 30));
 
-        jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/lilLogo.png"))); // NOI18N
-        getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 0, 130, 100));
-
         jButton1.setBackground(new java.awt.Color(21, 57, 90));
         jButton1.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
         jButton1.setForeground(new java.awt.Color(255, 255, 255));
@@ -231,7 +245,7 @@ public class InicioAdmin extends javax.swing.JFrame {
                 jButton1ActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 100, 160, 50));
+        getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 30, 160, 50));
 
         jButton4.setBackground(new java.awt.Color(21, 57, 90));
         jButton4.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
@@ -253,7 +267,7 @@ public class InicioAdmin extends javax.swing.JFrame {
                 jButton4ActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 100, 90, 50));
+        getContentPane().add(jButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 30, 90, 50));
 
         jButton5.setBackground(new java.awt.Color(21, 57, 90));
         jButton5.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
@@ -267,7 +281,7 @@ public class InicioAdmin extends javax.swing.JFrame {
                 jButton5ActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton5, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 100, 150, 50));
+        getContentPane().add(jButton5, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 30, 150, 50));
 
         jButton3.setBackground(new java.awt.Color(21, 57, 90));
         jButton3.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
@@ -281,18 +295,38 @@ public class InicioAdmin extends javax.swing.JFrame {
                 jButton3ActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 100, 160, 50));
+        getContentPane().add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 30, 160, 50));
 
         jLabel3.setBackground(new java.awt.Color(21, 57, 90));
         jLabel3.setOpaque(true);
-        getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 100, 1260, 50));
+        getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 30, 1260, 50));
 
         jLabel2.setBackground(new java.awt.Color(16, 47, 75));
         jLabel2.setOpaque(true);
-        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1260, 160));
+        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, -50, 1260, 130));
 
         statPanel.setOpaque(false);
         statPanel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel73.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jLabel73.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel73.setText("Probabilidades de números ");
+        statPanel.add(jLabel73, new org.netbeans.lib.awtextra.AbsoluteConstraints(740, 290, -1, 30));
+
+        statProb.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        jScrollPane4.setViewportView(statProb);
+
+        statPanel.add(jScrollPane4, new org.netbeans.lib.awtextra.AbsoluteConstraints(710, 360, 290, 190));
 
         statMasJugadoTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -398,7 +432,7 @@ public class InicioAdmin extends javax.swing.JFrame {
         jLabel99.setOpaque(true);
         statPanel.add(jLabel99, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 70, 1100, 520));
 
-        getContentPane().add(statPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 160, 1140, 580));
+        getContentPane().add(statPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 90, 1140, 580));
 
         checkPanel.setOpaque(false);
         checkPanel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -561,7 +595,7 @@ public class InicioAdmin extends javax.swing.JFrame {
 
         checkPanel.add(checkBillPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1140, 580));
 
-        getContentPane().add(checkPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 160, 1140, 580));
+        getContentPane().add(checkPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 90, 1140, 580));
 
         homePanel.setOpaque(false);
         homePanel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -738,10 +772,10 @@ public class InicioAdmin extends javax.swing.JFrame {
         jLabel6.setOpaque(true);
         homePanel.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 70, 1100, 520));
 
-        getContentPane().add(homePanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 160, 1140, 580));
+        getContentPane().add(homePanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 90, 1140, 580));
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Lottery (1).jpg"))); // NOI18N
-        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1260, 800));
+        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, -50, 1260, 800));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -893,7 +927,6 @@ public class InicioAdmin extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel34;
     private javax.swing.JLabel jLabel36;
     private javax.swing.JLabel jLabel38;
-    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel40;
     private javax.swing.JLabel jLabel42;
     private javax.swing.JLabel jLabel44;
@@ -925,6 +958,7 @@ public class InicioAdmin extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel70;
     private javax.swing.JLabel jLabel71;
     private javax.swing.JLabel jLabel72;
+    private javax.swing.JLabel jLabel73;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JLabel jLabel94;
@@ -935,6 +969,7 @@ public class InicioAdmin extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JPanel losePanel;
@@ -956,6 +991,7 @@ public class InicioAdmin extends javax.swing.JFrame {
     private javax.swing.JTable statMasJugadoTable;
     private javax.swing.JTable statNumMonetario;
     private javax.swing.JPanel statPanel;
+    private javax.swing.JTable statProb;
     private javax.swing.JLabel trNum;
     private javax.swing.JLabel trNumL;
     private javax.swing.JLabel trPrem;
