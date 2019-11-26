@@ -17,11 +17,18 @@ import javax.swing.table.TableModel;
  */
 public class Premio {
     static Random rand = new Random();
+    private String nombre;
     private  String cantidad;
     private String ganancia;
     public Premio(String cantidad,String ganancia){
         this.cantidad = cantidad;
         this.ganancia = ganancia;
+    }
+    
+    public Premio(String nombre,String cantidad,String ganancia){
+        this.cantidad = cantidad;
+        this.ganancia = ganancia;
+        this.nombre = nombre;
     }
     
     public String getCantidad(){
@@ -30,6 +37,10 @@ public class Premio {
     
     public String getGanancia(){
         return ganancia;
+    }
+    
+    public String getNombre(){
+        return nombre;
     }
     
     public static ArrayList<Premio> getTablePrices(TableModel table){

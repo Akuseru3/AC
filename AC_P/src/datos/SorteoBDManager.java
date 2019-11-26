@@ -5,10 +5,12 @@
  */
 package datos;
 
+import java.awt.List;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -215,6 +217,109 @@ public class SorteoBDManager {
             return 0;
         }catch(SQLException ex){
             return 0;
+        }
+    }
+    
+    public ArrayList<String> lastSorteo(String type){
+        ArrayList<String> params = new ArrayList<String>();
+        try(Statement st = cn.createStatement();
+            ResultSet rs = st.executeQuery("select idSorteo, fechaSorteo from sorteos where estadoSorteo = 3 and tipoSorteo="+type+" order by fechaSorteo DESC limit 1;");
+        ){
+            if(rs.next()){
+                String code = rs.getString("idSorteo");
+                String date = rs.getString("fechaSorteo");
+                params.add(code);
+                params.add(date);
+            }  
+            return params;
+        }catch(SQLException ex){
+            return params;
+        }
+    }
+    
+    public ArrayList<Premio> topPremios(String sorteo){
+        ArrayList<Premio> params = new ArrayList<Premio>();
+        try(Statement st = cn.createStatement();
+            ResultSet rs = st.executeQuery("select numeroFraccion, serieFraccion, cantidadPremio from ganadores where numeroSorteo = '"+sorteo+"'  order by cantidadPremio DESC limit 3;");
+        ){
+            while(rs.next()){
+                String num = rs.getString("numeroFraccion");
+                String serie = rs.getString("serieFraccion");
+                String premio = rs.getString("cantidadPremio");
+                Premio temp = new Premio(num,serie,premio);
+                params.add(temp);
+            }  
+            return params;
+        }catch(SQLException ex){
+            return params;
+        }
+    }
+    
+    public DefaultTableModel getStatMasJugados(){
+        String[] columnNames = {"Numero", "Veces Jugado"};
+        DefaultTableModel tableModel = new DefaultTableModel(columnNames, 0);
+        try(Statement st = cn.createStatement();
+            ResultSet rs = st.executeQuery("select numeroFraccion,count(numeroFraccion) as VecesWin from ganadores \n" +
+                                            "group by numeroFraccion \n" +
+                                            "order by VecesWin Desc limit 10;");
+        ){
+            while (rs.next()) {
+                String num = rs.getString("numeroFraccion");
+                String times = rs.getString("VecesWin");
+                String[] data = {num,times} ;
+
+                tableModel.addRow(data);
+            }
+            return tableModel;
+        }catch(SQLException ex){
+            System.out.println(ex);
+            return tableModel;
+        }
+    }
+    
+    public DefaultTableModel getStatMasPremiadoGen(){
+        String[] columnNames = {"Numero", "Total ganado"};
+        DefaultTableModel tableModel = new DefaultTableModel(columnNames, 0);
+        try(Statement st = cn.createStatement();
+            ResultSet rs = st.executeQuery("select numeroFraccion,sum(cantidadPremio) as totalPremios from ganadores \n" +
+                                            "group by numeroFraccion \n" +
+                                            "order by totalPremios Desc; limit 5");
+        ){
+            while (rs.next()) {
+                String num = rs.getString("numeroFraccion");
+                String times = rs.getString("totalPremios");
+                Double val = Double.parseDouble(times);
+                String[] data = {num,String.format ("%.1f", val)} ;
+
+                tableModel.addRow(data);
+            }
+            return tableModel;
+        }catch(SQLException ex){
+            System.out.println(ex);
+            return tableModel;
+        }
+    }
+    
+    public DefaultTableModel getStatGanadoMayorGen(){
+        String[] columnNames = {"Numero", "Total ganado"};
+        DefaultTableModel tableModel = new DefaultTableModel(columnNames, 0);
+        try(Statement st = cn.createStatement();
+            ResultSet rs = st.executeQuery("select numeroFraccion, count(numeroFraccion) as vecesGanado from PrimerPremioXsorteo as PPS\n" +
+                                            "inner join ganadores as G on PPS.numeroSorteo = G.numeroSorteo and PrimerPremio = cantidadPremio\n" +
+                                            "order by numeroFraccion limit 5;");
+        ){
+            while (rs.next()) {
+                String num = rs.getString("numeroFraccion");
+                String times = rs.getString("totalPremios");
+                Double val = Double.parseDouble(times);
+                String[] data = {num,String.format ("%.1f", val)} ;
+
+                tableModel.addRow(data);
+            }
+            return tableModel;
+        }catch(SQLException ex){
+            System.out.println(ex);
+            return tableModel;
         }
     }
 }

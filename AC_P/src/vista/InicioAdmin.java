@@ -5,10 +5,12 @@
  */
 package vista;
 
+import datos.Premio;
 import datos.SorteoBDManager;
 import datos.Validate;
 import java.awt.Color;
 import java.awt.Cursor;
+import java.util.ArrayList;
 import javax.swing.JOptionPane;
 
 /**
@@ -27,6 +29,54 @@ public class InicioAdmin extends javax.swing.JFrame {
         statPanel.setVisible(false);
         winPanel.setVisible(false);
         losePanel.setVisible(false);
+        statGenerator();
+        checkExistingSorteos();
+    }
+    
+    private void statGenerator(){
+        SorteoBDManager manager = new SorteoBDManager();
+        statMasJugadoTable.setModel(manager.getStatMasJugados());
+        statNumMonetario.setModel(manager.getStatMasPremiadoGen());
+        statMasGanadoPP.setModel(manager.getStatGanadoMayorGen());
+    }
+    
+    private void checkExistingSorteos(){
+        SorteoBDManager manager = new SorteoBDManager();
+        ArrayList<String> last = manager.lastSorteo("1");
+        if(last.size() == 2)
+            chancesHomeFill(last.get(0),last.get(1),manager.topPremios(last.get(0)));
+        last = manager.lastSorteo("2");
+        if(last.size() == 2)
+            loteriaHomeFill(last.get(0),last.get(1),manager.topPremios(last.get(0)));
+    }
+    
+    private void chancesHomeFill(String sorteo,String date,ArrayList<Premio> data){
+        chanceCode.setText("Sorteo "+sorteo);
+        chanceDate.setText(date);
+        prNum.setText(data.get(0).getNombre());
+        prSer.setText(data.get(0).getCantidad());
+        prPrem.setText("₡"+data.get(0).getGanancia()+" por entero");
+        sgNum.setText(data.get(1).getNombre());
+        sgSer.setText(data.get(1).getCantidad());
+        sgPrem.setText("₡"+data.get(1).getGanancia()+" por entero");
+        trNum.setText(data.get(2).getNombre());
+        trSer.setText(data.get(2).getCantidad());
+        trPrem.setText("₡"+data.get(2).getGanancia()+" por entero");
+    }
+    
+    private void loteriaHomeFill(String sorteo,String date,ArrayList<Premio> data){
+        chanceCode.setText("Sorteo "+sorteo);
+        chanceDate.setText(date);
+        prNumL.setText(data.get(0).getNombre());
+        prSerL.setText(data.get(0).getCantidad());
+        prPremL.setText("₡"+data.get(0).getGanancia()+" por entero");
+        sgNumL.setText(data.get(1).getNombre());
+        sgSerL.setText(data.get(1).getCantidad());
+        sgPremL.setText("₡"+data.get(1).getGanancia()+" por entero");
+        trNumL.setText(data.get(2).getNombre());
+        trSerL.setText(data.get(2).getCantidad());
+        trPremL.setText("₡"+data.get(2).getGanancia()+" por entero");
+
     }
 
     /**
@@ -48,11 +98,11 @@ public class InicioAdmin extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         statPanel = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        statMasJugadoTable = new javax.swing.JTable();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jTable2 = new javax.swing.JTable();
+        statMasGanadoPP = new javax.swing.JTable();
         jScrollPane3 = new javax.swing.JScrollPane();
-        jTable3 = new javax.swing.JTable();
+        statNumMonetario = new javax.swing.JTable();
         jLabel59 = new javax.swing.JLabel();
         jComboBox3 = new javax.swing.JComboBox<>();
         jLabel55 = new javax.swing.JLabel();
@@ -104,46 +154,46 @@ public class InicioAdmin extends javax.swing.JFrame {
         jLabel5 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
-        jLabel11 = new javax.swing.JLabel();
-        jLabel10 = new javax.swing.JLabel();
+        loteriaCode = new javax.swing.JLabel();
+        loteriaDate = new javax.swing.JLabel();
         jLabel12 = new javax.swing.JLabel();
-        jLabel15 = new javax.swing.JLabel();
+        prNumL = new javax.swing.JLabel();
         jLabel18 = new javax.swing.JLabel();
-        jLabel16 = new javax.swing.JLabel();
+        prSerL = new javax.swing.JLabel();
         jLabel19 = new javax.swing.JLabel();
-        jLabel17 = new javax.swing.JLabel();
+        prPremL = new javax.swing.JLabel();
         jLabel13 = new javax.swing.JLabel();
-        jLabel20 = new javax.swing.JLabel();
+        sgNumL = new javax.swing.JLabel();
         jLabel21 = new javax.swing.JLabel();
-        jLabel22 = new javax.swing.JLabel();
+        sgSerL = new javax.swing.JLabel();
         jLabel23 = new javax.swing.JLabel();
-        jLabel24 = new javax.swing.JLabel();
+        sgPremL = new javax.swing.JLabel();
         jLabel14 = new javax.swing.JLabel();
-        jLabel25 = new javax.swing.JLabel();
+        trNumL = new javax.swing.JLabel();
         jLabel26 = new javax.swing.JLabel();
-        jLabel27 = new javax.swing.JLabel();
+        trSerL = new javax.swing.JLabel();
         jLabel28 = new javax.swing.JLabel();
-        jLabel29 = new javax.swing.JLabel();
-        jLabel30 = new javax.swing.JLabel();
-        jLabel31 = new javax.swing.JLabel();
+        trPremL = new javax.swing.JLabel();
+        chanceCode = new javax.swing.JLabel();
+        chanceDate = new javax.swing.JLabel();
         jLabel32 = new javax.swing.JLabel();
-        jLabel33 = new javax.swing.JLabel();
+        prNum = new javax.swing.JLabel();
         jLabel34 = new javax.swing.JLabel();
-        jLabel35 = new javax.swing.JLabel();
+        prSer = new javax.swing.JLabel();
         jLabel36 = new javax.swing.JLabel();
-        jLabel37 = new javax.swing.JLabel();
+        prPrem = new javax.swing.JLabel();
         jLabel38 = new javax.swing.JLabel();
-        jLabel39 = new javax.swing.JLabel();
+        sgNum = new javax.swing.JLabel();
         jLabel40 = new javax.swing.JLabel();
-        jLabel41 = new javax.swing.JLabel();
+        sgSer = new javax.swing.JLabel();
         jLabel42 = new javax.swing.JLabel();
-        jLabel43 = new javax.swing.JLabel();
+        sgPrem = new javax.swing.JLabel();
         jLabel44 = new javax.swing.JLabel();
-        jLabel45 = new javax.swing.JLabel();
+        trNum = new javax.swing.JLabel();
         jLabel46 = new javax.swing.JLabel();
-        jLabel47 = new javax.swing.JLabel();
+        trSer = new javax.swing.JLabel();
         jLabel48 = new javax.swing.JLabel();
-        jLabel49 = new javax.swing.JLabel();
+        trPrem = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         jSeparator1 = new javax.swing.JSeparator();
         jLabel6 = new javax.swing.JLabel();
@@ -276,7 +326,7 @@ public class InicioAdmin extends javax.swing.JFrame {
         statPanel.setOpaque(false);
         statPanel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        statMasJugadoTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null},
                 {null, null},
@@ -293,11 +343,11 @@ public class InicioAdmin extends javax.swing.JFrame {
                 "Número", "Veces Jugado"
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(statMasJugadoTable);
 
         statPanel.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 360, 290, 190));
 
-        jTable2.setModel(new javax.swing.table.DefaultTableModel(
+        statMasGanadoPP.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null},
                 {null, null},
@@ -309,11 +359,11 @@ public class InicioAdmin extends javax.swing.JFrame {
                 "Número", "Premio Total"
             }
         ));
-        jScrollPane2.setViewportView(jTable2);
+        jScrollPane2.setViewportView(statMasGanadoPP);
 
         statPanel.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 150, 280, 110));
 
-        jTable3.setModel(new javax.swing.table.DefaultTableModel(
+        statNumMonetario.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null},
                 {null, null},
@@ -325,7 +375,7 @@ public class InicioAdmin extends javax.swing.JFrame {
                 "Número", "Veces Ganadas"
             }
         ));
-        jScrollPane3.setViewportView(jTable3);
+        jScrollPane3.setViewportView(statNumMonetario);
 
         statPanel.add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(800, 150, 290, 110));
 
@@ -334,7 +384,7 @@ public class InicioAdmin extends javax.swing.JFrame {
         statPanel.add(jLabel59, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 170, -1, -1));
 
         jComboBox3.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jComboBox3.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Lotería", "Chances" }));
+        jComboBox3.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "General", "Lotería", "Chances" }));
         statPanel.add(jComboBox3, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 200, 130, 30));
 
         jLabel55.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
@@ -342,13 +392,13 @@ public class InicioAdmin extends javax.swing.JFrame {
         statPanel.add(jLabel55, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 170, -1, -1));
 
         jComboBox2.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Lotería", "Chances" }));
+        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "General", "Lotería", "Chances" }));
         statPanel.add(jComboBox2, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 200, 130, 30));
 
         jLabel58.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel58.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel58.setText("Top 5 números mas premiados");
-        statPanel.add(jLabel58, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 70, -1, 30));
+        jLabel58.setText("Top 5 números más ganadores del premio mayor");
+        statPanel.add(jLabel58, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 70, -1, 30));
 
         jLabel57.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel57.setForeground(new java.awt.Color(255, 255, 255));
@@ -366,8 +416,8 @@ public class InicioAdmin extends javax.swing.JFrame {
 
         jLabel56.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel56.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel56.setText("Top 5 números con mas ganes");
-        statPanel.add(jLabel56, new org.netbeans.lib.awtextra.AbsoluteConstraints(710, 70, -1, 30));
+        jLabel56.setText("Top 5 números mas premiados por valor monetario");
+        statPanel.add(jLabel56, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 70, -1, 30));
 
         jLabel98.setBackground(new java.awt.Color(255, 51, 51));
         jLabel98.setOpaque(true);
@@ -563,153 +613,151 @@ public class InicioAdmin extends javax.swing.JFrame {
         jLabel9.setText("Chances");
         homePanel.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(810, 90, -1, -1));
 
-        jLabel11.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        jLabel11.setText("Sorteo 4563");
-        homePanel.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 140, -1, 20));
+        loteriaCode.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        loteriaCode.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        loteriaCode.setText("Sorteo ---");
+        homePanel.add(loteriaCode, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 140, 390, 20));
 
-        jLabel10.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        jLabel10.setText("Domingo, 6 de Octubre 2019");
-        homePanel.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 170, 260, 20));
+        loteriaDate.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        loteriaDate.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        loteriaDate.setText("Aun no se ha jugado ningun sorteo de loteria");
+        homePanel.add(loteriaDate, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 170, 390, 20));
 
         jLabel12.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel12.setText("Primer Premio");
         homePanel.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 220, -1, -1));
 
-        jLabel15.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jLabel15.setText("67");
-        homePanel.add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 260, 20, 30));
+        prNumL.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        prNumL.setText("--");
+        homePanel.add(prNumL, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 260, 20, 30));
 
         jLabel18.setText("Número");
         homePanel.add(jLabel18, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 290, -1, -1));
 
-        jLabel16.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jLabel16.setText("488");
-        homePanel.add(jLabel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 260, -1, 30));
+        prSerL.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        prSerL.setText("---");
+        homePanel.add(prSerL, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 260, -1, 30));
 
         jLabel19.setText("Serie");
         homePanel.add(jLabel19, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 290, -1, -1));
 
-        jLabel17.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jLabel17.setText(" ₡ 170.000.000 por entero");
-        homePanel.add(jLabel17, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 270, 210, 20));
+        prPremL.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        homePanel.add(prPremL, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 270, 260, 20));
 
         jLabel13.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel13.setText("Segundo Premio");
         homePanel.add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 330, -1, -1));
 
-        jLabel20.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jLabel20.setText("21");
-        homePanel.add(jLabel20, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 370, 20, 30));
+        sgNumL.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        sgNumL.setText("--");
+        homePanel.add(sgNumL, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 370, 20, 30));
 
         jLabel21.setText("Número");
         homePanel.add(jLabel21, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 400, -1, -1));
 
-        jLabel22.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jLabel22.setText("284");
-        homePanel.add(jLabel22, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 370, -1, 30));
+        sgSerL.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        sgSerL.setText("---");
+        homePanel.add(sgSerL, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 370, -1, 30));
 
         jLabel23.setText("Serie");
         homePanel.add(jLabel23, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 400, -1, -1));
 
-        jLabel24.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jLabel24.setText(" ₡ 30.000.000 por entero");
-        homePanel.add(jLabel24, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 380, 210, 20));
+        sgPremL.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        homePanel.add(sgPremL, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 380, 260, 20));
 
         jLabel14.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel14.setText("Tercer Premio");
         homePanel.add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 440, -1, -1));
 
-        jLabel25.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jLabel25.setText("97");
-        homePanel.add(jLabel25, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 480, 20, 30));
+        trNumL.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        trNumL.setText("--");
+        homePanel.add(trNumL, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 480, 20, 30));
 
         jLabel26.setText("Número");
         homePanel.add(jLabel26, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 510, -1, -1));
 
-        jLabel27.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jLabel27.setText("382");
-        homePanel.add(jLabel27, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 480, -1, 30));
+        trSerL.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        trSerL.setText("---");
+        homePanel.add(trSerL, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 480, -1, 30));
 
         jLabel28.setText("Serie");
         homePanel.add(jLabel28, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 510, -1, -1));
 
-        jLabel29.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jLabel29.setText(" ₡ 15.000.000 por entero");
-        homePanel.add(jLabel29, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 490, 210, 20));
+        trPremL.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        homePanel.add(trPremL, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 490, 270, 20));
 
-        jLabel30.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        jLabel30.setText("Sorteo 6435");
-        homePanel.add(jLabel30, new org.netbeans.lib.awtextra.AbsoluteConstraints(790, 140, -1, 20));
+        chanceCode.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        chanceCode.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        chanceCode.setText("Sorteo ---");
+        homePanel.add(chanceCode, new org.netbeans.lib.awtextra.AbsoluteConstraints(652, 140, 400, 20));
 
-        jLabel31.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        jLabel31.setText("Martes, 8 de Octubre 2019");
-        homePanel.add(jLabel31, new org.netbeans.lib.awtextra.AbsoluteConstraints(730, 170, 260, 20));
+        chanceDate.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        chanceDate.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        chanceDate.setText("Aun no se ha jugado ningun sorteo de chances");
+        homePanel.add(chanceDate, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 170, 400, 20));
 
         jLabel32.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel32.setText("Primer Premio");
         homePanel.add(jLabel32, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 220, -1, -1));
 
-        jLabel33.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jLabel33.setText("21");
-        homePanel.add(jLabel33, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 260, 20, 30));
+        prNum.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        prNum.setText("--");
+        homePanel.add(prNum, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 260, 20, 30));
 
         jLabel34.setText("Número");
         homePanel.add(jLabel34, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 290, -1, -1));
 
-        jLabel35.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jLabel35.setText("613");
-        homePanel.add(jLabel35, new org.netbeans.lib.awtextra.AbsoluteConstraints(710, 260, -1, 30));
+        prSer.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        prSer.setText("---");
+        homePanel.add(prSer, new org.netbeans.lib.awtextra.AbsoluteConstraints(710, 260, -1, 30));
 
         jLabel36.setText("Serie");
         homePanel.add(jLabel36, new org.netbeans.lib.awtextra.AbsoluteConstraints(710, 290, -1, -1));
 
-        jLabel37.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jLabel37.setText(" ₡ 80.000.000 por entero");
-        homePanel.add(jLabel37, new org.netbeans.lib.awtextra.AbsoluteConstraints(830, 270, 210, 20));
+        prPrem.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        homePanel.add(prPrem, new org.netbeans.lib.awtextra.AbsoluteConstraints(830, 270, 270, 20));
 
         jLabel38.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel38.setText("Segundo Premio");
         homePanel.add(jLabel38, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 330, -1, -1));
 
-        jLabel39.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jLabel39.setText("56");
-        homePanel.add(jLabel39, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 370, 20, 30));
+        sgNum.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        sgNum.setText("--");
+        homePanel.add(sgNum, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 370, 20, 30));
 
         jLabel40.setText("Número");
         homePanel.add(jLabel40, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 400, -1, -1));
 
-        jLabel41.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jLabel41.setText("984");
-        homePanel.add(jLabel41, new org.netbeans.lib.awtextra.AbsoluteConstraints(710, 370, -1, 30));
+        sgSer.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        sgSer.setText("---");
+        homePanel.add(sgSer, new org.netbeans.lib.awtextra.AbsoluteConstraints(710, 370, -1, 30));
 
         jLabel42.setText("Serie");
         homePanel.add(jLabel42, new org.netbeans.lib.awtextra.AbsoluteConstraints(710, 400, -1, -1));
 
-        jLabel43.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jLabel43.setText(" ₡ 25.000.000 por entero");
-        homePanel.add(jLabel43, new org.netbeans.lib.awtextra.AbsoluteConstraints(830, 380, 210, 20));
+        sgPrem.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        homePanel.add(sgPrem, new org.netbeans.lib.awtextra.AbsoluteConstraints(830, 380, 270, 20));
 
         jLabel44.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel44.setText("Tercer Premio");
         homePanel.add(jLabel44, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 440, -1, -1));
 
-        jLabel45.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jLabel45.setText("98");
-        homePanel.add(jLabel45, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 480, 20, 30));
+        trNum.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        trNum.setText("--");
+        homePanel.add(trNum, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 480, 20, 30));
 
         jLabel46.setText("Número");
         homePanel.add(jLabel46, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 510, -1, -1));
 
-        jLabel47.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jLabel47.setText("474");
-        homePanel.add(jLabel47, new org.netbeans.lib.awtextra.AbsoluteConstraints(710, 480, -1, 30));
+        trSer.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        trSer.setText("---");
+        homePanel.add(trSer, new org.netbeans.lib.awtextra.AbsoluteConstraints(710, 480, -1, 30));
 
         jLabel48.setText("Serie");
         homePanel.add(jLabel48, new org.netbeans.lib.awtextra.AbsoluteConstraints(710, 510, -1, -1));
 
-        jLabel49.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jLabel49.setText(" ₡ 7.000.000 por entero");
-        homePanel.add(jLabel49, new org.netbeans.lib.awtextra.AbsoluteConstraints(830, 490, 210, 20));
+        trPrem.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        homePanel.add(trPrem, new org.netbeans.lib.awtextra.AbsoluteConstraints(830, 490, 270, 20));
 
         jLabel7.setBackground(new java.awt.Color(255, 51, 51));
         jLabel7.setOpaque(true);
@@ -888,6 +936,8 @@ public class InicioAdmin extends javax.swing.JFrame {
     private javax.swing.JButton btnCheckNumbers;
     private javax.swing.JButton btnVolverL;
     private javax.swing.JButton btnVolverW;
+    private javax.swing.JLabel chanceCode;
+    private javax.swing.JLabel chanceDate;
     private javax.swing.JPanel checkBillPanel;
     private javax.swing.JPanel checkPanel;
     private javax.swing.JPanel homePanel;
@@ -899,50 +949,28 @@ public class InicioAdmin extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> jComboBox2;
     private javax.swing.JComboBox<String> jComboBox3;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel100;
-    private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
-    private javax.swing.JLabel jLabel15;
-    private javax.swing.JLabel jLabel16;
-    private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel20;
     private javax.swing.JLabel jLabel21;
-    private javax.swing.JLabel jLabel22;
     private javax.swing.JLabel jLabel23;
-    private javax.swing.JLabel jLabel24;
-    private javax.swing.JLabel jLabel25;
     private javax.swing.JLabel jLabel26;
-    private javax.swing.JLabel jLabel27;
     private javax.swing.JLabel jLabel28;
-    private javax.swing.JLabel jLabel29;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel30;
-    private javax.swing.JLabel jLabel31;
     private javax.swing.JLabel jLabel32;
-    private javax.swing.JLabel jLabel33;
     private javax.swing.JLabel jLabel34;
-    private javax.swing.JLabel jLabel35;
     private javax.swing.JLabel jLabel36;
-    private javax.swing.JLabel jLabel37;
     private javax.swing.JLabel jLabel38;
-    private javax.swing.JLabel jLabel39;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel40;
-    private javax.swing.JLabel jLabel41;
     private javax.swing.JLabel jLabel42;
-    private javax.swing.JLabel jLabel43;
     private javax.swing.JLabel jLabel44;
-    private javax.swing.JLabel jLabel45;
     private javax.swing.JLabel jLabel46;
-    private javax.swing.JLabel jLabel47;
     private javax.swing.JLabel jLabel48;
-    private javax.swing.JLabel jLabel49;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel50;
     private javax.swing.JLabel jLabel51;
@@ -981,11 +1009,31 @@ public class InicioAdmin extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
-    private javax.swing.JTable jTable1;
-    private javax.swing.JTable jTable2;
-    private javax.swing.JTable jTable3;
     private javax.swing.JPanel losePanel;
+    private javax.swing.JLabel loteriaCode;
+    private javax.swing.JLabel loteriaDate;
+    private javax.swing.JLabel prNum;
+    private javax.swing.JLabel prNumL;
+    private javax.swing.JLabel prPrem;
+    private javax.swing.JLabel prPremL;
+    private javax.swing.JLabel prSer;
+    private javax.swing.JLabel prSerL;
+    private javax.swing.JLabel sgNum;
+    private javax.swing.JLabel sgNumL;
+    private javax.swing.JLabel sgPrem;
+    private javax.swing.JLabel sgPremL;
+    private javax.swing.JLabel sgSer;
+    private javax.swing.JLabel sgSerL;
+    private javax.swing.JTable statMasGanadoPP;
+    private javax.swing.JTable statMasJugadoTable;
+    private javax.swing.JTable statNumMonetario;
     private javax.swing.JPanel statPanel;
+    private javax.swing.JLabel trNum;
+    private javax.swing.JLabel trNumL;
+    private javax.swing.JLabel trPrem;
+    private javax.swing.JLabel trPremL;
+    private javax.swing.JLabel trSer;
+    private javax.swing.JLabel trSerL;
     private javax.swing.JTextField tryCode;
     private javax.swing.JTextField tryFracc;
     private javax.swing.JTextField tryNum;

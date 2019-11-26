@@ -120,6 +120,29 @@ public class AdminSide extends javax.swing.JFrame {
         planesTablaE.setModel(modelo);
     }
     
+    private void startGame(){
+        Thread t = new Thread(){
+            public void run(){
+                btnPlayGame.setEnabled(false);
+                btnGestionS.setEnabled(false);
+                btnGestionP.setEnabled(false);
+                btnReports.setEnabled(false);
+                btnStartG.setEnabled(false);
+                for(int i = 0;i<10;i++){
+                    gameNum.setText(String.valueOf(i));
+                    gameSer.setText(String.valueOf(i));
+                    gamePrem.setText(String.valueOf(i));
+                    long initTime = System.currentTimeMillis();
+                    while(System.currentTimeMillis()-initTime<1000){
+                        
+                    }
+                }
+                this.interrupt();
+            }
+        };
+        t.start();
+    }
+    
     private void reportGenerator(String idSorteo,String name,String type,String price,String date,String plan,String total){
         reportTitle.setText("Reporte del sorteo N. "+idSorteo);
         reportCode.setText("Codigo: "+idSorteo);
@@ -146,10 +169,10 @@ public class AdminSide extends javax.swing.JFrame {
 
         jButton13 = new javax.swing.JButton();
         jLabel4 = new javax.swing.JLabel();
-        jButton2 = new javax.swing.JButton();
-        jButton1 = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
-        jButton5 = new javax.swing.JButton();
+        btnStartG = new javax.swing.JButton();
+        btnReports = new javax.swing.JButton();
+        btnGestionS = new javax.swing.JButton();
+        btnGestionP = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         startSorteoPanel = new javax.swing.JPanel();
@@ -161,11 +184,11 @@ public class AdminSide extends javax.swing.JFrame {
         bolaLot = new javax.swing.JLabel();
         jLabel77 = new javax.swing.JLabel();
         jLabel55 = new javax.swing.JLabel();
-        jLabel75 = new javax.swing.JLabel();
+        gameNum = new javax.swing.JLabel();
         jLabel56 = new javax.swing.JLabel();
-        jLabel69 = new javax.swing.JLabel();
+        gameSer = new javax.swing.JLabel();
         jLabel68 = new javax.swing.JLabel();
-        jLabel71 = new javax.swing.JLabel();
+        gamePrem = new javax.swing.JLabel();
         jScrollPane14 = new javax.swing.JScrollPane();
         winnerTable = new javax.swing.JTable();
         btnPlayGame = new javax.swing.JButton();
@@ -373,14 +396,14 @@ public class AdminSide extends javax.swing.JFrame {
         jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/lilLogo.png"))); // NOI18N
         getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 0, 130, 100));
 
-        jButton2.setBackground(new java.awt.Color(21, 57, 90));
-        jButton2.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
-        jButton2.setForeground(new java.awt.Color(255, 255, 255));
-        jButton2.setText("INICIAR SORTEO");
-        jButton2.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(21, 41, 65), 1, true));
-        jButton2.setContentAreaFilled(false);
-        jButton2.setFocusPainted(false);
-        jButton2.addMouseListener(new java.awt.event.MouseAdapter() {
+        btnStartG.setBackground(new java.awt.Color(21, 57, 90));
+        btnStartG.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
+        btnStartG.setForeground(new java.awt.Color(255, 255, 255));
+        btnStartG.setText("INICIAR SORTEO");
+        btnStartG.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(21, 41, 65), 1, true));
+        btnStartG.setContentAreaFilled(false);
+        btnStartG.setFocusPainted(false);
+        btnStartG.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 mouseChangeEnt(evt);
             }
@@ -388,21 +411,21 @@ public class AdminSide extends javax.swing.JFrame {
                 mouseChangeEx(evt);
             }
         });
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        btnStartG.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                btnStartGActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 100, 150, 50));
+        getContentPane().add(btnStartG, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 100, 150, 50));
 
-        jButton1.setBackground(new java.awt.Color(21, 57, 90));
-        jButton1.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
-        jButton1.setForeground(new java.awt.Color(255, 255, 255));
-        jButton1.setText("REPORTES");
-        jButton1.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(21, 41, 65), 1, true));
-        jButton1.setContentAreaFilled(false);
-        jButton1.setFocusPainted(false);
-        jButton1.addMouseListener(new java.awt.event.MouseAdapter() {
+        btnReports.setBackground(new java.awt.Color(21, 57, 90));
+        btnReports.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
+        btnReports.setForeground(new java.awt.Color(255, 255, 255));
+        btnReports.setText("REPORTES");
+        btnReports.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(21, 41, 65), 1, true));
+        btnReports.setContentAreaFilled(false);
+        btnReports.setFocusPainted(false);
+        btnReports.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 mouseChangeEnt(evt);
             }
@@ -410,21 +433,21 @@ public class AdminSide extends javax.swing.JFrame {
                 mouseChangeEx(evt);
             }
         });
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        btnReports.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                btnReportsActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 100, 130, 50));
+        getContentPane().add(btnReports, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 100, 130, 50));
 
-        jButton4.setBackground(new java.awt.Color(21, 57, 90));
-        jButton4.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
-        jButton4.setForeground(new java.awt.Color(255, 255, 255));
-        jButton4.setText("GESTIÓN DE SORTEOS");
-        jButton4.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(21, 41, 65)));
-        jButton4.setContentAreaFilled(false);
-        jButton4.setFocusPainted(false);
-        jButton4.addMouseListener(new java.awt.event.MouseAdapter() {
+        btnGestionS.setBackground(new java.awt.Color(21, 57, 90));
+        btnGestionS.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
+        btnGestionS.setForeground(new java.awt.Color(255, 255, 255));
+        btnGestionS.setText("GESTIÓN DE SORTEOS");
+        btnGestionS.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(21, 41, 65)));
+        btnGestionS.setContentAreaFilled(false);
+        btnGestionS.setFocusPainted(false);
+        btnGestionS.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 mouseChangeEnt(evt);
             }
@@ -432,21 +455,21 @@ public class AdminSide extends javax.swing.JFrame {
                 mouseChangeEx(evt);
             }
         });
-        jButton4.addActionListener(new java.awt.event.ActionListener() {
+        btnGestionS.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton4ActionPerformed(evt);
+                btnGestionSActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 100, 190, 50));
+        getContentPane().add(btnGestionS, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 100, 190, 50));
 
-        jButton5.setBackground(new java.awt.Color(21, 57, 90));
-        jButton5.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
-        jButton5.setForeground(new java.awt.Color(255, 255, 255));
-        jButton5.setText("GESTIÓN DE PLANES");
-        jButton5.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(21, 41, 65)));
-        jButton5.setContentAreaFilled(false);
-        jButton5.setFocusPainted(false);
-        jButton5.addMouseListener(new java.awt.event.MouseAdapter() {
+        btnGestionP.setBackground(new java.awt.Color(21, 57, 90));
+        btnGestionP.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
+        btnGestionP.setForeground(new java.awt.Color(255, 255, 255));
+        btnGestionP.setText("GESTIÓN DE PLANES");
+        btnGestionP.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(21, 41, 65)));
+        btnGestionP.setContentAreaFilled(false);
+        btnGestionP.setFocusPainted(false);
+        btnGestionP.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 mouseChangeEnt(evt);
             }
@@ -454,12 +477,12 @@ public class AdminSide extends javax.swing.JFrame {
                 mouseChangeEx(evt);
             }
         });
-        jButton5.addActionListener(new java.awt.event.ActionListener() {
+        btnGestionP.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton5ActionPerformed(evt);
+                btnGestionPActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton5, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 100, 160, 50));
+        getContentPane().add(btnGestionP, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 100, 160, 50));
 
         jLabel3.setBackground(new java.awt.Color(21, 57, 90));
         jLabel3.setOpaque(true);
@@ -504,25 +527,25 @@ public class AdminSide extends javax.swing.JFrame {
         jLabel55.setText("Número Ganador");
         panelInGame.add(jLabel55, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 160, -1, -1));
 
-        jLabel75.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jLabel75.setText("0");
-        panelInGame.add(jLabel75, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 190, -1, -1));
+        gameNum.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        gameNum.setText("0");
+        panelInGame.add(gameNum, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 190, 120, -1));
 
         jLabel56.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel56.setText("Serie Ganador");
         panelInGame.add(jLabel56, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 160, -1, -1));
 
-        jLabel69.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jLabel69.setText("0");
-        panelInGame.add(jLabel69, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 190, -1, -1));
+        gameSer.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        gameSer.setText("0");
+        panelInGame.add(gameSer, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 190, 100, -1));
 
         jLabel68.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel68.setText("Premio Obtenido");
         panelInGame.add(jLabel68, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 160, -1, -1));
 
-        jLabel71.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jLabel71.setText("0");
-        panelInGame.add(jLabel71, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 190, -1, -1));
+        gamePrem.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        gamePrem.setText("0");
+        panelInGame.add(gamePrem, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 190, 120, -1));
 
         winnerTable.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         winnerTable.setModel(new javax.swing.table.DefaultTableModel(
@@ -1663,13 +1686,13 @@ public class AdminSide extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+    private void btnGestionPActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGestionPActionPerformed
         sorteoPanel.setVisible(false);
         planPanel.setVisible(true);
         reportPanel.setVisible(false);
         startSorteoPanel.setVisible(false);
         reportInfoPanel.setVisible(false);
-    }//GEN-LAST:event_jButton5ActionPerformed
+    }//GEN-LAST:event_btnGestionPActionPerformed
 
     private void mouseChangeEnt(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mouseChangeEnt
         // TODO add your handling code here:
@@ -1684,21 +1707,21 @@ public class AdminSide extends javax.swing.JFrame {
         evt.getComponent().setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
     }//GEN-LAST:event_mouseChangeEx
 
-    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+    private void btnGestionSActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGestionSActionPerformed
         sorteoPanel.setVisible(true);
         planPanel.setVisible(false);
         reportPanel.setVisible(false);
         startSorteoPanel.setVisible(false);
         reportInfoPanel.setVisible(false);
-    }//GEN-LAST:event_jButton4ActionPerformed
+    }//GEN-LAST:event_btnGestionSActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void btnReportsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReportsActionPerformed
         sorteoPanel.setVisible(false);
         planPanel.setVisible(false);
         reportPanel.setVisible(true);
         startSorteoPanel.setVisible(false);
         reportInfoPanel.setVisible(false);
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_btnReportsActionPerformed
 
     private void delSortBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_delSortBActionPerformed
         sorteoA.setVisible(false);
@@ -1787,25 +1810,26 @@ public class AdminSide extends javax.swing.JFrame {
         
     }//GEN-LAST:event_btnGenerateReportLActionPerformed
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    private void btnStartGActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnStartGActionPerformed
         sorteoPanel.setVisible(false);
         planPanel.setVisible(false);
         reportPanel.setVisible(false);
         startSorteoPanel.setVisible(true);
         reportInfoPanel.setVisible(false);
-    }//GEN-LAST:event_jButton2ActionPerformed
+    }//GEN-LAST:event_btnStartGActionPerformed
 
     private void btnPlayGameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPlayGameActionPerformed
         panelInGame.setVisible(true);
         infoMess.setForeground(Color.white);
         int row = sorteoPlayTable.getSelectedRow();
         if(row>=0){
-            String idSort = sorteoPlayTable.getModel().getValueAt(row, 0).toString();
+            /*String idSort = sorteoPlayTable.getModel().getValueAt(row, 0).toString();
             String value = sorteoPlayTable.getModel().getValueAt(row, 5).toString();
             PlanBDManager connector = new PlanBDManager();
             ArrayList<Premio> prices = Premio.getTablePrices(connector.getPremios(value));
             winnerTable.setModel(Premio.generateWinners(idSort,prices));
-            fillSorteos();
+            fillSorteos();*/
+            startGame();
         }
         else{
             JOptionPane.showMessageDialog(null,"Se debe seleccionar un sorteo de la tabla para jugar", "Error de seleccion", JOptionPane.INFORMATION_MESSAGE);
@@ -2011,22 +2035,25 @@ public class AdminSide extends javax.swing.JFrame {
     private javax.swing.JButton btnEliminarPremioM;
     private javax.swing.JButton btnGenerateReportC;
     private javax.swing.JButton btnGenerateReportL;
+    private javax.swing.JButton btnGestionP;
+    private javax.swing.JButton btnGestionS;
     private javax.swing.JButton btnGoModPlan;
     private javax.swing.JButton btnModPlan;
     private javax.swing.JButton btnModSorteo;
     private javax.swing.JButton btnPlayGame;
+    private javax.swing.JButton btnReports;
     private javax.swing.JButton btnSelectSorteo;
     private javax.swing.JButton btnSelectSorteoM;
+    private javax.swing.JButton btnStartG;
     private javax.swing.JTable chanceTable;
     private javax.swing.JButton delPlanB;
     private javax.swing.JButton delSortB;
+    private javax.swing.JLabel gameNum;
+    private javax.swing.JLabel gamePrem;
+    private javax.swing.JLabel gameSer;
     private javax.swing.JLabel infoMess;
-    private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton11;
     private javax.swing.JButton jButton13;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton4;
-    private javax.swing.JButton jButton5;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel100;
@@ -2092,14 +2119,11 @@ public class AdminSide extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel66;
     private javax.swing.JLabel jLabel67;
     private javax.swing.JLabel jLabel68;
-    private javax.swing.JLabel jLabel69;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel70;
-    private javax.swing.JLabel jLabel71;
     private javax.swing.JLabel jLabel72;
     private javax.swing.JLabel jLabel73;
     private javax.swing.JLabel jLabel74;
-    private javax.swing.JLabel jLabel75;
     private javax.swing.JLabel jLabel76;
     private javax.swing.JLabel jLabel77;
     private javax.swing.JLabel jLabel78;
